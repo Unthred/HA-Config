@@ -1,1 +1,56 @@
-[]
+- id: '1558992383129'
+  alias: Turn On Nightlight When Dark
+  trigger:
+  - entity_id: binary_sensor.squiggley_nightlight_motion_sensor
+    from: 'off'
+    platform: state
+    to: 'on'
+  - entity_id: binary_sensor.wee_bear_nightlight_motion_sensor
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      entity_id: light.nightlight_stripper
+    service: light.turn_on
+  - delay: 00:05:00
+  - data:
+      entity_id: light.nightlight_stripper
+    service: light.turn_off
+- id: '1559023555096'
+  alias: Light wee bears wardrobe when the door opens
+  trigger:
+  - entity_id: binary_sensor.large_wardrobe_one_motion_sensor
+    from: 'off'
+    platform: state
+    to: 'on'
+  - entity_id: binary_sensor.large_wardrobe_two_motion_sensor
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      entity_id: light.large_wardrobe_stripper
+    service: light.turn_on
+  - delay: 00:05:00
+  - data:
+      entity_id: light.large_wardrobe_stripper
+    service: light.turn_off
+- id: '1559023656008'
+  alias: Light Squiggley's wardrobe when the door opens
+  trigger:
+  - entity_id: binary_sensor.small_wardrobe_motion_sensor
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      entity_id: light.small_wardrobe_stripper
+    service: light.turn_on
+  - delay: 00:05:00
+  - data:
+      entity_id: light.small_wardrobe_stripper
+    service: light.turn_off

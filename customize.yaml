@@ -1,0 +1,34 @@
+binary_sensor.front_door_sensor:
+  device_class: door
+binary_sensor.garage_door_sensor:
+  device_class: door
+binary_sensor.katrin_window_one_sensor:
+  device_class: window
+binary_sensor.katrin_window_two_sensor:
+  device_class: window
+binary_sensor.kitchen_door_sensor:
+  device_class: door
+light.large_wardrobe_stripper: {}
+binary_sensor.office_window_one_sensor:
+  device_class: window
+binary_sensor.office_window_two_sensor:
+  device_class: window
+binary_sensor.bedroom_light_switch_one:
+  device_class: plug
+  icon: mdi:light-switch
+binary_sensor.bedroom_light_switch_two:
+  icon: mdi:light-switch
+binary_sensor.bedroom_window_one_sensor:
+  device_class: window
+binary_sensor.bedroom_window_two_sensor:
+  device_class: window
+binary_sensor.bathroom_window_sensor:
+  device_class: window
+binary_sensor.kitchen_window_sensor:
+  device_class: window
+binary_sensor.skylight_sensor:
+  device_class: window
+person.wee_bear:
+  entity_picture: https://home.yeradonkey.com/local/images/bear.jpg
+person.squiggley_woo:
+  entity_picture: https://home.yeradonkey.com/local/images/smiley_punk.jpg
