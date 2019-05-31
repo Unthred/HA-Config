@@ -1,0 +1,69 @@
+turn_heating_on:
+  alias: 'Turn Heating On'
+  sequence:
+    - service: climate.set_temperature
+      entity_id : climate.kitchen
+      data_template:
+        temperature: '{{ states("input_number.heating_temperature") }}'
+        operation_mode : "Heat"
+    - service: climate.set_temperature
+      entity_id : climate.vestibule
+      data_template:
+        temperature: '{{ states("input_number.heating_temperature") }}'
+        operation_mode : "Heat"
+    - service: climate.set_temperature
+      entity_id : climate.livingroom
+      data_template:
+        temperature: '{{ states("input_number.heating_temperature") }}'
+        operation_mode : "Heat"
+
+turn_heating_off:
+  alias: 'Turn Heating Off'
+  sequence:
+    - service: climate.set_temperature
+      entity_id : climate.kitchen
+      data:
+        temperature : 7 
+        operation_mode : "Idle"
+    - service: climate.set_temperature
+      entity_id : climate.vestibule
+      data:
+        temperature : 7 
+        operation_mode : "Idle"
+    - service: climate.set_temperature
+      entity_id : climate.livingroom
+      data:
+        temperature : 7
+        operation_mode : "Idle"
+    - service: climate.set_temperature
+      entity_id : climate.office
+      data:
+        temperature : 7
+        operation_mode : "Idle"
+    - service: climate.set_temperature
+      entity_id : climate.bedroom
+      data:
+        temperature : 7
+        operation_mode : "Idle"
+    - service: climate.set_temperature
+      entity_id : climate.katrin
+      data:
+        temperature : 7
+        operation_mode : "Idle"
+
+moron_machine:
+  alias: Moron Machine
+  sequence:
+    - service: media_player.turn_on
+      entity_id:
+        - media_player.livingroom_tv
+    - delay: 00:00:05
+    - service: media_player.turn_on
+      entity_id:
+        - media_player.squiggley_amp
+    - delay: 00:00:05
+    - service: media_player.turn_on
+      entity_id: 
+        - media_player.zaphod
+
+

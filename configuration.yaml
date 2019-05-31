@@ -2,10 +2,10 @@ homeassistant:
   # Name of the location where Home Assistant is running
   name: Home
   # Location required to calculate the time the sun rises and sets
-  latitude: 55.9521
-  longitude: -3.1965
+  latitude: !secret home_latitude
+  longitude: !secret home_longitude
   # Impacts weather/sunrise data (altitude above sea level in meters)
-  elevation: 0
+  elevation: 45
   # metric for Metric, imperial for Imperial
   unit_system: metric
   # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
@@ -29,6 +29,9 @@ tts:
 
 # Enable the custom updater
 custom_updater:
+  card_urls:
+      - https://raw.githubusercontent.com/kalkih/mini-graph-card/master/tracker.json
+
 
 ################################################################################
 #                                    Includes                                  #
@@ -41,6 +44,32 @@ panel_iframe: !include_dir_merge_named config/frontend/iframes/
 climate: !include config/devices/heating/heatmiser.yaml
 nest: !include config/devices/smoke/nest.yaml
 sensor: !include_dir_merge_list config/devices/sensors
+xiaomi_aqara: !include_dir_merge_named config/devices/gateways
+influxdb: !include config/core/influx.yaml
+recorder: !include config/core/recorder.yaml
 
-frontend:
+media_player: !include_dir_merge_list config/mediaplayers
+
+
+
+################################################################################
+#                                    Inputs                                    #
+################################################################################
+input_boolean: !include_dir_merge_named config/inputs/input_boolean
+input_datetime: !include_dir_merge_named config/inputs/input_datetime
+input_number: !include_dir_merge_named config/inputs/input_number
+#input_select: !include_dir_merge_named config/inputs/input_select
+#input_text: !include_dir_merge_named config/inputs/input_text
+
+################################################################################
+#                                    frontend                                  #
+################################################################################
+frontend: 
   themes: !include_dir_merge_named config/frontend/themes
+  extra_html_url:
+    #- /local/hass-fontawesome-solid.html
+    - /local/icons/fontawesome/hass-fontawesome-solid.html
+    - /local/icons/bha-icons/hass-bha-icons.html
+      #  - /local/hass-fontawesome-regular.html
+      #- /local/hass-fontawesome-brands.html
+
