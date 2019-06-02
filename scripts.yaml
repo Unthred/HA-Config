@@ -1,69 +1,166 @@
 turn_heating_on:
-  alias: 'Turn Heating On'
+  alias: Turn Heating On
   sequence:
-    - service: climate.set_temperature
-      entity_id : climate.kitchen
-      data_template:
-        temperature: '{{ states("input_number.heating_temperature") }}'
-        operation_mode : "Heat"
-    - service: climate.set_temperature
-      entity_id : climate.vestibule
-      data_template:
-        temperature: '{{ states("input_number.heating_temperature") }}'
-        operation_mode : "Heat"
-    - service: climate.set_temperature
-      entity_id : climate.livingroom
-      data_template:
-        temperature: '{{ states("input_number.heating_temperature") }}'
-        operation_mode : "Heat"
+  - service: climate.set_temperature
+    entity_id: climate.kitchen
+    data_template:
+      temperature: '{{ states("input_number.heating_temperature") }}'
+      operation_mode: Heat
+  - service: climate.set_temperature
+    entity_id: climate.vestibule
+    data_template:
+      temperature: '{{ states("input_number.heating_temperature") }}'
+      operation_mode: Heat
+  - service: climate.set_temperature
+    entity_id: climate.livingroom
+    data_template:
+      temperature: '{{ states("input_number.heating_temperature") }}'
+      operation_mode: Heat
 
 turn_heating_off:
-  alias: 'Turn Heating Off'
+  alias: Turn Heating Off
   sequence:
-    - service: climate.set_temperature
-      entity_id : climate.kitchen
-      data:
-        temperature : 7 
-        operation_mode : "Idle"
-    - service: climate.set_temperature
-      entity_id : climate.vestibule
-      data:
-        temperature : 7 
-        operation_mode : "Idle"
-    - service: climate.set_temperature
-      entity_id : climate.livingroom
-      data:
-        temperature : 7
-        operation_mode : "Idle"
-    - service: climate.set_temperature
-      entity_id : climate.office
-      data:
-        temperature : 7
-        operation_mode : "Idle"
-    - service: climate.set_temperature
-      entity_id : climate.bedroom
-      data:
-        temperature : 7
-        operation_mode : "Idle"
-    - service: climate.set_temperature
-      entity_id : climate.katrin
-      data:
-        temperature : 7
-        operation_mode : "Idle"
+  - service: climate.set_temperature
+    entity_id: climate.kitchen
+    data:
+      temperature: 7
+      operation_mode: Idle
+  - service: climate.set_temperature
+    entity_id: climate.vestibule
+    data:
+      temperature: 7
+      operation_mode: Idle
+  - service: climate.set_temperature
+    entity_id: climate.livingroom
+    data:
+      temperature: 7
+      operation_mode: Idle
+  - service: climate.set_temperature
+    entity_id: climate.office
+    data:
+      temperature: 7
+      operation_mode: Idle
+  - service: climate.set_temperature
+    entity_id: climate.bedroom
+    data:
+      temperature: 7
+      operation_mode: Idle
+  - service: climate.set_temperature
+    entity_id: climate.katrin
+    data:
+      temperature: 7
+      operation_mode: Idle
 
-moron_machine:
-  alias: Moron Machine
+home_off:
+  alias: Home Off
   sequence:
-    - service: media_player.turn_on
-      entity_id:
-        - media_player.livingroom_tv
-    - delay: 00:00:05
-    - service: media_player.turn_on
-      entity_id:
-        - media_player.squiggley_amp
-    - delay: 00:00:05
-    - service: media_player.turn_on
+  - service: script.all_lights_off
+  - service: script.turn_heating_off
+  - service: script.all_media_players_off
+
+all_lights_off:
+  alias: Turn All Lights Off
+  sequence:
+  - service: switch.turn_off
+    data:
+      entity_id: switch.turn_external_lights_off
+  - delay: 00:00:01
+  - service: homeassistant.turn_off
+    data:
+      entity_id: group.eve_ceiling
+  - delay: 00:00:01
+  - service: light.turn_off
+    data:
+      entity_id: light.vestibule_hall_toilet_lights
+  - delay: 00:00:01
+  - service: light.turn_off
+    data:
+      entity_id: light.livingroom_ceiling
+  - delay: 00:00:01
+  - service: light.turn_off
+    data:
+      entity_id: light.livingroom_lamps
+  - delay: 00:00:01
+  - service: light.turn_off
+    data:
+      entity_id: light.hallway_ceiling
+  - delay: 00:00:01
+  - service: light.turn_off
+    data:
+      entity_id: light.office_ceiling
+  - delay: 00:00:01
+  - service: light.turn_off
+    data:
+      entity_id: light.office_dog
+  - delay: 00:00:01
+  - service: light.turn_off
+    data:
+      entity_id: light.kitchen_ceiling
+  - delay: 00:00:01
+  - service: homeassistant.turn_off
+    data:
+      entity_id: group.common_lights
+  - delay: 00:00:01
+  - service: light.turn_off
+    data:
+      entity_id: light.stair_ceiling
+  - delay: 00:00:01
+  - service: light.turn_off
+    data:
+      entity_id: light.bathroom_ceiling
+  - delay: 00:00:01
+  - service: light.turn_off
+    data:
+      entity_id: light.katrin_ceiling
+  - delay: 00:00:01
+  - service: light.turn_off
+    data:
+      entity_id: light.katrin_lamps
+  - delay: 00:00:01
+  - service: light.turn_off
+    data:
+      entity_id: light.bedroom_ceiling
+
+moron_machine_on:
+  alias: Moron Machine On
+  sequence:
+  - data:
+      entity_id: media_player.livingroom_tv
+    entity_id:
+    - media_player.livingroom_tv
+    service: media_player.turn_on
+  - delay: 00:00:05
+  - data:
+      entity_id: media_player.sound_system
+    entity_id:
+    - media_player.squiggley_amp
+    service: media_player.turn_on
+  - delay: 00:00:05
+  - data:
+      entity_id: media_player.zaphod
+    entity_id:
+    - media_player.zaphod
+    service: media_player.turn_on
+
+moron_machine_off:
+  alias: Moron Machine Off
+  sequence:
+#    - service: light.turn_off
+#      entity_id:
+#        - light.hyperion
+    - service: media_player.turn_off
       entity_id: 
         - media_player.zaphod
+    - delay: 00:00:20
+    - service: media_player.turn_off
+      entity_id:
+        - media_player.squiggley_amp
+    - service: media_player.turn_off
+      entity_id:
+        - media_player.livingroom_tv
 
-
+all_medai_players_off:
+  alias: turn Off All Media Players
+  sequence:
+  - service: script.stupid_box_off
+  - service: script.turn_marvin_off

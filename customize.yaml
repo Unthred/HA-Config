@@ -32,3 +32,5 @@ person.wee_bear:
   entity_picture: https://home.yeradonkey.com/local/images/bear.jpg
 person.squiggley_woo:
   entity_picture: https://home.yeradonkey.com/local/images/smiley_punk.jpg
+light.dita:
+  icon: fas:dog

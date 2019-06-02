@@ -23,6 +23,9 @@ default_config:
 # Discover some devices automatically
 discovery:
 
+# Enable Home Assistant to send Wake-on-lan packets
+wake_on_lan:
+
 # Text to speech
 tts:
   - platform: google_translate
@@ -31,6 +34,7 @@ tts:
 custom_updater:
   card_urls:
       - https://raw.githubusercontent.com/kalkih/mini-graph-card/master/tracker.json
+      - https://raw.githubusercontent.com/kalkih/mini-media-player/master/tracker.json
 
 
 ################################################################################
@@ -47,8 +51,10 @@ sensor: !include_dir_merge_list config/devices/sensors
 xiaomi_aqara: !include_dir_merge_named config/devices/gateways
 influxdb: !include config/core/influx.yaml
 recorder: !include config/core/recorder.yaml
-
+tuya: !include config/core/tuya.yaml
 media_player: !include_dir_merge_list config/mediaplayers
+light: !include_dir_merge_list config/devices/lights/
+
 
 
 
