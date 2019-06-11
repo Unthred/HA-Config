@@ -26,6 +26,9 @@ discovery:
 # Enable Home Assistant to send Wake-on-lan packets
 wake_on_lan:
 
+# enable broadlink smartir platform
+smartir:
+
 # Text to speech
 tts:
   - platform: google_translate
@@ -40,11 +43,12 @@ custom_updater:
 ################################################################################
 #                                    Includes                                  #
 ################################################################################
-group: !include groups.yaml
+group: !include_dir_merge_named config/groups
+notify: !include_dir_merge_named config/notify
 automation: !include automations.yaml
 script: !include scripts.yaml
 logger: !include config/core/logger.yaml
-panel_iframe: !include_dir_merge_named config/frontend/iframes/
+#panel_iframe: !include_dir_merge_named config/frontend/iframes/
 climate: !include config/devices/heating/heatmiser.yaml
 nest: !include config/devices/smoke/nest.yaml
 sensor: !include_dir_merge_list config/devices/sensors
@@ -54,7 +58,14 @@ recorder: !include config/core/recorder.yaml
 tuya: !include config/core/tuya.yaml
 media_player: !include_dir_merge_list config/mediaplayers
 light: !include_dir_merge_list config/devices/lights/
+switch: !include_dir_merge_list config/devices/switches
 
+
+################################################################################
+#                                    Alarm System                              #
+################################################################################
+alarm_control_panel: !include alarm.yaml
+panel_custom: !include panel_custom.yaml
 
 
 
@@ -64,7 +75,7 @@ light: !include_dir_merge_list config/devices/lights/
 input_boolean: !include_dir_merge_named config/inputs/input_boolean
 input_datetime: !include_dir_merge_named config/inputs/input_datetime
 input_number: !include_dir_merge_named config/inputs/input_number
-#input_select: !include_dir_merge_named config/inputs/input_select
+input_select: !include_dir_merge_named config/inputs/input_select
 #input_text: !include_dir_merge_named config/inputs/input_text
 
 ################################################################################

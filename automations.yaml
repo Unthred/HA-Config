@@ -29,7 +29,10 @@
     from: 'off'
     platform: state
     to: 'on'
-  condition: []
+  condition:
+  - condition: state
+    entity_id: light.large_wardrobe_stripper
+    state: 'off'
   action:
   - data:
       entity_id: light.large_wardrobe_stripper
@@ -54,3 +57,30 @@
   - data:
       entity_id: light.small_wardrobe_stripper
     service: light.turn_off
+- id: '1560194836051'
+  alias: Turn On Lights When Someone Is Home And Its Dark
+  trigger:
+  - entity_id: group.everyone
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - below: '150'
+    condition: numeric_state
+    entity_id: sensor.gateway_illumination_sensor
+  action:
+  - data:
+      entity_id: light.common_lights
+    service: homeassistant.turn_on
+- id: '1560200355025'
+  alias: Turn Everything Off When Everyone Leaves
+  trigger:
+  - entity_id: group.everyone
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      message: test notification
+    service: notify.everyone

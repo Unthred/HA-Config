@@ -16,7 +16,6 @@ turn_heating_on:
     data_template:
       temperature: '{{ states("input_number.heating_temperature") }}'
       operation_mode: Heat
-
 turn_heating_off:
   alias: Turn Heating Off
   sequence:
@@ -50,77 +49,17 @@ turn_heating_off:
     data:
       temperature: 7
       operation_mode: Idle
-
 home_off:
   alias: Home Off
   sequence:
-  - service: script.all_lights_off
-  - service: script.turn_heating_off
-  - service: script.all_media_players_off
-
-all_lights_off:
-  alias: Turn All Lights Off
-  sequence:
-  - service: switch.turn_off
-    data:
-      entity_id: switch.turn_external_lights_off
+  - data:
+      entity_id: group.all_lights
+    service: homeassistant.turn_off
   - delay: 00:00:01
-  - service: homeassistant.turn_off
-    data:
-      entity_id: group.eve_ceiling
-  - delay: 00:00:01
-  - service: light.turn_off
-    data:
-      entity_id: light.vestibule_hall_toilet_lights
-  - delay: 00:00:01
-  - service: light.turn_off
-    data:
-      entity_id: light.livingroom_ceiling
-  - delay: 00:00:01
-  - service: light.turn_off
-    data:
-      entity_id: light.livingroom_lamps
-  - delay: 00:00:01
-  - service: light.turn_off
-    data:
-      entity_id: light.hallway_ceiling
-  - delay: 00:00:01
-  - service: light.turn_off
-    data:
-      entity_id: light.office_ceiling
-  - delay: 00:00:01
-  - service: light.turn_off
-    data:
-      entity_id: light.office_dog
-  - delay: 00:00:01
-  - service: light.turn_off
-    data:
-      entity_id: light.kitchen_ceiling
-  - delay: 00:00:01
-  - service: homeassistant.turn_off
-    data:
-      entity_id: group.common_lights
-  - delay: 00:00:01
-  - service: light.turn_off
-    data:
-      entity_id: light.stair_ceiling
-  - delay: 00:00:01
-  - service: light.turn_off
-    data:
-      entity_id: light.bathroom_ceiling
-  - delay: 00:00:01
-  - service: light.turn_off
-    data:
-      entity_id: light.katrin_ceiling
-  - delay: 00:00:01
-  - service: light.turn_off
-    data:
-      entity_id: light.katrin_lamps
-  - delay: 00:00:01
-  - service: light.turn_off
-    data:
-      entity_id: light.bedroom_ceiling
-
+  - service: script.all_medai_players_off
+  - data:
+      entity_id: light.spiral_lights
+    service: homeassistant.turn_off
 moron_machine_on:
   alias: Moron Machine On
   sequence:
@@ -141,26 +80,103 @@ moron_machine_on:
     entity_id:
     - media_player.zaphod
     service: media_player.turn_on
-
 moron_machine_off:
   alias: Moron Machine Off
   sequence:
-#    - service: light.turn_off
-#      entity_id:
-#        - light.hyperion
-    - service: media_player.turn_off
-      entity_id: 
-        - media_player.zaphod
-    - delay: 00:00:20
-    - service: media_player.turn_off
-      entity_id:
-        - media_player.squiggley_amp
-    - service: media_player.turn_off
-      entity_id:
-        - media_player.livingroom_tv
-
+  - service: media_player.turn_off
+    entity_id:
+    - media_player.zaphod
+  - delay: 00:00:20
+  - service: media_player.turn_off
+    entity_id:
+    - media_player.squiggley_amp
+  - service: media_player.turn_off
+    entity_id:
+    - media_player.livingroom_tv
 all_medai_players_off:
   alias: turn Off All Media Players
   sequence:
-  - service: script.stupid_box_off
-  - service: script.turn_marvin_off
+  - service: script.moron_machine_off
+  - data:
+      entity_id: media_player.marvin
+    service: media_player.turn_off
+kr_up:
+  alias: Remote Up
+  sequence:
+    data:
+      entity_id: media_player.zaphod
+      method: Input.Up
+    service: media_player.kodi_call_method
+kr_down:
+  alias: Remote Down
+  sequence:
+    data:
+      entity_id: media_player.zaphod
+      method: Input.Down
+    service: media_player.kodi_call_method
+kr_left:
+  alias: Remote Left
+  sequence:
+    data:
+      entity_id: media_player.zaphod
+      method: Input.Left
+    service: media_player.kodi_call_method
+kr_right:
+  alias: Remote Right
+  sequence:
+    data:
+      entity_id: media_player.zaphod
+      method: Input.Right
+    service: media_player.kodi_call_method
+kr_select:
+  alias: Remote Select
+  sequence:
+    data:
+      entity_id: media_player.zaphod
+      method: Input.Select
+    service: media_player.kodi_call_method
+kr_home:
+  alias: Remote Home
+  sequence:
+    data:
+      entity_id: media_player.zaphod
+      method: Input.Home
+    service: media_player.kodi_call_method
+kr_back:
+  alias: Remote Back
+  sequence:
+    data:
+      entity_id: media_player.zaphod
+      method: Input.Back
+    service: media_player.kodi_call_method
+kr_next:
+  alias: Remote Next
+  sequence:
+    data:
+      entity_id: media_player.zaphod
+    service: media_player.media_next_track
+kr_prev:
+  alias: Remote Prev
+  sequence:
+    data:
+      entity_id: media_player.zaphod
+    service: media_player.media_previous_track
+kr_play_pause:
+  alias: Remote PlayPause
+  sequence:
+    data:
+      entity_id: media_player.zaphod
+    service: media_player.media_play_pause
+kr_stop:
+  alias: Remote Stop
+  sequence:
+    data:
+      entity_id: media_player.zaphod
+    service: media_player.media_stop
+kr_playlist:
+  alias: Remote Playlist
+  sequence:
+    data:
+      entity_id: media_player.zaphod
+      method: Audio.Details.Album
+    service: media_player.kodi_call_method
