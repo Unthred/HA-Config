@@ -36,7 +36,9 @@ light.dita:
   icon: fas:dog
 light.marmaduke:
   icon: fas:dog
-group.everyone:
-  entity_picture: https://home.yeradonkey.com/local/images/happy_house.png
 input_select.house_occupancy_status:
   entity_picture: https://home.yeradonkey.com/local/images/happy_house.png
+binary_sensor.mouse_trap_one:
+  icon: mdi:mouse-variant
+binary_sensor.mouse_trap_two:
+  icon: mdi:mouse-variant

@@ -5,87 +5,93 @@ turn_heating_on:
     entity_id: climate.kitchen
     data_template:
       temperature: '{{ states("input_number.heating_temperature") }}'
-      operation_mode: Heat
+      hvac_mode: heat
   - service: climate.set_temperature
     entity_id: climate.vestibule
     data_template:
       temperature: '{{ states("input_number.heating_temperature") }}'
-      operation_mode: Heat
+      hvac_mode: heat
   - service: climate.set_temperature
     entity_id: climate.livingroom
     data_template:
       temperature: '{{ states("input_number.heating_temperature") }}'
-      operation_mode: Heat
+      hvac_mode: heat
 turn_heating_off:
   alias: Turn Heating Off
   sequence:
   - service: climate.set_temperature
     entity_id: climate.kitchen
-    data:
-      temperature: 7
-      operation_mode: Idle
+    data_template:
+      temperature: '7'
+      hvac_mode: cool
   - service: climate.set_temperature
     entity_id: climate.vestibule
-    data:
-      temperature: 7
-      operation_mode: Idle
+    data_template:
+      temperature: '7'
+      hvac_mode: cool
   - service: climate.set_temperature
     entity_id: climate.livingroom
-    data:
-      temperature: 7
-      operation_mode: Idle
+    data_template:
+      temperature: '7'
+      hvac_mode: cool
   - service: climate.set_temperature
     entity_id: climate.office
-    data:
-      temperature: 7
-      operation_mode: Idle
+    data_template:
+      temperature: '7'
+      hvac_mode: cool
   - service: climate.set_temperature
     entity_id: climate.bedroom
-    data:
-      temperature: 7
-      operation_mode: Idle
+    data_template:
+      temperature: '7'
+      hvac_mode: cool
   - service: climate.set_temperature
     entity_id: climate.katrin
-    data:
-      temperature: 7
-      operation_mode: Idle
+    data_template:
+      temperature: '7'
+      hvac_mode: cool
 home_off:
   alias: Home Off
   sequence:
-  - data:
+  - service: homeassistant.turn_off
+    data:
       entity_id: group.all_lights
-    service: homeassistant.turn_off
+  - service: homeassistant.turn_off
+    data:
+      entity_id: switch.spiral_lights
   - delay: 00:00:01
-  - service: script.all_medai_players_off
-  - data:
-      entity_id: light.spiral_lights
-    service: homeassistant.turn_off
+  - service: script.all_media_players_off
+  - service: homeassistant.turn_off
+    data:
+      entity_id: switch.spiral_lights
+  - service: script.turn_heating_off
+  - service: script.all_media_players_off
 moron_machine_on:
   alias: Moron Machine On
   sequence:
-  - data:
+  - service: media_player.turn_on
+    data:
       entity_id: media_player.livingroom_tv
-    entity_id:
-    - media_player.livingroom_tv
-    service: media_player.turn_on
-  - delay: 00:00:05
-  - data:
-      entity_id: media_player.sound_system
-    entity_id:
-    - media_player.squiggley_amp
-    service: media_player.turn_on
-  - delay: 00:00:05
-  - data:
-      entity_id: media_player.zaphod
-    entity_id:
-    - media_player.zaphod
-    service: media_player.turn_on
+  - delay: 00:00:01
+  - service: media_player.turn_on
+    data:
+      entity_id: media_player.squiggley_amp
+  - delay: 00:00:02
+  - service: media_player.turn_on
+    data:
+      entity_id: media_player.marvin
+  - service: switch.turn_on
+    data:
+      entity_id: switch.ambilight_relay
+  - service: media_player.select_source
+    data:
+      entity_id: media_player.squiggley_amp
+      source: "livingroom kodi"
 moron_machine_off:
   alias: Moron Machine Off
   sequence:
   - service: media_player.turn_off
     entity_id:
-    - media_player.zaphod
+    - media_player.marvin
   - delay: 00:00:20
   - service: media_player.turn_off
     entity_id:
@@ -93,13 +99,39 @@ moron_machine_off:
   - service: media_player.turn_off
     entity_id:
     - media_player.livingroom_tv
-all_medai_players_off:
+  - service: switch.turn_off
+    data:
+      entity_id: switch.ambilight_relay
+all_media_players_off:
   alias: turn Off All Media Players
   sequence:
   - service: script.moron_machine_off
-  - data:
+  - service: media_player.turn_off
+    data:
       entity_id: media_player.marvin
-    service: media_player.turn_off
+send_message:
+  alias: Send Message From Front End
+  sequence:
+    - service: notify.
+      data_template: {{ states('input_text.send_message') }}
+kr_volume_up:
+  alias: Volume Up
+  sequence:
+    data:
+      entity_id: media_player.zaphod
+    service: media_player.volume_up
+kr_volume_mute:
+  alias: Volume Mute
+  sequence:
+    data:
+      entity_id: media_player.zaphod
+    service: media_player.volume_mute
+kr_volume_down:
+  alias: Volume Down
+  sequence:
+    data:
+      entity_id: media_player.zaphod
+    service: media_player.volume_down
 kr_up:
   alias: Remote Up
   sequence:

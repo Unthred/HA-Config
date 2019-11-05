@@ -1,5 +1,44 @@
-- id: '1558992383129'
-  alias: Turn On Nightlight When Dark
+- id: 'Rubbish: Update Bin Night Sensors'
+  alias: 'Rubbish: Update Bin Night Sensors'
+  trigger:
+  - event: start
+    platform: homeassistant
+  - hours: /1
+    platform: time_pattern
+  action:
+  - entity_id: sensor.recycling_bin_today, sensor.recycling_bin_tomorrow, sensor.landfill_bin_today,
+      sensor.landfill_bin_tomorrow, sensor.garden_bin_today, sensor.garden_bin_tomorrow
+    service: homeassistant.update_entity
+- id: 'Rubbish: Calculate Bin Reminders'
+  alias: 'Rubbish: Calculate Bin Reminders'
+  trigger:
+  - at: '19:00:00'
+    platform: time
+  condition:
+  - condition: and
+    conditions:
+    - condition: template
+      value_template: '{{ now().strftime("%H:%M") == "19:00" and now().weekday() ==
+        1 }}'
+    - condition: or
+      conditions:
+      - condition: state
+        entity_id: sensor.recycling_bin_today
+        state: 'True'
+      - condition: state
+        entity_id: sensor.landfill_bin_today
+        state: 'True'
+  action:
+  - data_template:
+      message: "'{%- if (states.sensor.recycling_bin_today.state) == \"True\" -%}\
+        \ \n  Recycling Bin Night \n {%- elif (states.sensor.landfill_bin_today.state)\
+        \ == \"True\" -%}\n   Landfill Bin Tonight \n {%- endif -%}\n {%- if (states.sensor.garden_bin_today.state)\
+        \ == \"True\" -%}\n   Garden Bin Tonight \n {%- endif -%}'"
+      title: Bins Out Tonight
+    service: notify.everyone
+  initial_state: 'true'
+- id: 'Bedroom: Turn On Nightlight When Dark'
+  alias: 'Bedroom: Turn On Nightlight When Dark'
   trigger:
   - entity_id: binary_sensor.squiggley_nightlight_motion_sensor
     from: 'off'
@@ -18,8 +57,8 @@
   - data:
       entity_id: light.nightlight_stripper
     service: light.turn_off
-- id: '1559023555096'
-  alias: Light wee bears wardrobe when the door opens
+- id: 'Bedroom: Light Wee Bears Wardrobe When The Door Opens'
+  alias: 'Bedroom: Light Wee Bears Wardrobe When The Door Opens'
   trigger:
   - entity_id: binary_sensor.large_wardrobe_one_motion_sensor
     from: 'off'
@@ -37,12 +76,12 @@
   - data:
       entity_id: light.large_wardrobe_stripper
     service: light.turn_on
-  - delay: 00:05:00
+  - delay: 00:10:00
   - data:
       entity_id: light.large_wardrobe_stripper
     service: light.turn_off
-- id: '1559023656008'
-  alias: Light Squiggley's wardrobe when the door opens
+- id: 'Bedroom: Light Squiggleys Wardrobe When The Door Opens'
+  alias: 'Bedroom: Light Squiggleys Wardrobe When The Door Opens'
   trigger:
   - entity_id: binary_sensor.small_wardrobe_motion_sensor
     from: 'off'
@@ -57,30 +96,208 @@
   - data:
       entity_id: light.small_wardrobe_stripper
     service: light.turn_off
-- id: '1560194836051'
-  alias: Turn On Lights When Someone Is Home And Its Dark
+- id: 'Occupancy: Turn On Garden Lights At Dusk'
+  alias: 'Occupancy: Turn On Garden Lights At Dusk'
   trigger:
-  - entity_id: group.everyone
-    from: 'off'
-    platform: state
-    to: 'on'
-  condition:
-  - below: '150'
-    condition: numeric_state
-    entity_id: sensor.gateway_illumination_sensor
+  - event: sunset
+    offset: 01:00:00
+    platform: sun
+  condition: []
   action:
   - data:
-      entity_id: light.common_lights
-    service: homeassistant.turn_on
-- id: '1560200355025'
-  alias: Turn Everything Off When Everyone Leaves
+      entity_id: light.front_garden_light
+    service: light.turn_on
+- id: 'Occupancy: Turn On Lights When Dark and Someone Is Home'
+  alias: 'Occupancy: Turn On Lights When Dark and Someone Is Home'
   trigger:
-  - entity_id: group.everyone
+  - minutes: /1
+    platform: time_pattern
+  condition:
+  - below: '400'
+    condition: numeric_state
+    entity_id: sensor.gateway_illumination_sensor
+  - condition: state
+    entity_id: sensor.house_occupancy_status
+    state: 'on'
+  - after: 07:00:00
+    before: '23:00:00'
+    condition: time
+  - condition: state
+    entity_id: group.common_lights
+    state: 'off'
+  action:
+  - data:
+      entity_id: group.common_lights
+    service: homeassistant.turn_on
+- id: 'Occupancy: Turn Everything Off When Everyone Leaves'
+  alias: 'Occupancy: Turn Everything Off When Everyone Leaves'
+  trigger:
+  - entity_id: sensor.house_occupancy_status
     from: 'on'
     platform: state
     to: 'off'
   condition: []
   action:
+  - data: {}
+    service: script.home_off
   - data:
-      message: test notification
-    service: notify.everyone
+      message: Turning everything Off as nobody does be home
+    service: notify.android_squigglepad
+- id: 'Server: Turn On The Fan When Its Hot'
+  alias: 'Server: Turn On Fan When Its Hot'
+  trigger:
+  - platform: template
+    value_template: '{{ states(''sensor.server_room_temperature'') |float > states(''input_number.server_fan_on_temperature'')|
+      float}}'
+  action:
+  - data:
+      entity_id: switch.server_fan_relay
+    service: switch.turn_on
+- id: 'Server: Turn Off The Server Fan When It Has Cooled'
+  alias: 'Server: Turn Off The Server Fan When It Has Cooled'
+  trigger:
+  - platform: template
+    value_template: '{{ states(''sensor.server_room_temperature'') |float < states(''input_number.server_fan_off_temperature'')|
+      float}}'
+  action:
+  - data:
+      entity_id: switch.server_fan_relay
+    service: switch.turn_off
+- id: 'Mousetrap: Notify Squiggley When a Mouse is Caught in Trap One'
+  alias: 'Mousetrap: Notify Squiggley When a Mouse is Caught in Trap One'
+  trigger:
+  - entity_id: binary_sensor.mouse_trap_one
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      message: There's a moose been caught aboot this hoose! Trap One
+    service: notify.android_squigglepad
+- id: 'Mousetrap: Notify Squiggley When a Mouse is Caught in Trap Two'
+  alias: 'Mousetrap: Notify Squiggley When a Mouse is Caught in Trap Two'
+  trigger:
+  - entity_id: binary_sensor.mouse_trap_two
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      message: There's a moose been caught aboot this hoose! Trap Two
+    service: notify.android_squigglepad
+- id: 'Occupancy: Turn On the Common Lights When Someone Opens the Front Door'
+  alias: 'Occupancy: Turn On the Common Lights When Someone Opens the Front Door'
+  trigger:
+  - entity_id: binary_sensor.front_door_sensor
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - below: '400'
+    condition: numeric_state
+    entity_id: sensor.gateway_illumination_sensor
+  action:
+  - condition: state
+    entity_id: group.common_lights
+    state: 'off'
+  - data:
+      entity_id: group.common_lights
+    service: homeassistant.turn_on
+  - delay: 00:10:00
+  - data:
+      entity_id: group.common_lights
+    service: homeassistant.turn_off
+- id: 'Toilet: Turn On Lights When Motion Detected'
+  alias: 'Toilet: Turn On Lights When Motion Detected'
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.toilet_motion_sensor
+    to: 'on'
+  action:
+  - service: timer.start
+    entity_id: timer.toilet_lights
+  - service: light.turn_on
+    entity_id: light.toilet_lights
+- id: 'Toilet: Stop Toilet Lights Timer When Door is Closed'
+  alias: 'Toilet: Stop Toilet Lights Timer When Door is Closed'
+  trigger:
+  - entity_id: binary_sensor.toilet_door_sensor
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: light.toilet_lights
+    state: 'on'
+  action:
+  - entity_id: timer.toilet_lights
+    service: timer.cancel
+- id: 'Toilet: Start Toilet Lights Timer When Door is Opened'
+  alias: 'Toilet: Start Toilet Lights Timer When Door is Opened'
+  trigger:
+  - entity_id: binary_sensor.toilet_door_sensor
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: light.toilet_lights
+    state: 'on'
+  action:
+  - entity_id: timer.toilet_lights
+    service: timer.start
+- id: 'Toilet: Turn off lights at end of timer'
+  alias: 'Toilet: Turn off lights at end of timer'
+  trigger:
+  - platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.toilet_lights
+  action:
+    service: light.turn_off
+    entity_id: light.toilet_lights
+- id: 'Turn On Vestibule Lights When Motion Is Detected'
+  alias: Turn On Vestibule Lights When Motion Detected
+  trigger:
+  - entity_id: binary_sensor.vestibule_motion_sensor
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: light.vestibule_one
+    state: 'off'
+  action:
+  - data:
+      entity_id: light.Vestibule_One
+    service: light.turn_on
+  - delay: 00:005:00
+  - data:
+      entity_id: light.Vestibule_One
+    service: light.turn_off
+- id: 'Turn On Slow Cooker at specified time'
+  alias: 'Turn On Slow Cooker at specified time'
+  trigger:
+    - platform: template
+      value_template: '{{ states.sensor.time.state == (states.input_datetime.slow_cooker_start.attributes.timestamp | int | timestamp_custom("%H:%M", False)) }}'
+  action:
+    - service: switch.turn_on
+      data:
+        entity_id: switch.ambilight_relay
+    - service: notify.android_squiggle_pad
+      data:
+        message: Turning on the slow cooker
+- id: 'Turn Off Slow Cooker at specified time'
+  alias: 'Turn Off Slow Cooker at specified time'
+  trigger:
+    - platform: template
+      value_template: '{{ states.sensor.time.state == (states.input_datetime.slow_cooker_stop.attributes.timestamp | int | timestamp_custom("%H:%M", False)) }}'
+  action:
+    - service: switch.turn_off
+      data:
+        entity_id: switch.ambilight_relay
+    - service: notify.android_squiggle_pad
+      data:
+        message: Turning off the slow cooker

@@ -12,19 +12,33 @@ homeassistant:
   time_zone: Europe/London
   # Customization file
   customize: !include customize.yaml
+ 
 
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
 
 # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
-# http:
-#   base_url: example.duckdns.org:8123
+http:
+  #api_password: !secret http_password
+  #base_url: https://home.yeradonkey.com
+  use_x_forwarded_for: true 
+  trusted_proxies:
+    - 192.168.13.254
+    - 127.0.0.1
+    - ::1
+    - 192.168.13.0/24
+  #IP ban dissabled while X-Forwarded-For is broken to prevent blocking reverse proxy
+  #  ip_ban_enabled: true
+  #  login_attempts_threshold: 5  
 
 # Discover some devices automatically
 discovery:
 
 # Enable Home Assistant to send Wake-on-lan packets
 wake_on_lan:
+
+# enable the ios integrations
+ios:
 
 # enable broadlink smartir platform
 smartir:
@@ -34,17 +48,19 @@ tts:
   - platform: google_translate
 
 # Enable the custom updater
-custom_updater:
-  card_urls:
-      - https://raw.githubusercontent.com/kalkih/mini-graph-card/master/tracker.json
-      - https://raw.githubusercontent.com/kalkih/mini-media-player/master/tracker.json
+  # custom_updater:
+  # card_urls:
+  #     - https://raw.githubusercontent.com/kalkih/mini-graph-card/master/tracker.json
+  #     - https://raw.githubusercontent.com/kalkih/mini-media-player/master/tracker.json
 
+hacs:
+  token: !secret HACS_token
 
 ################################################################################
 #                                    Includes                                  #
 ################################################################################
 group: !include_dir_merge_named config/groups
-notify: !include_dir_merge_named config/notify
+notify: !include_dir_merge_list config/notify
 automation: !include automations.yaml
 script: !include scripts.yaml
 logger: !include config/core/logger.yaml
@@ -56,16 +72,18 @@ xiaomi_aqara: !include_dir_merge_named config/devices/gateways
 influxdb: !include config/core/influx.yaml
 recorder: !include config/core/recorder.yaml
 tuya: !include config/core/tuya.yaml
+ourgroceries: !include config/core/ourgroceries.yaml
 media_player: !include_dir_merge_list config/mediaplayers
 light: !include_dir_merge_list config/devices/lights/
 switch: !include_dir_merge_list config/devices/switches
-
-
+shell_command: !include_dir_merge_list config/shell_commands/
+timer: !include_dir_merge_named config/timers/
 ################################################################################
 #                                    Alarm System                              #
 ################################################################################
-alarm_control_panel: !include alarm.yaml
-panel_custom: !include panel_custom.yaml
+#alarm_control_panel: !include alarm.yaml
+#panel_custom: !include panel_custom.yaml
+alarm_control_panel: !include resources/bwalarm/bwalarm.yaml
 
 
 
@@ -76,7 +94,7 @@ input_boolean: !include_dir_merge_named config/inputs/input_boolean
 input_datetime: !include_dir_merge_named config/inputs/input_datetime
 input_number: !include_dir_merge_named config/inputs/input_number
 input_select: !include_dir_merge_named config/inputs/input_select
-#input_text: !include_dir_merge_named config/inputs/input_text
+input_text: !include_dir_merge_named config/inputs/input_text
 
 ################################################################################
 #                                    frontend                                  #
