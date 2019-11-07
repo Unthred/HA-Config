@@ -1,0 +1,5 @@
+- platform: wake_on_lan
+  mac_address: "B8:AE:ED:EB:77:F4"
+  name: turn_on_zaphod
+  host: 192.168.13.21
+  broadcast_address: 255.255.255.255

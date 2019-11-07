@@ -1,0 +1,52 @@
+esphome:
+  name: large_wardrobe_stripper
+  platform: ESP8266
+  board: esp01_1m
+
+wifi:
+  ssid: "No Internet Access"
+  password: "MikIsADonkey"
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+sensor:
+  - platform: wifi_signal
+    name: "Large Wardrobe Wifi"
+    update_interval: 60s
+
+#WW Lights GPIOs
+output:
+  - platform: esp8266_pwm
+    pin: GPIO12
+    frequency: 1000 Hz
+    id: pwm_b
+  - platform: esp8266_pwm
+    pin: GPIO13
+    frequency: 1000 Hz
+    id: pwm_g
+  - platform: esp8266_pwm
+    pin: GPIO15
+    frequency: 1000 Hz
+    id: pwm_r
+  - platform: esp8266_pwm
+    pin: GPIO14
+    frequency: 1000 Hz
+    id: pwm_w1
+  - platform: esp8266_pwm
+    pin: GPIO04
+    frequency: 1000 Hz
+    id: pwm_w2
+light:
+  - platform: cwww
+    id: large_wardrobe_stripper
+    name: "Large Wardrobe Stripper"
+    cold_white: pwm_w2
+    warm_white: pwm_w1
+    cold_white_color_temperature: 4200 K
+    warm_white_color_temperature: 2200 K
+    default_transition_length: 0s

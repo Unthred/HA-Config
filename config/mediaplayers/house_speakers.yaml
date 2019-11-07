@@ -1,0 +1,8 @@
+house_speakers:
+    name: House Speakers
+    view: no
+    icon: mdi:music
+    entities:
+      - media_player.livingroom_speaker
+      - media_player.kitchen_speaker
+      - media_player.office_speaker

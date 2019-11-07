@@ -1,0 +1,4 @@
+esphomeadmin:
+  title: ESP Home
+  icon: mdi:lightbulb-on
+  url: http://192.168.13.88:6052

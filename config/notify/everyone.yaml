@@ -1,0 +1,10 @@
+- name: everyone
+  platform: group
+  title: Da Hoose
+  services:
+    - service: ios_claires_iphone
+    - service: mobile_app_squigglephone
+    - service: mobile_app_squiggle_pad
+  #    data:
+  #      target: 'bd483e9f-e41a-37e8-b863-4bcc1eb51a77'
+      #- service: notify.ios_katrins_iphone

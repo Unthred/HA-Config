@@ -1,0 +1,34 @@
+- platform: template
+  sensors:
+    work_one_current_temperature:
+      friendly_name: "Work One Temperature"
+      unit_of_measurement: 'C'
+      value_template: "{{ states.sensor.office_thermostat_one_2.state }}"
+
+- platform: template
+  sensors:
+    work_two_current_temperature:
+      friendly_name: "Work Two Temperature"
+      unit_of_measurement: 'C'
+      value_template: "{{ states.sensor.office_two_thermostat.state }}"
+
+- platform: template
+  sensors:
+    work_three_current_temperature:
+      friendly_name: "Work Three Temperature"
+      unit_of_measurement: 'C'
+      value_template: "{{ states.sensor.office_three_thermostat.state }}"
+
+- platform: template
+  sensors:
+    work_four_current_temperature:
+      friendly_name: "Work Four Temperature"
+      unit_of_measurement: 'C'
+      value_template: "{{ states.sensor.office_four_thermostat.state }}"
+
+- platform: template
+  sensors:
+    work_five_current_temperature:
+      friendly_name: "Work Five Temperature"
+      unit_of_measurement: 'C'
+      value_template: "{{ states.sensor.office_thermostat_five.state }}"

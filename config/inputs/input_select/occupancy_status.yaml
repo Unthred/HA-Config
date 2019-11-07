@@ -1,0 +1,6 @@
+house_occupancy_status:
+  name: House Occupancy
+  options:
+    - Home
+    - Away
+  initial: Home

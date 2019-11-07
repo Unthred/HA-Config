@@ -1,0 +1,9 @@
+common_lights:
+  name: Common Lights
+  view: no
+  entities: 
+  - light.bear_stripper
+  - light.fairy_lights 
+  - light.kitchen_strippers
+  - light.kitchen_tree
+  - switch.spiral_lights

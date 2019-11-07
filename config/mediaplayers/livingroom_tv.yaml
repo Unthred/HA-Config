@@ -1,0 +1,4 @@
+- platform: panasonic_viera
+  host: 192.168.13.160
+  mac: 20:C6:EB:AE:3C:0F
+  name: Livingroom_tv

@@ -1,0 +1,24 @@
+- platform: template
+  sensors:
+    house_occupancy_status:
+      friendly_name: 'House Occupancy Status'
+      value_template: >
+        {% if is_state('input_boolean.dev_mode', 'on') %}
+          {% if (is_state('input_boolean.squiggley_home', 'off') and is_state('input_boolean.wee_bear_home', 'off')) %}
+            off
+          {% else %}
+            on
+          {% endif %}
+        {% else %}
+          {% if is_state('person.squiggley_woo', 'home') or is_state('person.wee_bear', 'home') %}
+            on
+          {% else %}
+            off
+          {% endif %}
+        {% endif %}
+      entity_picture_template: >
+        {% if is_state('sensor.house_occupancy_status', 'on') %}
+          /local/images/happy_house.png
+        {% else %}
+          /local/images/sad_house.png
+        {% endif %}

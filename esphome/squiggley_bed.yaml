@@ -1,0 +1,23 @@
+esphome:
+  name: squiggley_bed
+  platform: ESP8266
+  board: nodemcuv2
+
+wifi:
+  ssid: "No Internet Access"
+  password: "MikIsADonkey"
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+# Example configuration entry
+sensor:
+  - platform: adc
+    pin: A0
+    name: "Squiggley Bed Sensor"
+    update_interval: 5s

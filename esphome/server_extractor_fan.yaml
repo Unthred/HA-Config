@@ -1,0 +1,62 @@
+esphome:
+  name: server_extractor_fan
+  platform: ESP8266
+  board: esp01_1m
+
+wifi:
+  ssid: "No Internet Access"
+  password: "MikIsADonkey"
+
+# Disable logging over USB
+logger:
+#  baud_rate: 0
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+uart:
+  rx_pin: RX
+  baud_rate: 4800
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO0
+      mode: INPUT_PULLUP
+      inverted: True
+    name: "Server Fan button"
+    on_press:
+      - switch.toggle: relay
+
+switch:
+  - platform: gpio
+    name: "Server fan relay"
+    pin: GPIO12
+    id: relay
+
+status_led:
+  pin:
+    number: GPIO13
+    inverted: yes
+
+sensor:
+  - platform: wifi_signal
+    name: "Server fan WiFi signal"
+    update_interval: 60s
+
+  - platform: uptime
+    name: "Server fan uptime"
+
+  - platform: cse7766
+    current:
+      name: "Server fan current"
+    voltage:
+      name: "Server fan voltage"
+    power:
+      name: "Server fan power"
+
+text_sensor:
+  - platform: version
+    name: "Server fan ESPHome version"

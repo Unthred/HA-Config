@@ -1,0 +1,86 @@
+platform: bwalarm
+panel:
+  cameras: []
+  panel_title: SquiggleBear Hoose Alarm System
+  enable_clock: 'True'
+  enable_weather: 'True'
+  round_buttons: 'True'
+  shadow_effect: 'True'
+  enable_serif_font: 'True'
+  enable_sensors_panel: 'True'
+  enable_clock_12hr: false
+enable_night_mode: false
+states:
+  armed_away:
+    immediate:
+    - binary_sensor.bathroom_window_sensor
+    - binary_sensor.bedroom_window_one_sensor
+    - binary_sensor.bedroom_window_two_sensor
+    - binary_sensor.front_door_sensor
+    - binary_sensor.garage_door_sensor
+    - binary_sensor.katrin_window_one_sensor
+    - binary_sensor.katrin_window_two_sensor
+    - binary_sensor.kitchen_door_sensor
+    - binary_sensor.kitchen_window_sensor
+    - binary_sensor.office_window_one_sensor
+    - binary_sensor.office_window_two_sensor
+    - binary_sensor.skylight_sensor
+    delayed:
+    - binary_sensor.garage_motion_sensor
+    - binary_sensor.large_wardrobe_one_motion_sensor
+    - binary_sensor.large_wardrobe_two_motion_sensor
+    - binary_sensor.small_wardrobe_motion_sensor
+    - binary_sensor.squiggley_nightlight_motion_sensor
+    - binary_sensor.toiler_motion_sensor
+    - binary_sensor.vestibule_motion_sensor
+    - binary_sensor.wee_bear_nightlight_motion_sensor
+    override: []
+    pending_time: 0
+    warning_time: 0
+    trigger_time: 600
+  armed_home:
+    immediate: []
+    delayed: []
+    override: []
+    pending_time: 0
+    warning_time: 0
+    trigger_time: 600
+  armed_night:
+    immediate: []
+    delayed: []
+    override: []
+    pending_time: 0
+    warning_time: 0
+    trigger_time: 600
+users:
+- id: e9acb854b2a348a58302845917f38265
+  name: Home Assistant Cloud
+  enabled: false
+  code: e9acb854b2a348a58302845917f38265
+  picture: ha.png
+- id: a0624f9a99224baf92b4139e485e6765
+  name: Hass.io
+  enabled: false
+  code: a0624f9a99224baf92b4139e485e6765
+  picture: ha.png
+- id: 872e7718bcff4cdfbadb36bacfc032cf
+  name: squiggley woo
+  enabled: true
+  code: '267709'
+  picture: smiley_punk.jpg
+- id: bc21dec43be64463b8543755db392c13
+  name: mqttUser
+  enabled: false
+  code: bc21dec43be64463b8543755db392c13
+  picture: ha.png
+- id: 1ddffcee123b4f93b0815c2091fc7502
+  name: wee bear
+  enabled: true
+  code: '140816'
+  picture: bear.jpg
+- id: 3df2f4544e344f31975453f1d45f5950
+  name: TabletUser
+  enabled: false
+  code: 3df2f4544e344f31975453f1d45f5950
+  picture: ha.png
+admin_password: DangerHome42

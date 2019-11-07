@@ -1,0 +1,60 @@
+############################################################
+#
+# Logger  You can filter anything betwen the []'s in the logger.
+#
+############################################################
+
+# Log Severities: notset, debug, info, warn, warning, error, fatal, critical
+
+default: info
+logs:
+  homeassistant.components: error
+  homeassistant.components.mqtt: debug
+  homeassistant.components.http: error
+  homeassistant.components.zwave: error
+  homeassistant.components.light: error
+  homeassistant.components.sensor: debug
+  homeassistant.components.notify: debug
+  homeassistant.components.scripts: debug
+  homeassistant.components.climate: error
+  homeassistant.components.history: error
+  homeassistant.components.recorder: error
+  homeassistant.components.influxdb: error
+  homeassistant.components.automation: debug
+  homeassistant.components.media_player: error
+  homeassistant.components.xiaomi_aqara: error
+  homeassistant.components.websocket_api: error
+  homeassistant.components.binary_sensor: error
+  homeassistant.components.device_tracker: debug
+  homeassistant.components.switch.broadlink:  error
+  homeassistant.components.media_player.cast: error
+  homeassistant.components.alarm_control_panel: debug
+  homeassistant.components.sensor.travisci: error
+  homeassistant.components.device_tracker.unifi_direct: error
+  homeassistant.components.climate.heatmiserneo: info
+  
+  #custom_components: debug
+  #pyupdate: error
+  
+
+#logs:
+  #aiohttp.access: critical
+  #aiohttp.server: critical
+  #  homeassistant.core: error
+  #homeassistant.components.automation: warn
+  #homeassistant.components.binary_sensor: error
+  #homeassistant.components.climate.heatmiser_neo: warn
+  #homeassistant.components.device_tracker: error
+  #homeassistant.components.discovery: warn
+  #homeassistant.components.feedreader: warn
+  #homeassistant.components.http: warn
+  #homeassistant.components.media_player: warn
+  #homeassistant.components.sensor.pi_hole: critical
+  #homeassistant.components.recorder: error
+  #homeassistant.components.sensor.darksky: warn
+  #homeassistant.components.zwave: warn
+  #homeassistant.helpers.script: debug
+  #homeassistant.helpers.entity: critical
+  #homeassistant.exceptions: info
+  #py.warnings: error
+  #root: warn

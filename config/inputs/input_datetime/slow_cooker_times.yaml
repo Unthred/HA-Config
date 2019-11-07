@@ -1,0 +1,8 @@
+slow_cooker_start:
+  name: Slow cooker start
+  has_time: true
+  has_date: false
+slow_cooker_stop:
+  name: Slow cooker stop
+  has_time: true
+  has_date: false

@@ -1,0 +1,9 @@
+[submodule "custom_components/fcm-android"]
+	path = custom_components/fcm-android
+	url = https://github.com/Crewski/HANotify.git
+[submodule "custom_components/heatmiserneo"]
+	path = custom_components/heatmiserneo
+	url = git@github.com:ciotlosm/custom-lovelace.git
+[submodule "www/custom-lovelace"]
+	path = www/custom-lovelace
+	url = https://github.com/ciotlosm/custom-lovelace.git

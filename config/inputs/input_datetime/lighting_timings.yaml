@@ -1,0 +1,32 @@
+lighting_weekday_morning_start:
+  name: Week day morning start
+  has_time: true
+  has_date: false
+lighting_weekday_morning_stop:
+  name: Week day morning stop
+  has_time: true
+  has_date: false
+lighting_weekend_morning_start:
+  name: Weekend morning start
+  has_time: true
+  has_date: false
+lighting_weekend_morning_stop:
+  name: Weekend morning stop
+  has_time: true
+  has_date: false
+lighting_weekday_evening_start:
+  name: Week day evening start
+  has_time: true
+  has_date: false
+lighting_weekday_evening_stop:
+  name: Week day evening stop
+  has_time: true
+  has_date: false
+lighting_weekend_evening_start:
+  name: Weekend evening start
+  has_time: true
+  has_date: false
+lighting_weekend_evening_stop:
+  name: Weekend evening stop
+  has_time: true
+  has_date: false

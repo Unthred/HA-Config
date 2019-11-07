@@ -1,0 +1,3 @@
+dev_mode:
+  name: Development Mode
+  icon: mdi:toggle-switch

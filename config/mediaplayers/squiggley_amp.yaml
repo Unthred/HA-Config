@@ -1,0 +1,26 @@
+- platform: yamaha
+  name: squiggley_amp
+  host: 192.168.13.169
+  source_ignore:
+    - "Napster"
+    - "JUKE"
+    - "AirPlay"
+    - "TUNER"
+    - "AV3"
+    - "AV4"
+    - "AV5"
+    - "AV6"
+    - "AV7"
+    - "AUDIO1"
+    - "AUDIO4"
+    - "PHONO"
+    - "V-AUX"
+    - "iPod (USB)"
+  source_names:
+    AV1: "livingroom kodi"
+    AV2: "SquiggleCast"
+    AUDIO2: "Noisemaker"
+    AUDIO3: "AudioCast"
+  zone_names:
+    squiggley_amp_zone_2: "Kitchen Speakers"
+    

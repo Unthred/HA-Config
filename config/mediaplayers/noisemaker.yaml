@@ -1,0 +1,8 @@
+- platform: mpd
+  host: 192.168.13.30
+  name: noisemaker
+  
+#- platform: dlna_dmr
+#  url: http://192.168.13.30:49153/description.xml
+#  name: noisemaker_dnla
+

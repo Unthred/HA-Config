@@ -1,0 +1,13 @@
+normal_brightness:
+  name: Normal Brightness
+  min: 0
+  max: 100
+  step: 1
+  icon: mdi:lightbuld-on
+  
+migraine_brightness:
+  name: Migraine Brightness
+  min: 0
+  max: 100
+  step: 1
+  icon: mdi:lightbuld-on

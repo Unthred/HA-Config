@@ -1,0 +1,52 @@
+esphome:
+  name: ambilight
+  platform: ESP8266
+  board: esp01_1m
+
+wifi:
+  ssid: "No Internet Access"
+  password: "MikIsADonkey"
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO0
+      mode: INPUT_PULLUP
+      inverted: True
+    name: "Ambilight Button"
+    on_press:
+      - switch.toggle: ambilight_fakebutton
+
+switch:
+  - platform: template
+    name: "Ambilight Relay"
+    optimistic: true
+    id: ambilight_fakebutton
+    turn_on_action:
+    - switch.turn_on: ambilight_relay
+    turn_off_action:
+    - switch.turn_off: ambilight_relay
+  - platform: gpio
+    id: ambilight_relay
+    pin: GPIO12
+
+#output:
+#  - platform: esp8266_pwm
+#    id: basic_green_ambilight_led
+#    pin:
+#      number: GPIO13
+#      inverted: True
+
+#light:
+#  - platform: monochromatic
+#    name: "Ambilight Green Led"
+#    output: basic_green_ambilight_led
+#    id: ambilight_led

@@ -1,0 +1,10 @@
+- platform: template
+  sensors:
+    kitchen_current_temperature:
+      friendly_name: "Current Temperature"
+      unit_of_measurement: 'C'
+      value_template: "{{ state_attr('climate.kitchen', 'current_temperature') }}"
+    kitchen_target_temperature:
+      friendly_name: "Target Temperature"
+      unit_of_measurement: 'C'
+      value_template: "{{ state_attr('climate.kitchen', 'temperature') }}"

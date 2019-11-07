@@ -1,0 +1,7 @@
+home_users:
+  name: Home Users
+  options:
+    - Squiggley
+    - Wee Bear
+    - Everyone
+  initial: Squiggley
