@@ -96,6 +96,17 @@
   - data:
       entity_id: light.small_wardrobe_stripper
     service: light.turn_off
+- id: 'Bedroom: Turn House Off When Button Pressed'
+  alias: 'Bedroom: Turn House Off When Button Pressed'
+  description: Turn the whole house off when button pressed
+  trigger:
+  - entity_id: binary_sensor.home_off_switch
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - service: script.home_off
 - id: 'Occupancy: Turn On Garden Lights At Dusk'
   alias: 'Occupancy: Turn On Garden Lights At Dusk'
   trigger:
@@ -142,7 +153,7 @@
     service: script.home_off
   - data:
       message: Turning everything Off as nobody does be home
-    service: notify.android_squigglepad
+    service: notify.android_squiggle_pad
 - id: 'Server: Turn On The Fan When Its Hot'
   alias: 'Server: Turn On Fan When Its Hot'
   trigger:
@@ -174,7 +185,7 @@
   action:
   - data:
       message: There's a moose been caught aboot this hoose! Trap One
-    service: notify.android_squigglepad
+    service: notify.squiggley
 - id: 'Mousetrap: Notify Squiggley When a Mouse is Caught in Trap Two'
   alias: 'Mousetrap: Notify Squiggley When a Mouse is Caught in Trap Two'
   trigger:
@@ -186,7 +197,7 @@
   action:
   - data:
       message: There's a moose been caught aboot this hoose! Trap Two
-    service: notify.android_squigglepad
+    service: notify.squiggley
 - id: 'Occupancy: Turn On the Common Lights When Someone Opens the Front Door'
   alias: 'Occupancy: Turn On the Common Lights When Someone Opens the Front Door'
   trigger:
@@ -258,8 +269,8 @@
   action:
     service: light.turn_off
     entity_id: light.toilet_lights
-- id: 'Turn On Vestibule Lights When Motion Is Detected'
-  alias: Turn On Vestibule Lights When Motion Detected
+- id: 'Vestibule: Turn On Lights When Motion Is Detected'
+  alias: 'Vestibule: Turn On Lights When Motion Is Detected'
   trigger:
   - entity_id: binary_sensor.vestibule_motion_sensor
     from: 'off'
@@ -277,27 +288,864 @@
   - data:
       entity_id: light.Vestibule_One
     service: light.turn_off
-- id: 'Turn On Slow Cooker at specified time'
-  alias: 'Turn On Slow Cooker at specified time'
+- id: 'Slow Cooker: Turn On at specified time'
+  alias: 'Slow Cooker: Turn On at specified time'
   trigger:
-    - platform: template
-      value_template: '{{ states.sensor.time.state == (states.input_datetime.slow_cooker_start.attributes.timestamp | int | timestamp_custom("%H:%M", False)) }}'
+  - platform: template
+    value_template: '{{ states.sensor.time.state == (states.input_datetime.slow_cooker_start.attributes.timestamp
+      | int | timestamp_custom("%H:%M", False)) }}'
   action:
-    - service: switch.turn_on
-      data:
-        entity_id: switch.ambilight_relay
-    - service: notify.android_squiggle_pad
-      data:
-        message: Turning on the slow cooker
-- id: 'Turn Off Slow Cooker at specified time'
-  alias: 'Turn Off Slow Cooker at specified time'
+  - service: switch.turn_on
+    data:
+      entity_id: switch.ambilight_relay
+  - service: notify.android_squiggle_pad
+    data:
+      message: Turning on the slow cooker
+- id: 'Slow Cooker: Turn Off Slow Cooker at specified time'
+  alias: 'Slow Cooker: Turn Off Slow Cooker at specified time'
   trigger:
-    - platform: template
-      value_template: '{{ states.sensor.time.state == (states.input_datetime.slow_cooker_stop.attributes.timestamp | int | timestamp_custom("%H:%M", False)) }}'
+  - platform: template
+    value_template: '{{ states.sensor.time.state == (states.input_datetime.slow_cooker_stop.attributes.timestamp
+      | int | timestamp_custom("%H:%M", False)) }}'
   action:
-    - service: switch.turn_off
-      data:
-        entity_id: switch.ambilight_relay
-    - service: notify.android_squiggle_pad
-      data:
-        message: Turning off the slow cooker
+  - service: switch.turn_off
+    data:
+      entity_id: switch.ambilight_relay
+  - service: notify.android_squiggle_pad
+    data:
+      message: Turning off the slow cooker
+- id: 'Livingroom: Toggle On/Off'
+  alias: 'Livingroom: Toggle On/Off'
+  description: Turns on/off the tv, amp, kodi, ambilighting and eventually lights
+  trigger:
+    platform: state
+    entity_id: input_boolean.livingroom_on
+  action:
+    service_template: script.moron_machine_{{trigger.to_state.state}}
+- id: 'Livingroom: Toggle input_boolean On/Off'
+  alias: 'Livingroom: Toggle input_boolean On/Off'
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.livingroom_on_off_switch
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      entity_id: input_boolean.livingroom_on
+    service: homeassistant.toggle
+- id: 'Heating: Turn Vestibule on week day Mornings'
+  alias: 'Heating: Turn Vestibule on week day Mornings'
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.heating_vestibule_weekday_morning_start.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    condition: time
+    weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+  action:
+    service: input_boolean.turn_on
+    data_template:
+      entity_id: input_boolean.vestibule_schedule_active
+- id: 'Heating: Turn Vestibule off on week day Mornings' 
+  alias: 'Heating: Turn Vestibule off on week day Mornings' 
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.heating_vestibule_weekday_morning_stop.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    condition: time
+    weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+  action:
+    service: input_boolean.turn_off
+    data_template:
+      entity_id: input_boolean.vestibule_schedule_active
+- id: 'Heating: Turn Vestibule off on week day evenings'
+  alias: 'Heating: Turn Vestibule off on week day evenings'
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.heating_vestibule_weekday_evening_stop.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    condition: time
+    weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+  action:
+    service: input_boolean.turn_off
+    data_template:
+      entity_id: input_boolean.vestibule_schedule_active
+- id: 'Heating: Turn Vestibule on weekend Mornings'
+  alias: 'Heating: Turn Vestibule on weekend Mornings'
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.heating_vestibule_weekend_morning_start.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    condition: time
+    weekday:
+      - sat
+      - sun
+  action:
+    service: input_boolean.turn_on
+    data_template:
+      entity_id: input_boolean.vestibule_schedule_active  
+- id: 'Heating: Turn Vestibule off on weekend Mornings' 
+  alias: 'Heating: Turn Vestibule off on weekend Mornings' 
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.heating_vestibule_weekend_morning_stop.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    condition: time
+    weekday:
+      - sat
+      - sun
+  action:
+    service: input_boolean.turn_off
+    data_template:
+      entity_id: input_boolean.vestibule_schedule_active
+- id: 'Heating: Turn Vestibule off on weekend evenings'
+  alias: 'Heating: Turn Vestibule off on weekend evenings'
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.heating_vestibule_weekend_evening_stop.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    condition: time
+    weekday:
+      - fri
+      - sat
+  action:
+    service: input_boolean.turn_off
+    data_template:
+      entity_id: input_boolean.vestibule_schedule_active
+- id: 'Heating: Turn Vestibule on based on timer and occupancy'
+  alias: 'Heating: Turn Vestibule on based on timer and occupancy'
+  trigger:
+    platform: state
+    entity_id: input_boolean.vestibule_schedule_active
+    to: 'on'
+  condition:
+    condition: state
+    entity_id: sensor.house_occupancy_status
+    state: 'on'
+  action:
+    service: climate.set_temperature
+    data_template:
+      entity_id: climate.vestibule
+      temperature: "{{ states('input_number.vestibule_temperature') }}"
+- id: 'Heating: Turn Vestibule off based on timer'
+  alias: 'Heating: Turn Vestibule off based on timer'
+  trigger:
+    platform: state
+    entity_id: input_boolean.vestibule_schedule_active
+    to: 'off'
+  action:
+    service: climate.set_temperature
+    data:
+      entity_id: climate.vestibule
+      temperature: 7
+- id: 'Heating: Turn Vestibule on when someone arrives home'
+  alias: 'Heating: Turn Vestibule on when someone arrives home'
+  trigger:
+    platform: state
+    entity_id: sensor.house_occupancy_status
+    from: "off"
+    to: "on"
+  condition:
+    condition: state
+    entity_id: input_boolean.vestibule_schedule_active
+    state: 'on'
+  action:
+    service: climate.set_temperature
+    data_template:
+      entity_id: climate.vestibule
+      temperature: "{{ states('input_number.vestibule_temperature') }}"
+- id: 'Heating: Turn Livingroom on week day Mornings'
+  alias: 'Heating: Turn Livingroom on week day Mornings'
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.heating_livingroom_weekday_morning_start.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    condition: time
+    weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+  action:
+    service: input_boolean.turn_on
+    data_template:
+      entity_id: input_boolean.livingroom_schedule_active  
+- id: 'Heating: Turn Livingroom off on week day Mornings' 
+  alias: 'Heating: Turn Livingroom off on week day Mornings' 
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.heating_livingroom_weekday_morning_stop.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    condition: time
+    weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+  action:
+    service: input_boolean.turn_off
+    data_template:
+      entity_id: input_boolean.livingroom_schedule_active
+- id: 'Heating: Turn Livingroom off on week day evenings'
+  alias: 'Heating: Turn Livingroom off on week day evenings'
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.heating_livingroom_weekday_evening_stop.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    condition: time
+    weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+  action:
+    service: input_boolean.turn_off
+    data_template:
+      entity_id: input_boolean.livingroom_schedule_active
+- id: 'Heating: Turn Livingroom on weekend Mornings'
+  alias: 'Heating: Turn Livingroom on weekend Mornings'
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.heating_livingroom_weekend_morning_start.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    condition: time
+    weekday:
+      - sat
+      - sun
+  action:
+    service: input_boolean.turn_on
+    data_template:
+      entity_id: input_boolean.livingroom_schedule_active  
+- id: 'Heating: Turn Livingroom off on weekend Mornings' 
+  alias: 'Heating: Turn Livingroom off on weekend Mornings' 
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.heating_livingroom_weekend_morning_stop.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    condition: time
+    weekday:
+      - sat
+      - sun
+  action:
+    service: input_boolean.turn_off
+    data_template:
+      entity_id: input_boolean.livingroom_schedule_active
+- id: 'Heating: Turn Livingroom off on weekend evenings'
+  alias: 'Heating: Turn Livingroom off on weekend evenings'
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.heating_livingroom_weekend_evening_stop.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    condition: time
+    weekday:
+      - fri
+      - sat
+  action:
+    service: input_boolean.turn_off
+    data_template:
+      entity_id: input_boolean.livingroom_schedule_active
+- id: 'Heating: Turn Livingroom on based on timer and occupancy'
+  alias: 'Heating: Turn Livingroom on based on timer and occupancy'
+  trigger:
+    platform: state
+    entity_id: input_boolean.livingroom_schedule_active
+    to: 'on'
+  condition:
+    condition: state
+    entity_id: sensor.house_occupancy_status
+    state: 'on'
+  action:
+    service: climate.set_temperature
+    data_template:
+      entity_id: climate.livingroom
+      temperature: "{{ states('input_number.livingroom_temperature') }}"
+- id: 'Heating: Turn Livingroom off based on timer'
+  alias: 'Heating: Turn Livingroom off based on timer'
+  trigger:
+    platform: state
+    entity_id: input_boolean.livingroom_schedule_active
+    to: 'off'
+  action:
+    service: climate.set_temperature
+    data:
+      entity_id: climate.livingroom
+      temperature: 7
+- id: 'Heating: Turn Livingroom on when someone arrives home'
+  alias: 'Heating: Turn Livingroom on when someone arrives home'
+  trigger:
+    platform: state
+    entity_id: sensor.house_occupancy_status
+    from: "off"
+    to: "on"
+  condition:
+    condition: state
+    entity_id: input_boolean.livingroom_schedule_active
+    state: 'on'
+  action:
+    service: climate.set_temperature
+    data_template:
+      entity_id: climate.livingroom
+      temperature: "{{ states('input_number.livingroom_temperature') }}"
+- id: 'Heating: Turn Office on week day Mornings'
+  alias: 'Heating: Turn Office on week day Mornings'
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.heating_office_weekday_morning_start.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    condition: time
+    weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+  action:
+    service: input_boolean.turn_on
+    data_template:
+      entity_id: input_boolean.office_schedule_active  
+- id: 'Heating: Turn Office off on week day Mornings' 
+  alias: 'Heating: Turn Office off on week day Mornings' 
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.heating_office_weekday_morning_stop.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    condition: time
+    weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+  action:
+    service: input_boolean.turn_off
+    data_template:
+      entity_id: input_boolean.office_schedule_active
+- id: 'Heating: Turn Office off on week day evenings'
+  alias: 'Heating: Turn Office off on week day evenings'
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.heating_office_weekday_evening_stop.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    condition: time
+    weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+  action:
+    service: input_boolean.turn_off
+    data_template:
+      entity_id: input_boolean.office_schedule_active
+- id: 'Heating: Turn Office on weekend Mornings'
+  alias: 'Heating: Turn Office on weekend Mornings'
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.heating_office_weekend_morning_start.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    condition: time
+    weekday:
+      - sat
+      - sun
+  action:
+    service: input_boolean.turn_on
+    data_template:
+      entity_id: input_boolean.office_schedule_active  
+- id: 'Heating: Turn Office off on weekend Mornings' 
+  alias: 'Heating: Turn Office off on weekend Mornings' 
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.heating_office_weekend_morning_stop.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    condition: time
+    weekday:
+      - sat
+      - sun
+  action:
+    service: input_boolean.turn_off
+    data_template:
+      entity_id: input_boolean.office_schedule_active
+- id: 'Heating: Turn Office off on weekend evenings'
+  alias: 'Heating: Turn Office off on weekend evenings'
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.heating_office_weekend_evening_stop.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    condition: time
+    weekday:
+      - fri
+      - sat
+  action:
+    service: input_boolean.turn_off
+    data_template:
+      entity_id: input_boolean.office_schedule_active
+- id: 'Heating: Turn Office on based on timer and occupancy'
+  alias: 'Heating: Turn Office on based on timer and occupancy'
+  trigger:
+    platform: state
+    entity_id: input_boolean.office_schedule_active
+    to: 'on'
+  condition:
+    condition: state
+    entity_id: sensor.house_occupancy_status
+    state: 'on'
+  action:
+    service: climate.set_temperature
+    data_template:
+      entity_id: climate.office
+      temperature: "{{ states('input_number.office_temperature') }}"
+- id: 'Heating: Turn Office off based on timer'
+  alias: 'Heating: Turn Office off based on timer'
+  trigger:
+    platform: state
+    entity_id: input_boolean.office_schedule_active
+    to: 'off'
+  action:
+    service: climate.set_temperature
+    data:
+      entity_id: climate.office
+      temperature: 7
+- id: 'Heating: Turn Office on when someone arrives home'
+  alias: 'Heating: Turn Office on when someone arrives home'
+  trigger:
+    platform: state
+    entity_id: sensor.house_occupancy_status
+    from: "off"
+    to: "on"
+  condition:
+    condition: state
+    entity_id: input_boolean.office_schedule_active
+    state: 'on'
+  action:
+    service: climate.set_temperature
+    data_template:
+      entity_id: climate.office
+      temperature: "{{ states('input_number.office_temperature') }}"
+- id: 'Heating: Turn Kitchen on week day Mornings'
+  alias: 'Heating: Turn Kitchen on week day Mornings'
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.heating_kitchen_weekday_morning_start.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    condition: time
+    weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+  action:
+    service: input_boolean.turn_on
+    data_template:
+      entity_id: input_boolean.kitchen_schedule_active  
+- id: 'Heating: Turn Kitchen off on week day Mornings' 
+  alias: 'Heating: Turn Kitchen off on week day Mornings' 
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.heating_kitchen_weekday_morning_stop.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    condition: time
+    weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+  action:
+    service: input_boolean.turn_off
+    data_template:
+      entity_id: input_boolean.kitchen_schedule_active
+- id: 'Heating: Turn Kitchen off on week day evenings'
+  alias: 'Heating: Turn Kitchen off on week day evenings'
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.heating_kitchen_weekday_evening_stop.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    condition: time
+    weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+  action:
+    service: input_boolean.turn_off
+    data_template:
+      entity_id: input_boolean.kitchen_schedule_active
+- id: 'Heating: Turn Kitchen on weekend Mornings'
+  alias: 'Heating: Turn Kitchen on weekend Mornings'
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.heating_kitchen_weekend_morning_start.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    condition: time
+    weekday:
+      - sat
+      - sun
+  action:
+    service: input_boolean.turn_on
+    data_template:
+      entity_id: input_boolean.kitchen_schedule_active  
+- id: 'Heating: Turn Kitchen off on weekend Mornings' 
+  alias: 'Heating: Turn Kitchen off on weekend Mornings' 
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.heating_kitchen_weekend_morning_stop.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    condition: time
+    weekday:
+      - sat
+      - sun
+  action:
+    service: input_boolean.turn_off
+    data_template:
+      entity_id: input_boolean.kitchen_schedule_active
+- id: 'Heating: Turn Kitchen off on weekend evenings'
+  alias: 'Heating: Turn Kitchen off on weekend evenings'
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.heating_kitchen_weekend_evening_stop.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    condition: time
+    weekday:
+      - fri
+      - sat
+  action:
+    service: input_boolean.turn_off
+    data_template:
+      entity_id: input_boolean.kitchen_schedule_active
+- id: 'Heating: Turn Kitchen on based on timer and occupancy'
+  alias: 'Heating: Turn Kitchen on based on timer and occupancy'
+  trigger:
+    platform: state
+    entity_id: input_boolean.kitchen_schedule_active
+    to: 'on'
+  condition:
+    condition: state
+    entity_id: sensor.house_occupancy_status
+    state: 'on'
+  action:
+    service: climate.set_temperature
+    data_template:
+      entity_id: climate.kitchen
+      temperature: "{{ states('input_number.kitchen_temperature') }}"
+- id: 'Heating: Turn Kitchen off based on timer'
+  alias: 'Heating: Turn Kitchen off based on timer'
+  trigger:
+    platform: state
+    entity_id: input_boolean.kitchen_schedule_active
+    to: 'off'
+  action:
+    service: climate.set_temperature
+    data:
+      entity_id: climate.kitchen
+      temperature: 7
+- id: 'Heating: Turn Kitchen on when someone arrives home'
+  alias: 'Heating: Turn Kitchen on when someone arrives home'
+  trigger:
+    platform: state
+    entity_id: sensor.house_occupancy_status
+    from: "off"
+    to: "on"
+  condition:
+    condition: state
+    entity_id: input_boolean.kitchen_schedule_active
+    state: 'on'
+  action:
+    service: climate.set_temperature
+    data_template:
+      entity_id: climate.kitchen
+      temperature: "{{ states('input_number.kitchen_temperature') }}"
+- id: 'Heating: Turn Katrin on week day Mornings'
+  alias: 'Heating: Turn Katrin on week day Mornings'
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.heating_katrin_weekday_morning_start.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    condition: time
+    weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+  action:
+    service: input_boolean.turn_on
+    data_template:
+      entity_id: input_boolean.katrin_schedule_active  
+- id: 'Heating: Turn Katrin off on week day Mornings' 
+  alias: 'Heating: Turn Katrin off on week day Mornings' 
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.heating_katrin_weekday_morning_stop.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    condition: time
+    weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+  action:
+    service: input_boolean.turn_off
+    data_template:
+      entity_id: input_boolean.katrin_schedule_active
+- id: 'Heating: Turn Katrin off on week day evenings'
+  alias: 'Heating: Turn Katrin off on week day evenings'
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.heating_katrin_weekday_evening_stop.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    condition: time
+    weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+  action:
+    service: input_boolean.turn_off
+    data_template:
+      entity_id: input_boolean.katrin_schedule_active
+- id: 'Heating: Turn Katrin on weekend Mornings'
+  alias: 'Heating: Turn Katrin on weekend Mornings'
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.heating_katrin_weekend_morning_start.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    condition: time
+    weekday:
+      - sat
+      - sun
+  action:
+    service: input_boolean.turn_on
+    data_template:
+      entity_id: input_boolean.katrin_schedule_active  
+- id: 'Heating: Turn Katrin off on weekend Mornings' 
+  alias: 'Heating: Turn Katrin off on weekend Mornings' 
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.heating_katrin_weekend_morning_stop.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    condition: time
+    weekday:
+      - sat
+      - sun
+  action:
+    service: input_boolean.turn_off
+    data_template:
+      entity_id: input_boolean.katrin_schedule_active
+- id: 'Heating: Turn Katrin off on weekend evenings'
+  alias: 'Heating: Turn Katrin off on weekend evenings'
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.heating_katrin_weekend_evening_stop.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    condition: time
+    weekday:
+      - fri
+      - sat
+  action:
+    service: input_boolean.turn_off
+    data_template:
+      entity_id: input_boolean.katrin_schedule_active
+- id: 'Heating: Turn Katrin on based on timer and occupancy'
+  alias: 'Heating: Turn Katrin on based on timer and occupancy'
+  trigger:
+    platform: state
+    entity_id: input_boolean.katrin_schedule_active
+    to: 'on'
+  condition:
+    condition: state
+    entity_id: sensor.house_occupancy_status
+    state: 'on'
+  action:
+    service: climate.set_temperature
+    data_template:
+      entity_id: climate.katrin
+      temperature: "{{ states('input_number.katrin_temperature') }}"
+- id: 'Heating: Turn Katrin off based on timer'
+  alias: 'Heating: Turn Katrin off based on timer'
+  trigger:
+    platform: state
+    entity_id: input_boolean.katrin_schedule_active
+    to: 'off'
+  action:
+    service: climate.set_temperature
+    data:
+      entity_id: climate.katrin
+      temperature: 7
+- id: 'Heating: Turn Katrin on when someone arrives home'
+  alias: 'Heating: Turn Katrin on when someone arrives home'
+  trigger:
+    platform: state
+    entity_id: sensor.house_occupancy_status
+    from: "off"
+    to: "on"
+  condition:
+    condition: state
+    entity_id: input_boolean.katrin_schedule_active
+    state: 'on'
+  action:
+    service: climate.set_temperature
+    data_template:
+      entity_id: climate.katrin
+      temperature: "{{ states('input_number.katrin_temperature') }}"
+- id: 'Heating: Turn Bedroom on week day Mornings'
+  alias: 'Heating: Turn Bedroom on week day Mornings'
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.heating_bedroom_weekday_morning_start.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    condition: time
+    weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+  action:
+    service: input_boolean.turn_on
+    data_template:
+      entity_id: input_boolean.bedroom_schedule_active  
+- id: 'Heating: Turn Bedroom off on week day Mornings' 
+  alias: 'Heating: Turn Bedroom off on week day Mornings' 
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.heating_bedroom_weekday_morning_stop.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    condition: time
+    weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+  action:
+    service: input_boolean.turn_off
+    data_template:
+      entity_id: input_boolean.bedroom_schedule_active
+- id: 'Heating: Turn Bedroom off on week day evenings'
+  alias: 'Heating: Turn Bedroom off on week day evenings'
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.heating_bedroom_weekday_evening_stop.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    condition: time
+    weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+  action:
+    service: input_boolean.turn_off
+    data_template:
+      entity_id: input_boolean.bedroom_schedule_active
+- id: 'Heating: Turn Bedroom on weekend Mornings'
+  alias: 'Heating: Turn Bedroom on weekend Mornings'
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.heating_bedroom_weekend_morning_start.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    condition: time
+    weekday:
+      - sat
+      - sun
+  action:
+    service: input_boolean.turn_on
+    data_template:
+      entity_id: input_boolean.bedroom_schedule_active  
+- id: 'Heating: Turn Bedroom off on weekend Mornings' 
+  alias: 'Heating: Turn Bedroom off on weekend Mornings' 
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.heating_bedroom_weekend_morning_stop.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    condition: time
+    weekday:
+      - sat
+      - sun
+  action:
+    service: input_boolean.turn_off
+    data_template:
+      entity_id: input_boolean.bedroom_schedule_active
+- id: 'Heating: Turn Bedroom off on weekend evenings'
+  alias: 'Heating: Turn Bedroom off on weekend evenings'
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.heating_bedroom_weekend_evening_stop.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    condition: time
+    weekday:
+      - fri
+      - sat
+  action:
+    service: input_boolean.turn_off
+    data_template:
+      entity_id: input_boolean.bedroom_schedule_active
+- id: 'Heating: Turn Bedroom on based on timer and occupancy'
+  alias: 'Heating: Turn Bedroom on based on timer and occupancy'
+  trigger:
+    platform: state
+    entity_id: input_boolean.bedroom_schedule_active
+    to: 'on'
+  condition:
+    condition: state
+    entity_id: sensor.house_occupancy_status
+    state: 'on'
+  action:
+    service: climate.set_temperature
+    data_template:
+      entity_id: climate.bedroom
+      temperature: "{{ states('input_number.bedroom_temperature') }}"
+- id: 'Heating: Turn Bedroom off based on timer'
+  alias: 'Heating: Turn Bedroom off based on timer'
+  trigger:
+    platform: state
+    entity_id: input_boolean.bedroom_schedule_active
+    to: 'off'
+  action:
+    service: climate.set_temperature
+    data:
+      entity_id: climate.bedroom
+      temperature: 7
+- id: 'Heating: Turn Bedroom on when someone arrives home'
+  alias: 'Heating: Turn Bedroom on when someone arrives home'
+  trigger:
+    platform: state
+    entity_id: sensor.house_occupancy_status
+    from: "off"
+    to: "on"
+  condition:
+    condition: state
+    entity_id: input_boolean.bedroom_schedule_active
+    state: 'on'
+  action:
+    service: climate.set_temperature
+    data_template:
+      entity_id: climate.bedroom
+      temperature: "{{ states('input_number.bedroom_temperature') }}"
+
+
+
+

@@ -14,3 +14,4 @@
       data:
         entity_id: media_player.marvin
         method: System.Shutdown
+  

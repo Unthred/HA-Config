@@ -1,0 +1,47 @@
+esphome:
+  name: office_lamp
+  platform: ESP8266
+  board: esp01_1m
+
+wifi:
+  ssid: "No Internet Access"
+  password: "MikIsADonkey"
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Office Lamp Fallback Hotspot"
+    password: "uGLm4qPIInU5"
+
+captive_portal:
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO0
+      mode: INPUT_PULLUP
+      inverted: True
+    name: "Office Lamp Button"
+    on_press:
+      - switch.toggle: office_lamp_fakebutton
+
+switch:
+  - platform: template
+    name: "Office Lamp Relay"
+    optimistic: true
+    id: office_lamp_fakebutton
+    turn_on_action:
+    - switch.turn_on: office_lamp_relay
+    turn_off_action:
+    - switch.turn_off: office_lamp_relay
+  - platform: gpio
+    id: office_lamp_relay
+    pin: GPIO12
+

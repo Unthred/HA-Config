@@ -1,3 +1,39 @@
-heating_timer:
-  name: Heating timer
+enable_heating_schedules:
+  name: Enable Heating Schedules
+  icon: mdi:toggle-switch
+vestibule_schedule_active:
+  name: Vestibule Schedule Active
+  icon: mdi:toggle-switch
+enable_vestibule_schedule:
+  name: Enable Vestibule Schedule
+  icon: mdi:toggle-switch
+livingroom_schedule_active:
+  name: Livingroom Schedule Active
+  icon: mdi:toggle-switch
+enable_livingroom_schedule:
+  name: Enable Livingroom Schedule
+  icon: mdi:toggle-switch
+office_schedule_active:
+  name: Office Schedule Active
+  icon: mdi:toggle-switch
+enable_office_schedule:
+  name: Enable Office Schedule
+  icon: mdi:toggle-switch
+kitchen_schedule_active:
+  name: Kitchen Schedule Active
+  icon: mdi:toggle-switch
+enable_kitchen_schedule:
+  name: Enable Kitchen Schedule
+  icon: mdi:toggle-switch
+katrin_schedule_active:
+  name: Katrin Schedule Active
+  icon: mdi:toggle-switch
+enable_katrin_schedule:
+  name: Enable Katrin Schedule
+  icon: mdi:toggle-switch
+bedroom_schedule_active:
+  name: Bedroom Schedule Active
+  icon: mdi:toggle-switch
+enable_bedroom_schedule:
+  name: Enable Bedroom Schedule
   icon: mdi:toggle-switch

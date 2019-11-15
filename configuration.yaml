@@ -20,12 +20,12 @@ default_config:
 # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
 http:
   #api_password: !secret http_password
-  #base_url: https://home.yeradonkey.com
+  base_url: https://home.yeradonkey.com
   use_x_forwarded_for: true 
   trusted_proxies:
-    - 192.168.13.254
-    - 127.0.0.1
-    - ::1
+#    - 192.168.13.254
+#    - 127.0.0.1
+#    - ::1
     - 192.168.13.0/24
   #IP ban dissabled while X-Forwarded-For is broken to prevent blocking reverse proxy
   #  ip_ban_enabled: true

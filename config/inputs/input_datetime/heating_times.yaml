@@ -30,3 +30,108 @@ heating_weekend_evening_stop:
   name: Weekend evening stop
   has_time: true
   has_date: false
+
+heating_vestibule_weekday_morning_start:
+  name: Vestibule weekday morning start
+  has_time: true
+  has_date: false
+heating_vestibule_weekday_morning_stop:
+  name: Vestibule weekday morning stop
+  has_time: true
+  has_date: false
+heating_vestibule_weekend_morning_start:
+  name: Vestibule weekend morning start
+  has_time: true
+  has_date: false
+heating_vestibule_weekend_morning_stop:
+  name: Vestibule weekend morning stop
+  has_time: true
+  has_date: false
+heating_livingroom_weekday_morning_start:
+  name: Livingroom weekday morning start
+  has_time: true
+  has_date: false
+heating_livingroom_weekday_morning_stop:
+  name: Livingroom weekday morning stop
+  has_time: true
+  has_date: false
+heating_livingroom_weekend_morning_start:
+  name: Livingroom weekend morning start
+  has_time: true
+  has_date: false
+heating_livingroom_weekend_morning_stop:
+  name: Livingroom weekend morning stop
+  has_time: true
+  has_date: false
+heating_office_weekday_morning_start:
+  name: Office weekday morning start
+  has_time: true
+  has_date: false
+heating_office_weekday_morning_stop:
+  name: Office weekday morning stop
+  has_time: true
+  has_date: false
+heating_office_weekend_morning_start:
+  name: Office weekend morning start
+  has_time: true
+  has_date: false
+heating_office_weekend_morning_stop:
+  name: Office weekend morning stop
+  has_time: true
+  has_date: false
+heating_kitchen_weekday_morning_start:
+  name: Kitchen weekday morning start
+  has_time: true
+  has_date: false
+heating_kitchen_weekday_morning_stop:
+  name: Kitchen weekday morning stop
+  has_time: true
+  has_date: false
+heating_kitchen_weekend_morning_start:
+  name: Kitchen weekend morning start
+  has_time: true
+  has_date: false
+heating_kitchen_weekend_morning_stop:
+  name: Kitchen weekend morning stop
+  has_time: true
+  has_date: false
+heating_katrin_weekday_morning_start:
+  name: Katrin weekday morning start
+  has_time: true
+  has_date: false
+heating_katrin_weekday_morning_stop:
+  name: Katrin weekday morning stop
+  has_time: true
+  has_date: false
+heating_katrin_weekend_morning_start:
+  name: Katrin weekend morning start
+  has_time: true
+  has_date: false
+heating_katrin_weekend_morning_stop:
+  name: Katrin weekend morning stop
+  has_time: true
+  has_date: false
+heating_bedroom_weekday_morning_start:
+  name: Bedroom weekday morning start
+  has_time: true
+  has_date: false
+heating_bedroom_weekday_morning_stop:
+  name: Bedroom weekday morning stop
+  has_time: true
+  has_date: false
+heating_bedroom_weekend_morning_start:
+  name: Bedroom weekend morning start
+  has_time: true
+  has_date: false
+heating_bedroom_weekend_morning_stop:
+  name: Bedroom weekend morning stop
+  has_time: true
+  has_date: false
+heating_all_rooms_week_night_stop:
+  name: All rooms week night stop
+  has_time: true
+  has_date: false
+heating_all_rooms_weekend_night_stop:
+  name: All rooms weekend night stop
+  has_time: true
+  has_date: false

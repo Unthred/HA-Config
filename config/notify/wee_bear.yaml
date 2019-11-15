@@ -1,0 +1,5 @@
+- name: wee_bear
+  platform: group
+  title: Wee Bear
+  services:
+    - service: ios_claires_iphone

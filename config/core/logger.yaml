@@ -31,7 +31,7 @@ logs:
   homeassistant.components.alarm_control_panel: debug
   homeassistant.components.sensor.travisci: error
   homeassistant.components.device_tracker.unifi_direct: error
-  homeassistant.components.climate.heatmiserneo: info
+  homeassistant.components.climate.heatmiserneo: debug
   
   #custom_components: debug
   #pyupdate: error

@@ -109,11 +109,11 @@ all_media_players_off:
   - service: media_player.turn_off
     data:
       entity_id: media_player.marvin
-send_message:
-  alias: Send Message From Front End
-  sequence:
-    - service: notify.
-      data_template: {{ states('input_text.send_message') }}
+#send_message:
+#  alias: Send Message From Front End
+#  sequence:
+#    - service: notify.
+#      data_template: {{ states('input_text.send_message') }}
 kr_volume_up:
   alias: Volume Up
   sequence:

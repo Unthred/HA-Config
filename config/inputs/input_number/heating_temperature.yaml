@@ -4,20 +4,39 @@ heating_temperature:
   max: 25
   step: 1
   icon: mdi:thermometer
-
-server_fan_on_temperature:
-  name: Fan On
-  initial: 26
-  max: 35
-  min: 15
-  step: 0.5
-  icon: mdi:thermometer
-
-server_fan_off_temperature:
-  name: Fan Off
-  initial: 24
-  max: 30
-  min: 20
-  step: 0.5
-  icon: mdi:thermometer
-  
+vestibule_temperature:
+  name: Vestibule Temperature
+  min: 7
+  max: 25
+  step: 1
+  icon: mdi:home-thermometer
+livingroom_temperature:
+  name: Livingroom Temperature
+  min: 7
+  max: 25
+  step: 1
+  icon: mdi:home-thermometer
+office_temperature:
+  name: Office Temperature
+  min: 7
+  max: 25
+  step: 1
+  icon: mdi:home-thermometer
+kitchen_temperature:
+  name: Kitchen Temperature
+  min: 7
+  max: 25
+  step: 1
+  icon: mdi:home-thermometer
+katrin_temperature:
+  name: Katrin Temperature
+  min: 7
+  max: 25
+  step: 1
+  icon: mdi:home-thermometer
+bedroom_temperature:
+  name: Bedroom Temperature
+  min: 7
+  max: 25
+  step: 1
+  icon: mdi:home-thermometer
