@@ -1,0 +1,6 @@
+- platform: template
+  sensors:
+    time_with_seconds:
+      friendly_name: "Time With Seconds"
+      entity_id: sensor.time
+      value_template: "{{ as_timestamp(now()) | timestamp_custom('%H:%M:%S') }}"

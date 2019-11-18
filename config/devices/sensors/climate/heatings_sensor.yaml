@@ -1,0 +1,74 @@
+- platform: template
+  sensors:
+    vestibule_heating_on:
+      value_template: >
+        {% set day = 'weekday' if now().weekday() in range(5) else 'weekend' %}
+        {% set start = state_attr('input_datetime.heating_vestibule_%s_morning_start'%day, 'timestamp') | timestamp_custom('%H:%M', False) %}
+        {{ states('sensor.time') == start }}
+    vestibule_heating_off:
+      value_template: >
+        {% set time = states('sensor.time') %}
+        {% set day = 'weekday' if now().weekday() in range(5) else 'weekend' %}
+        {% set morning = state_attr('input_datetime.heating_vestibule_%s_morning_stop'%day, 'timestamp') | timestamp_custom('%H:%M', False) %}
+        {% set evening = state_attr('input_datetime.heating_vestibule_%s_evening_stop'%day, 'timestamp') | timestamp_custom('%H:%M', False) %}
+        {{ time == morning or time == evening }}
+    livingroom_heating_on:
+      value_template: >
+        {% set day = 'weekday' if now().weekday() in range(5) else 'weekend' %}
+        {% set start = state_attr('input_datetime.heating_livingroom_%s_morning_start'%day, 'timestamp') | timestamp_custom('%H:%M', False) %}
+        {{ states('sensor.time') == start }}
+    livingroom_heating_off:
+      value_template: >
+        {% set time = states('sensor.time') %}
+        {% set day = 'weekday' if now().weekday() in range(5) else 'weekend' %}
+        {% set morning = state_attr('input_datetime.heating_livingroom_%s_morning_stop'%day, 'timestamp') | timestamp_custom('%H:%M', False) %}
+        {% set evening = state_attr('input_datetime.heating_livingroom_%s_evening_stop'%day, 'timestamp') | timestamp_custom('%H:%M', False) %}
+        {{ time == morning or time == evening }}
+    office_heating_on:
+      value_template: >
+        {% set day = 'weekday' if now().weekday() in range(5) else 'weekend' %}
+        {% set start = state_attr('input_datetime.heating_office_%s_morning_start'%day, 'timestamp') | timestamp_custom('%H:%M', False) %}
+        {{ states('sensor.time') == start }}
+    office_heating_off:
+      value_template: >
+        {% set time = states('sensor.time') %}
+        {% set day = 'weekday' if now().weekday() in range(5) else 'weekend' %}
+        {% set morning = state_attr('input_datetime.heating_office_%s_morning_stop'%day, 'timestamp') | timestamp_custom('%H:%M', False) %}
+        {% set evening = state_attr('input_datetime.heating_office_%s_evening_stop'%day, 'timestamp') | timestamp_custom('%H:%M', False) %}
+        {{ time == morning or time == evening }}
+    kitchen_heating_on:
+      value_template: >
+        {% set day = 'weekday' if now().weekday() in range(5) else 'weekend' %}
+        {% set start = state_attr('input_datetime.heating_kitchen_%s_morning_start'%day, 'timestamp') | timestamp_custom('%H:%M', False) %}
+        {{ states('sensor.time') == start }}
+    kitchen_heating_off:
+      value_template: >
+        {% set time = states('sensor.time') %}
+        {% set day = 'weekday' if now().weekday() in range(5) else 'weekend' %}
+        {% set morning = state_attr('input_datetime.heating_kitchen_%s_morning_stop'%day, 'timestamp') | timestamp_custom('%H:%M', False) %}
+        {% set evening = state_attr('input_datetime.heating_kitchen_%s_evening_stop'%day, 'timestamp') | timestamp_custom('%H:%M', False) %}
+        {{ time == morning or time == evening }}
+    katrin_heating_on:
+      value_template: >
+        {% set day = 'weekday' if now().weekday() in range(5) else 'weekend' %}
+        {% set start = state_attr('input_datetime.heating_katrin_%s_morning_start'%day, 'timestamp') | timestamp_custom('%H:%M', False) %}
+        {{ states('sensor.time') == start }}
+    katrin_heating_off:
+      value_template: >
+        {% set time = states('sensor.time') %}
+        {% set day = 'weekday' if now().weekday() in range(5) else 'weekend' %}
+        {% set morning = state_attr('input_datetime.heating_katrin_%s_morning_stop'%day, 'timestamp') | timestamp_custom('%H:%M', False) %}
+        {% set evening = state_attr('input_datetime.heating_katrin_%s_evening_stop'%day, 'timestamp') | timestamp_custom('%H:%M', False) %}
+        {{ time == morning or time == evening }}
+    bedroom_heating_on:
+      value_template: >
+        {% set day = 'weekday' if now().weekday() in range(5) else 'weekend' %}
+        {% set start = state_attr('input_datetime.heating_bedroom_%s_morning_start'%day, 'timestamp') | timestamp_custom('%H:%M', False) %}
+        {{ states('sensor.time') == start }}
+    bedroom_heating_off:
+      value_template: >
+        {% set time = states('sensor.time') %}
+        {% set day = 'weekday' if now().weekday() in range(5) else 'weekend' %}
+        {% set morning = state_attr('input_datetime.heating_bedroom_%s_morning_stop'%day, 'timestamp') | timestamp_custom('%H:%M', False) %}
+        {% set evening = state_attr('input_datetime.heating_bedroom_%s_evening_stop'%day, 'timestamp') | timestamp_custom('%H:%M', False) %}
+        {{ time == morning or time == evening }}
