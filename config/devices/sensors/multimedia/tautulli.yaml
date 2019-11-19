@@ -1,3 +1,291 @@
 - platform: tautulli
   api_key: !secret tautulli_api_key
   host: !secret tautalli_host
+  monitored_conditions:
+    - stream_count
+    - stream_count_transcode
+    - stream_count_direct_play
+    - stream_count_direct_stream  
+    - lan_bandwidth
+    - wan_bandwidth
+    - total_bandwidth
+    - library_name
+    - full_title
+    - tagline
+    - title
+    - progress_percent
+    - summary
+    - container
+    - indexes
+    - libraries
+    - media_type   
+
+- platform: template
+  sensors:
+    plex_squiggley_activity:
+      friendly_name: "Squiggley Activity"
+      value_template: >
+        {{ states.sensor.tautulli.attributes.Squiggley.Activity }}
+    plex_squiggley_playing:
+      friendly_name: "Squiggley Playing"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes.Squiggley.full_title }}
+    plex_squiggley_stream_count:
+      friendly_name: "Squiggley Stream Count"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes.Squiggley.stream_count }}
+    plex_squiggley_stream_count_transcode:
+      friendly_name: "Squiggley Transcode Count"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes.Squiggley.stream_count_transcode }}
+    plex_squiggley_stream_count_direct_play:
+      friendly_name: "Squiggley Direct Play Count"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes.Squiggley.stream_count_direct_play }}
+    plex_squiggley_stream_count_direct_stream:
+      friendly_name: "Squiggley Direct Stream Count"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes.Squiggley.stream_count_direct_stream }}
+    plex_squiggley_lan_bandwidth:
+      friendly_name: "Squiggley Lan Bandwidth"
+      value_template: > 
+        {{ (states.sensor.tautulli.attributes.Squiggley.lan_bandwidth|float) / 1024 | round(2) }}
+      unit_of_measurement: Mbps
+    plex_squiggley_wan_bandwidth:
+      friendly_name: "Squiggley Wan Bandwidth"
+      value_template: > 
+        {{ (states.sensor.tautulli.attributes.Squiggley.wan_bandwidth|float) / 1024 | round(2) }}
+      unit_of_measurement: Mbps
+    plex_squiggley_total_bandwidth:
+      friendly_name: "Squiggley Total Bandwidth"
+      value_template: > 
+        {{ (states.sensor.tautulli.attributes.Squiggley.total_bandwidth|float) / 1024 | round(2) }}
+      unit_of_measurement: Mbps
+    plex_tamtoucan_gmail_com_activity:
+      friendly_name: "STU Activity"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes['tamtoucan@gmail.com'].Activity }}
+    plex_tamtoucan_gmail_com_playing:
+      friendly_name: "STU Playing"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes['tamtoucan@gmail.com'].full_title }}
+    plex_tamtoucan_gmail_com_stream_count:
+      friendly_name: "STU Stream Count"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes['tamtoucan@gmail.com'].stream_count }}
+    plex_tamtoucan_gmail_com_stream_count_transcode:
+      friendly_name: "STU Transcode Count"
+      value_template: >
+        {{ states.sensor.tautulli.attributes['tamtoucan@gmail.com'].stream_count_transcode }}
+    plex_tamtoucan_gmail_com_stream_count_direct_play:
+      friendly_name: "STU Direct Play Count"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes['tamtoucan@gmail.com'].stream_count_direct_play }}
+    plex_tamtoucan_gmail_com_stream_count_direct_stream:
+      friendly_name: "STU Direct Stream Count"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes['tamtoucan@gmail.com'].stream_count_direct_stream }}
+    plex_tamtoucan_gmail_com_lan_bandwidth:
+      friendly_name: "STU Lan Bandwidth"
+      value_template: > 
+        {{ (states.sensor.tautulli.attributes['tamtoucan@gmail.com'].lan_bandwidth|float) / 1024 | round(2) }}
+      unit_of_measurement: Mbps
+    plex_tamtoucan_gmail_com_wan_bandwidth:
+      friendly_name: "STU Wan Bandwidth"
+      value_template: > 
+        {{ (states.sensor.tautulli.attributes['tamtoucan@gmail.com'].wan_bandwidth|float) / 1024 | round(2) }}
+      unit_of_measurement: Mbps
+    plex_tamtoucan_gmail_com_total_bandwidth:
+      friendly_name: "STU Total Bandwidth"
+      value_template: > 
+        {{ (states.sensor.tautulli.attributes['tamtoucan@gmail.com'].total_bandwidth|float) / 1024 | round(2) }}
+      unit_of_measurement: Mbps
+    plex_savage_rax_gmail_com_activity:
+      friendly_name: "Richard Activity"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes['savage.rax@gmail.com'].Activity }}
+    plex_savage_rax_gmail_com_playing:
+      friendly_name: "Richard Playing"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes['savage.rax@gmail.com'].full_title }}
+    plex_savage_rax_gmail_com_stream_count:
+      friendly_name: "Richard Stream Count"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes['savage.rax@gmail.com'].stream_count }}
+    plex_savage_rax_gmail_com_stream_count_transcode:
+      friendly_name: "Richard Transcode Count"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes['savage.rax@gmail.com'].stream_count_transcode }}
+    plex_savage_rax_gmail_com_stream_count_direct_play:
+      friendly_name: "Richard Direct Play Count"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes['savage.rax@gmail.com'].stream_count_direct_play }}
+    plex_savage_rax_gmail_com_stream_count_direct_stream:
+      friendly_name: "Richard Direct Stream Count"
+      value_template: >
+        {{ states.sensor.tautulli.attributes['savage.rax@gmail.com'].stream_count_direct_stream }}
+    plex_savage_rax_gmail_com_lan_bandwidth:
+      friendly_name: "Richard Lan Bandwidth"
+      value_template: >
+        {{ (states.sensor.tautulli.attributes['savage.rax@gmail.com'].lan_bandwidth|float) / 1024 | round(2) }}
+      unit_of_measurement: Mbps
+    plex_savage_rax_gmail_com_wan_bandwidth:
+      friendly_name: "Richard Wan Bandwidth"
+      value_template: >
+        {{ (states.sensor.tautulli.attributes['savage.rax@gmail.com'].wan_bandwidth|float) / 1024 | round(2) }}
+      unit_of_measurement: Mbps
+    plex_savage_rax_gmail_com_total_bandwidth:
+      friendly_name: "Richard Total Bandwidth"
+      value_template: > 
+        {{ (states.sensor.tautulli.attributes['savage.rax@gmail.com'].total_bandwidth|float) / 1024 | round(2) }}
+      unit_of_measurement: Mbps
+    plex_mark_scottishclimbs_com_activity:
+      friendly_name: "Mark Activity"
+      value_template: >
+        {{ states.sensor.tautulli.attributes['mark+plex@scottishclimbs.com'].Activity }}
+    plex_mark_scottishclimbs_com_playing:
+      friendly_name: "Mark Playing"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes['mark+plex@scottishclimbs.com'].full_title }}
+    plex_mark_scottishclimbs_com_stream_count:
+      friendly_name: "Mark Stream Count"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes['mark+plex@scottishclimbs.com'].stream_count }}
+    plex_mark_scottishclimbs_com_stream_count_transcode:
+      friendly_name: "Mark Transcode Count"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes['mark+plex@scottishclimbs.com'].stream_count_transcode }}
+    plex_mark_scottishclimbs_com_stream_count_direct_play:
+      friendly_name: "Mark Direct Play Count"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes['mark+plex@scottishclimbs.com'].stream_count_direct_play }}
+    plex_mark_scottishclimbs_com_stream_count_direct_stream:
+      friendly_name: "Mark Direct Stream Count"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes['mark+plex@scottishclimbs.com'].stream_count_direct_stream }}
+    plex_mark_scottishclimbs_com_lan_bandwidth:
+      friendly_name: "Mark Lan Bandwidth"
+      value_template: > 
+        {{ (states.sensor.tautulli.attributes['mark+plex@scottishclimbs.com'].lan_bandwidth|float) / 1024 | round(2) }}
+      unit_of_measurement: Mbps
+    plex_mark_scottishclimbs_com_wan_bandwidth:
+      friendly_name: "Mark Wan Bandwidth"
+      value_template: > 
+        {{ (states.sensor.tautulli.attributes['mark+plex@scottishclimbs.com'].wan_bandwidth|float) / 1024 | round(2) }}
+      unit_of_measurement: Mbps
+    plex_mark_scottishclimbs_com_total_bandwidth:
+      friendly_name: "Mark Total Bandwidth"
+      value_template: > 
+        {{ (states.sensor.tautulli.attributes['mark+plex@scottishclimbs.com'].total_bandwidth|float) / 1024 | round(2) }}
+      unit_of_measurement: Mbps
+    plex_zerojones23_gmail_com_activity:
+      friendly_name: "Zero Activity"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes['zerojones23@gmail.com'].Activity }}
+    plex_zerojones23_gmail_com_playing:
+      friendly_name: "Zero Playing"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes['zerojones23@gmail.com'].full_title }}
+    plex_zerojones23_gmail_com_stream_count:
+      friendly_name: "Zero Stream Count"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes['zerojones23@gmail.com'].stream_count }}
+    plex_zerojones23_gmail_com_stream_count_transcode:
+      friendly_name: "Zero Transcode Count"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes['zerojones23@gmail.com'].stream_count_transcode }}
+    plex_zerojones23_gmail_com_stream_count_direct_play:
+      friendly_name: "Zero Direct Play Count"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes['zerojones23@gmail.com'].stream_count_direct_play }}
+    plex_zerojones23_gmail_com_stream_count_direct_stream:
+      friendly_name: "Zero Direct Stream Count"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes['zerojones23@gmail.com'].stream_count_direct_stream }}
+    plex_zerojones23_gmail_com_lan_bandwidth:
+      friendly_name: "Zero Lan Bandwidth"
+      value_template: > 
+        {{ (states.sensor.tautulli.attributes['zerojones23@gmail.com'].lan_bandwidth|float) / 1024 | round(2) }}
+      unit_of_measurement: Mbps
+    plex_zerojones23_gmail_com_wan_bandwidth:
+      friendly_name: "Zero Wan Bandwidth"
+      value_template: > 
+        {{ (states.sensor.tautulli.attributes['zerojones23@gmail.com'].wan_bandwidth|float) / 1024 | round(2) }}
+      unit_of_measurement: Mbps
+    plex_zerojones23_gmail_com_total_bandwidth:
+      friendly_name: "Zero Total Bandwidth"
+      value_template: > 
+        {{ (states.sensor.tautulli.attributes['zerojones23@gmail.com'].total_bandwidth|float) / 1024 | round(2) }}
+      unit_of_measurement: Mbps
+    plex_stevoid4_gmail_com_activity:
+      friendly_name: "Stevo Activity"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes['stevoid4@gmail.com'].Activity }}
+    plex_stevoid4_gmail_com_playing:
+      friendly_name: "Stevo Playing"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes['stevoid4@gmail.com'].full_title }}
+    plex_stevoid4_gmail_com_stream_count:
+      friendly_name: "Stevo Stream Count"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes['stevoid4@gmail.com'].stream_count }}
+    plex_stevoid4_gmail_com_stream_count_transcode:
+      friendly_name: "Stevo Transcode Count"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes['stevoid4@gmail.com'].stream_count_transcode }}
+    plex_stevoid4_gmail_com_stream_count_direct_play:
+      friendly_name: "Stevo Direct Play Count"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes['stevoid4@gmail.com'].stream_count_direct_play }}
+    plex_stevoid4_gmail_com_stream_count_direct_stream:
+      friendly_name: "Stevo Direct Stream Count"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes['stevoid4@gmail.com'].stream_count_direct_stream }}
+    plex_stevoid4_gmail_com_lan_bandwidth:
+      friendly_name: "Stevo Lan Bandwidth"
+      value_template: > 
+        {{ (states.sensor.tautulli.attributes['stevoid4@gmail.com'].lan_bandwidth|float) / 1024 | round(2) }}
+      unit_of_measurement: Mbps
+    plex_stevoid4_gmail_com_wan_bandwidth:
+      friendly_name: "Stevo Wan Bandwidth"
+      value_template: > 
+        {{ (states.sensor.tautulli.attributes['stevoid4@gmail.com'].wan_bandwidth|float) / 1024 | round(2) }}
+      unit_of_measurement: Mbps
+    plex_stevoid4_gmail_com_total_bandwidth:
+      friendly_name: "Stevo Total Bandwidth"
+      value_template: > 
+        {{ (states.sensor.tautulli.attributes['stevoid4@gmail.com'].total_bandwidth|float) / 1024 | round(2) }}
+      unit_of_measurement: Mbps
+    plex_stream_count:
+      friendly_name: "Stream Count"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes.stream_count }}
+    plex_stream_count_transcode:
+      friendly_name: "Transcode Count"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes.stream_count_transcode }}
+    plex_stream_count_direct_play:
+      friendly_name: "Direct Play Count"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes.stream_count_direct_play }}
+    plex_stream_count_direct_stream:
+      friendly_name: "Direct Stream Count"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes.stream_count_direct_stream }}
+    plex_lan_bandwidth:
+      friendly_name: "Lan Bandwidth"
+      value_template: > 
+        {{ (states.sensor.tautulli.attributes.lan_bandwidth|float) / 1024 | round(2) }}
+      unit_of_measurement: Mbps
+    plex_wan_bandwidth:
+      friendly_name: "Wan Bandwidth"
+      value_template: > 
+        {{ (states.sensor.tautulli.attributes.wan_bandwidth|float) / 1024 | round(2) }}
+      unit_of_measurement: Mbps
+    plex_total_bandwidth:
+      friendly_name: "Total Bandwidth"
+      value_template: > 
+        {{ (states.sensor.tautulli.attributes.total_bandwidth|float) / 1024 | round(2) }}
+      unit_of_measurement: Mbps
+
+

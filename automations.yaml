@@ -294,13 +294,17 @@
   - platform: template
     value_template: '{{ states.sensor.time.state == (states.input_datetime.slow_cooker_start.attributes.timestamp
       | int | timestamp_custom("%H:%M", False)) }}'
+  condition:
+  - condition: state
+    entity_id: input_boolean.slow_cooker_timer
+    state: 'on'
   action:
-  - service: switch.turn_on
-    data:
+  - data:
       entity_id: switch.ambilight_relay
-  - service: notify.android_squiggle_pad
-    data:
+    service: switch.turn_on
+  - data:
       message: Turning on the slow cooker
+    service: notify.android_squiggle_pad
 - id: 'Slow Cooker: Turn Off Slow Cooker at specified time'
   alias: 'Slow Cooker: Turn Off Slow Cooker at specified time'
   trigger:
@@ -335,57 +339,75 @@
   - data:
       entity_id: input_boolean.livingroom_on
     service: homeassistant.toggle
-- id: 'Heating: Active/deactivate heating schedule for room'    
+- id: 'Heating: Active/deactivate heating schedule for room'
   alias: 'Heating: Active/deactivate heating schedule for room'
   trigger:
   - platform: state
-    entity_id: sensor.vestibule_heating_on, sensor.vestibule_heating_off, sensor.livingroom_heating_on, sensor.livingroom_heating_off, sensor.office_heating_on, sensor.office_heating_off, sensor.kitchen_heating_on, sensor.kitchen_heating_off, sensor.katrin_heating_on, sensor.katrin_heating_off, sensor.bedroom_heating_on, sensor.bedroom_heating_off
+    entity_id: sensor.vestibule_heating_on, sensor.vestibule_heating_off, sensor.livingroom_heating_on,
+      sensor.livingroom_heating_off, sensor.office_heating_on, sensor.office_heating_off,
+      sensor.kitchen_heating_on, sensor.kitchen_heating_off, sensor.katrin_heating_on,
+      sensor.katrin_heating_off, sensor.bedroom_heating_on, sensor.bedroom_heating_off
     to: 'True'
   action:
-    service_template: >
-      input_boolean.turn_{{ trigger.entity_id.split('_')[-1] }}
-    data_template: 
-      entity_id: >
-        {% if trigger.entity_id.split('_')[2] == 'on'  %}
-          input_boolean.{{ trigger.entity_id.split('.')[1].replace('heating_on', 'schedule_active') }}
-        {% else %}
-          input_boolean.{{ trigger.entity_id.split('.')[1].replace('heating_off', 'schedule_active') }}
-        {% endif %}
+    service_template: 'input_boolean.turn_{{ trigger.entity_id.split(''_'')[-1] }}'
+    data_template:
+      entity_id: "{% if trigger.entity_id.split('_')[2] == 'on'  %}\n  input_boolean.{{\
+        \ trigger.entity_id.split('.')[1].replace('heating_on', 'schedule_active')\
+        \ }}\n{% else %}\n  input_boolean.{{ trigger.entity_id.split('.')[1].replace('heating_off',\
+        \ 'schedule_active') }}\n{% endif %}\n"
 - id: 'Heating: Turn on when schedule is active and house is occupied'
   alias: 'Heating: Turn on when schedule is active and house is occupied'
   trigger:
     platform: state
-    entity_id: input_boolean.vestibule_schedule_active, input_boolean.livingroom_schedule_active, input_boolean.office_schedule_active, input_boolean.kitchen_schedule_active, input_boolean.katrin_schedule_active, input_boolean.bedroom_schedule_active
+    entity_id: input_boolean.vestibule_schedule_active, input_boolean.livingroom_schedule_active,
+      input_boolean.office_schedule_active, input_boolean.kitchen_schedule_active,
+      input_boolean.katrin_schedule_active, input_boolean.bedroom_schedule_active
     to: 'on'
   condition:
     condition: and
     conditions:
-      - condition: state
-        entity_id: sensor.house_occupancy_status
-        state: 'on'
-      - condition: template
-        value_template: "{{is_state('input_boolean.'+trigger.entity_id.split('_')[1].replace('boolean.', '')+'_schedule_active', 'on')}}"
+    - condition: state
+      entity_id: sensor.house_occupancy_status
+      state: 'on'
+    - condition: template
+      value_template: >
+        {{ is_state('input_boolean.'+trigger.entity_id.split('_')[1].replace('boolean.','')+'_schedule_active', 'on')}}
   action:
     service: climate.set_temperature
     data_template:
-      entity_id: "climate.{{trigger.entity_id.split('_')[1].replace('boolean.', '')}}"
-      temperature: "{{ states('input_number.'+trigger.entity_id.split('_')[1].replace('boolean.', '')+'_temperature') }}"
+      entity_id: climate.{{trigger.entity_id.split('_')[1].replace('boolean.', '')}}
+      temperature: '{{ states(''input_number.''+trigger.entity_id.split(''_'')[1].replace(''boolean.'',
+        '''')+''_temperature'') }}'
+- id: 'Heating: Turn on when schedule is active and Someone Arrives Home'
+  alias: 'Heating: Turn on when schedule is active and Someone Arrives Home'
+  trigger:
+    platform: state
+    entity_id: sensor.house_occupancy_status
+    to: 'on'
+  action:
+    service: notify.android_squiggle_pad
+    data:
+      message: Need to work out which rooms we shout turn the heating on in
+      title: Heating Automation
 - id: 'Heating: Turn off when schedule becomes inactive'
   alias: 'Heating: Turn off when schedule becomes inactive'
   trigger:
     platform: state
-    entity_id: input_boolean.vestibule_schedule_active, input_boolean.livingroom_schedule_active, input_boolean.office_schedule_active, input_boolean.kitchen_schedule_active, input_boolean.katrin_schedule_active, input_boolean.bedroom_schedule_active
+    entity_id: input_boolean.vestibule_schedule_active, input_boolean.livingroom_schedule_active,
+      input_boolean.office_schedule_active, input_boolean.kitchen_schedule_active,
+      input_boolean.katrin_schedule_active, input_boolean.bedroom_schedule_active
     to: 'off'
   action:
     service: climate.set_temperature
     data_template:
-      entity_id: "climate.{{ trigger.entity_id.split('_')[1].replace('boolean.', '')}}"
+      entity_id: climate.{{ trigger.entity_id.split('_')[1].replace('boolean.', '')}}
       temperature: 7
 - id: 'Heating: Turn All Heating off week day nights'
   alias: 'Heating: Turn All Heating off week day nights'
   trigger:
     platform: template
-    value_template: '{{ states(''sensor.time'') == (states.input_datetime.heating_all_rooms_week_night_stop.attributes.timestamp | int | timestamp_custom(''%H:%M'', False)) }}'
+    value_template: '{{ states(''sensor.time'') == (states.input_datetime.heating_all_rooms_week_night_stop.attributes.timestamp
+      | int | timestamp_custom(''%H:%M'', False)) }}'
   condition:
     condition: time
     weekday:
@@ -402,7 +424,8 @@
   alias: 'Heating: Turn All Heating off weekend nights'
   trigger:
     platform: template
-    value_template: '{{ states(''sensor.time'') == (states.input_datetime.heating_all_rooms_weekend_night_stop.attributes.timestamp | int | timestamp_custom(''%H:%M'', False)) }}'
+    value_template: '{{ states(''sensor.time'') == (states.input_datetime.heating_all_rooms_weekend_night_stop.attributes.timestamp
+      | int | timestamp_custom(''%H:%M'', False)) }}'
   condition:
     condition: time
     weekday:
@@ -412,4 +435,12 @@
     service: script.turn_on
     data_template:
       entity_id: script.turn_heating_off
-
+- id: Notify Selected Person with User Inputed Message
+  alias: Notify Selected Person with User Inputed Message
+  trigger:
+    platform: state
+    entity_id: input_select.home_users
+  action:
+  - service: notify.squiggley
+    data_template:
+      message: '{{states.input_text.send_message}}'

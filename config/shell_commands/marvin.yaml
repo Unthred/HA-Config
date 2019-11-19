@@ -1,0 +1,104 @@
+# Marvin Remote
+marvin_up:
+  alias: ''
+  sequence:
+    - alias: 'Marvin Remote Up'
+      data:
+        entity_id: media_player.marvin
+        method: Input.Up
+      service: media_player.kodi_call_method
+
+marvin_down:
+  alias: ''
+  sequence:
+    - alias: 'Marvin Remote Down'
+      data:
+        entity_id: media_player.marvin
+        method: Input.Down
+      service: media_player.kodi_call_method
+
+marvin_left:
+  alias: ''
+  sequence:
+    - alias: 'Marvin Remote Left'
+      data:
+        entity_id: media_player.marvin
+        method: Input.Left
+      service: media_player.kodi_call_method
+
+marvin_right:
+  alias: ''
+  sequence:
+    - alias: 'Marvin Remote Right'
+      data:
+        entity_id: media_player.marvin
+        method: Input.Right
+      service: media_player.kodi_call_method
+
+marvin_select:
+  alias: ''
+  sequence:
+    - alias: 'Marvin Remote Select'
+      data:
+        entity_id: media_player.marvin
+        method: Input.Select
+      service: media_player.kodi_call_method
+
+marvin_home:
+  alias: ''
+  sequence:
+    - alias: 'Marvin Remote Home'
+      data:
+        entity_id: media_player.marvin
+        method: Input.Home
+      service: media_player.kodi_call_method
+
+marvin_back:
+  alias: ''
+  sequence:
+    - alias: 'Marvin Remote Back'
+      data:
+        entity_id: media_player.marvin
+        method: Input.Back
+      service: media_player.kodi_call_method
+
+marvin_next:
+  alias: ''
+  sequence:
+    - alias: 'Marvin Remote Next'
+      data:
+        entity_id: media_player.marvin
+      service: media_player.media_next_track
+
+marvin_prev:
+  alias: ''
+  sequence:
+    - alias: 'Marvin Remote Prev'
+      data:
+        entity_id: media_player.marvin
+      service: media_player.media_previous_track
+
+marvin_play_pause:
+  alias: ''
+  sequence:
+    - alias: 'Marvin Remote PlayPause'
+      data:
+        entity_id: media_player.marvin
+      service: media_player.media_play_pause
+
+marvin_stop:
+  alias: ''
+  sequence:
+    - alias: 'Marvin Remote Stop'
+      data:
+        entity_id: media_player.marvin
+      service: media_player.media_stop
+
+marvin_playlist:
+  alias: ''
+  sequence:
+    - alias: 'Marvin Remote Playlist'
+      data:
+        entity_id: media_player.marvin
+        method: Audio.Details.Album
+      service: media_player.kodi_call_method
