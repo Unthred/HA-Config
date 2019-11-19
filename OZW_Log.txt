@@ -2277,3 +2277,403 @@
 2019-11-19 18:58:29.465 Detail, Node005, Notification: ValueChanged
 2019-11-19 18:58:29.468 Detail, Node005, Notification: ValueChanged
 2019-11-19 18:58:29.470 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:58:38.462 Detail, Node005,   Received: 0x01, 0x14, 0x00, 0x04, 0x00, 0x05, 0x0e, 0x32, 0x02, 0x21, 0x34, 0x00, 0x00, 0x00, 0x0c, 0x00, 0x01, 0x00, 0x00, 0x00, 0x0b, 0xc7
+2019-11-19 18:58:38.462 Detail, 
+2019-11-19 18:58:38.462 Detail, Node005, Refreshed Value: old value=false, new value=false, type=bool
+2019-11-19 18:58:38.462 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:58:38.462 Info, Node005, Received Meter report from node 5: Power=1.2W
+2019-11-19 18:58:38.462 Detail, Node005, Refreshed Value: old value=1.0, new value=1.2, type=decimal
+2019-11-19 18:58:38.462 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:58:38.462 Info, Node005,     Previous value was 1.1W, received 1 seconds ago.
+2019-11-19 18:58:38.462 Detail, Node005, Refreshed Value: old value=0.9, new value=1.1, type=decimal
+2019-11-19 18:58:38.463 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:58:38.463 Detail, Node005, Refreshed Value: old value=1, new value=1, type=int
+2019-11-19 18:58:38.463 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:58:38.463 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:58:38.467 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:58:38.471 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:58:38.473 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:58:41.462 Detail, Node005,   Received: 0x01, 0x14, 0x00, 0x04, 0x00, 0x05, 0x0e, 0x32, 0x02, 0x21, 0x34, 0x00, 0x00, 0x00, 0x0b, 0x00, 0x01, 0x00, 0x00, 0x00, 0x0b, 0xc0
+2019-11-19 18:58:41.462 Detail, 
+2019-11-19 18:58:41.462 Detail, Node005, Refreshed Value: old value=false, new value=false, type=bool
+2019-11-19 18:58:41.462 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:58:41.462 Info, Node005, Received Meter report from node 5: Power=1.1W
+2019-11-19 18:58:41.462 Detail, Node005, Refreshed Value: old value=1.2, new value=1.1, type=decimal
+2019-11-19 18:58:41.462 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:58:41.462 Info, Node005,     Previous value was 1.1W, received 1 seconds ago.
+2019-11-19 18:58:41.462 Detail, Node005, Refreshed Value: old value=1.1, new value=1.1, type=decimal
+2019-11-19 18:58:41.462 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:58:41.462 Detail, Node005, Refreshed Value: old value=1, new value=1, type=int
+2019-11-19 18:58:41.462 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:58:41.462 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:58:41.464 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:58:41.465 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:58:41.467 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:58:44.462 Detail, Node005,   Received: 0x01, 0x14, 0x00, 0x04, 0x00, 0x05, 0x0e, 0x32, 0x02, 0x21, 0x34, 0x00, 0x00, 0x00, 0x09, 0x00, 0x01, 0x00, 0x00, 0x00, 0x0a, 0xc3
+2019-11-19 18:58:44.462 Detail, 
+2019-11-19 18:58:44.462 Detail, Node005, Refreshed Value: old value=false, new value=false, type=bool
+2019-11-19 18:58:44.462 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:58:44.462 Info, Node005, Received Meter report from node 5: Power=0.9W
+2019-11-19 18:58:44.462 Detail, Node005, Refreshed Value: old value=1.1, new value=0.9, type=decimal
+2019-11-19 18:58:44.462 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:58:44.462 Info, Node005,     Previous value was 1.0W, received 1 seconds ago.
+2019-11-19 18:58:44.462 Detail, Node005, Refreshed Value: old value=1.1, new value=1.0, type=decimal
+2019-11-19 18:58:44.462 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:58:44.462 Detail, Node005, Refreshed Value: old value=1, new value=1, type=int
+2019-11-19 18:58:44.462 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:58:44.462 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:58:44.466 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:58:44.469 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:58:44.471 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:58:45.962 Detail, Node005,   Received: 0x01, 0x14, 0x00, 0x04, 0x00, 0x05, 0x0e, 0x32, 0x02, 0x21, 0x34, 0x00, 0x00, 0x00, 0x08, 0x00, 0x01, 0x00, 0x00, 0x00, 0x09, 0xc1
+2019-11-19 18:58:45.962 Detail, 
+2019-11-19 18:58:45.962 Detail, Node005, Refreshed Value: old value=false, new value=false, type=bool
+2019-11-19 18:58:45.962 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:58:45.962 Info, Node005, Received Meter report from node 5: Power=0.8W
+2019-11-19 18:58:45.962 Detail, Node005, Refreshed Value: old value=0.9, new value=0.8, type=decimal
+2019-11-19 18:58:45.962 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:58:45.962 Info, Node005,     Previous value was 0.9W, received 1 seconds ago.
+2019-11-19 18:58:45.962 Detail, Node005, Refreshed Value: old value=1.0, new value=0.9, type=decimal
+2019-11-19 18:58:45.962 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:58:45.962 Detail, Node005, Refreshed Value: old value=1, new value=1, type=int
+2019-11-19 18:58:45.962 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:58:45.962 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:58:45.965 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:58:45.968 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:58:45.970 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:58:47.462 Detail, Node005,   Received: 0x01, 0x14, 0x00, 0x04, 0x00, 0x05, 0x0e, 0x32, 0x02, 0x21, 0x34, 0x00, 0x00, 0x00, 0x0a, 0x00, 0x01, 0x00, 0x00, 0x00, 0x08, 0xc2
+2019-11-19 18:58:47.462 Detail, 
+2019-11-19 18:58:47.462 Detail, Node005, Refreshed Value: old value=false, new value=false, type=bool
+2019-11-19 18:58:47.462 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:58:47.462 Info, Node005, Received Meter report from node 5: Power=1.0W
+2019-11-19 18:58:47.462 Detail, Node005, Refreshed Value: old value=0.8, new value=1.0, type=decimal
+2019-11-19 18:58:47.462 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:58:47.462 Info, Node005,     Previous value was 0.8W, received 1 seconds ago.
+2019-11-19 18:58:47.462 Detail, Node005, Refreshed Value: old value=0.9, new value=0.8, type=decimal
+2019-11-19 18:58:47.462 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:58:47.462 Detail, Node005, Refreshed Value: old value=1, new value=1, type=int
+2019-11-19 18:58:47.462 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:58:47.462 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:58:47.466 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:58:47.470 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:58:47.472 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:58:54.962 Detail, Node005,   Received: 0x01, 0x14, 0x00, 0x04, 0x00, 0x05, 0x0e, 0x32, 0x02, 0x21, 0x34, 0x00, 0x00, 0x00, 0x0b, 0x00, 0x01, 0x00, 0x00, 0x00, 0x0a, 0xc1
+2019-11-19 18:58:54.962 Detail, 
+2019-11-19 18:58:54.962 Detail, Node005, Refreshed Value: old value=false, new value=false, type=bool
+2019-11-19 18:58:54.962 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:58:54.962 Info, Node005, Received Meter report from node 5: Power=1.1W
+2019-11-19 18:58:54.962 Detail, Node005, Refreshed Value: old value=1.0, new value=1.1, type=decimal
+2019-11-19 18:58:54.962 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:58:54.962 Info, Node005,     Previous value was 1.0W, received 1 seconds ago.
+2019-11-19 18:58:54.962 Detail, Node005, Refreshed Value: old value=0.8, new value=1.0, type=decimal
+2019-11-19 18:58:54.962 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:58:54.962 Detail, Node005, Refreshed Value: old value=1, new value=1, type=int
+2019-11-19 18:58:54.962 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:58:54.962 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:58:54.966 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:58:54.970 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:58:54.973 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:59:03.962 Detail, Node005,   Received: 0x01, 0x14, 0x00, 0x04, 0x00, 0x05, 0x0e, 0x32, 0x02, 0x21, 0x34, 0x00, 0x00, 0x00, 0x09, 0x00, 0x01, 0x00, 0x00, 0x00, 0x0a, 0xc3
+2019-11-19 18:59:03.962 Detail, 
+2019-11-19 18:59:03.962 Detail, Node005, Refreshed Value: old value=false, new value=false, type=bool
+2019-11-19 18:59:03.962 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:59:03.962 Info, Node005, Received Meter report from node 5: Power=0.9W
+2019-11-19 18:59:03.962 Detail, Node005, Refreshed Value: old value=1.1, new value=0.9, type=decimal
+2019-11-19 18:59:03.962 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:59:03.962 Info, Node005,     Previous value was 1.0W, received 1 seconds ago.
+2019-11-19 18:59:03.962 Detail, Node005, Refreshed Value: old value=1.0, new value=1.0, type=decimal
+2019-11-19 18:59:03.962 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:59:03.962 Detail, Node005, Refreshed Value: old value=1, new value=1, type=int
+2019-11-19 18:59:03.962 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:59:03.962 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:59:03.966 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:59:03.971 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:59:03.972 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:59:09.963 Detail, Node005,   Received: 0x01, 0x14, 0x00, 0x04, 0x00, 0x05, 0x0e, 0x32, 0x02, 0x21, 0x34, 0x00, 0x00, 0x00, 0x0b, 0x00, 0x01, 0x00, 0x00, 0x00, 0x09, 0xc2
+2019-11-19 18:59:09.963 Detail, 
+2019-11-19 18:59:09.963 Detail, Node005, Refreshed Value: old value=false, new value=false, type=bool
+2019-11-19 18:59:09.963 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:59:09.963 Info, Node005, Received Meter report from node 5: Power=1.1W
+2019-11-19 18:59:09.963 Detail, Node005, Refreshed Value: old value=0.9, new value=1.1, type=decimal
+2019-11-19 18:59:09.963 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:59:09.963 Info, Node005,     Previous value was 0.9W, received 1 seconds ago.
+2019-11-19 18:59:09.963 Detail, Node005, Refreshed Value: old value=1.0, new value=0.9, type=decimal
+2019-11-19 18:59:09.963 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:59:09.963 Detail, Node005, Refreshed Value: old value=1, new value=1, type=int
+2019-11-19 18:59:09.963 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:59:09.963 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:59:09.967 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:59:09.970 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:59:09.974 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:59:23.463 Detail, Node005,   Received: 0x01, 0x14, 0x00, 0x04, 0x00, 0x05, 0x0e, 0x32, 0x02, 0x21, 0x34, 0x00, 0x00, 0x00, 0x09, 0x00, 0x01, 0x00, 0x00, 0x00, 0x0a, 0xc3
+2019-11-19 18:59:23.463 Detail, 
+2019-11-19 18:59:23.463 Detail, Node005, Refreshed Value: old value=false, new value=false, type=bool
+2019-11-19 18:59:23.463 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:59:23.463 Info, Node005, Received Meter report from node 5: Power=0.9W
+2019-11-19 18:59:23.463 Detail, Node005, Refreshed Value: old value=1.1, new value=0.9, type=decimal
+2019-11-19 18:59:23.463 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:59:23.463 Info, Node005,     Previous value was 1.0W, received 1 seconds ago.
+2019-11-19 18:59:23.463 Detail, Node005, Refreshed Value: old value=0.9, new value=1.0, type=decimal
+2019-11-19 18:59:23.463 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:59:23.463 Detail, Node005, Refreshed Value: old value=1, new value=1, type=int
+2019-11-19 18:59:23.463 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:59:23.463 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:59:23.467 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:59:23.470 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:59:23.472 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:59:26.464 Detail, Node005,   Received: 0x01, 0x14, 0x00, 0x04, 0x00, 0x05, 0x0e, 0x32, 0x02, 0x21, 0x34, 0x00, 0x00, 0x00, 0x08, 0x00, 0x01, 0x00, 0x00, 0x00, 0x08, 0xc0
+2019-11-19 18:59:26.464 Detail, 
+2019-11-19 18:59:26.464 Detail, Node005, Refreshed Value: old value=false, new value=false, type=bool
+2019-11-19 18:59:26.464 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:59:26.464 Info, Node005, Received Meter report from node 5: Power=0.8W
+2019-11-19 18:59:26.464 Detail, Node005, Refreshed Value: old value=0.9, new value=0.8, type=decimal
+2019-11-19 18:59:26.464 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:59:26.464 Info, Node005,     Previous value was 0.8W, received 1 seconds ago.
+2019-11-19 18:59:26.464 Detail, Node005, Refreshed Value: old value=1.0, new value=0.8, type=decimal
+2019-11-19 18:59:26.464 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:59:26.464 Detail, Node005, Refreshed Value: old value=1, new value=1, type=int
+2019-11-19 18:59:26.464 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:59:26.464 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:59:26.467 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:59:26.471 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:59:26.473 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:59:27.964 Detail, Node005,   Received: 0x01, 0x14, 0x00, 0x04, 0x00, 0x05, 0x0e, 0x32, 0x02, 0x21, 0x34, 0x00, 0x00, 0x00, 0x0b, 0x00, 0x01, 0x00, 0x00, 0x00, 0x08, 0xc3
+2019-11-19 18:59:27.964 Detail, 
+2019-11-19 18:59:27.964 Detail, Node005, Refreshed Value: old value=false, new value=false, type=bool
+2019-11-19 18:59:27.964 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:59:27.964 Info, Node005, Received Meter report from node 5: Power=1.1W
+2019-11-19 18:59:27.964 Detail, Node005, Refreshed Value: old value=0.8, new value=1.1, type=decimal
+2019-11-19 18:59:27.964 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:59:27.964 Info, Node005,     Previous value was 0.8W, received 1 seconds ago.
+2019-11-19 18:59:27.964 Detail, Node005, Refreshed Value: old value=0.8, new value=0.8, type=decimal
+2019-11-19 18:59:27.964 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:59:27.964 Detail, Node005, Refreshed Value: old value=1, new value=1, type=int
+2019-11-19 18:59:27.964 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:59:27.964 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:59:27.970 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:59:27.975 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:59:27.977 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:59:42.964 Detail, Node005,   Received: 0x01, 0x14, 0x00, 0x04, 0x00, 0x05, 0x0e, 0x32, 0x02, 0x21, 0x34, 0x00, 0x00, 0x00, 0x08, 0x00, 0x01, 0x00, 0x00, 0x00, 0x0a, 0xc2
+2019-11-19 18:59:42.964 Detail, 
+2019-11-19 18:59:42.964 Detail, Node005, Refreshed Value: old value=false, new value=false, type=bool
+2019-11-19 18:59:42.964 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:59:42.964 Info, Node005, Received Meter report from node 5: Power=0.8W
+2019-11-19 18:59:42.964 Detail, Node005, Refreshed Value: old value=1.1, new value=0.8, type=decimal
+2019-11-19 18:59:42.964 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:59:42.964 Info, Node005,     Previous value was 1.0W, received 1 seconds ago.
+2019-11-19 18:59:42.964 Detail, Node005, Refreshed Value: old value=0.8, new value=1.0, type=decimal
+2019-11-19 18:59:42.964 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:59:42.964 Detail, Node005, Refreshed Value: old value=1, new value=1, type=int
+2019-11-19 18:59:42.964 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:59:42.964 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:59:42.969 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:59:42.974 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:59:42.976 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:59:47.464 Detail, Node005,   Received: 0x01, 0x14, 0x00, 0x04, 0x00, 0x05, 0x0e, 0x32, 0x02, 0x21, 0x34, 0x00, 0x00, 0x00, 0x0a, 0x00, 0x01, 0x00, 0x00, 0x00, 0x09, 0xc3
+2019-11-19 18:59:47.464 Detail, 
+2019-11-19 18:59:47.464 Detail, Node005, Refreshed Value: old value=false, new value=false, type=bool
+2019-11-19 18:59:47.464 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:59:47.464 Info, Node005, Received Meter report from node 5: Power=1.0W
+2019-11-19 18:59:47.464 Detail, Node005, Refreshed Value: old value=0.8, new value=1.0, type=decimal
+2019-11-19 18:59:47.464 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:59:47.464 Info, Node005,     Previous value was 0.9W, received 1 seconds ago.
+2019-11-19 18:59:47.464 Detail, Node005, Refreshed Value: old value=1.0, new value=0.9, type=decimal
+2019-11-19 18:59:47.464 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:59:47.464 Detail, Node005, Refreshed Value: old value=1, new value=1, type=int
+2019-11-19 18:59:47.464 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:59:47.464 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:59:47.468 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:59:47.474 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:59:47.477 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:59:56.465 Detail, Node005,   Received: 0x01, 0x14, 0x00, 0x04, 0x00, 0x05, 0x0e, 0x32, 0x02, 0x21, 0x34, 0x00, 0x00, 0x00, 0x0c, 0x00, 0x01, 0x00, 0x00, 0x00, 0x0b, 0xc7
+2019-11-19 18:59:56.465 Detail, 
+2019-11-19 18:59:56.465 Detail, Node005, Refreshed Value: old value=false, new value=false, type=bool
+2019-11-19 18:59:56.465 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:59:56.465 Info, Node005, Received Meter report from node 5: Power=1.2W
+2019-11-19 18:59:56.465 Detail, Node005, Refreshed Value: old value=1.0, new value=1.2, type=decimal
+2019-11-19 18:59:56.465 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:59:56.465 Info, Node005,     Previous value was 1.1W, received 1 seconds ago.
+2019-11-19 18:59:56.465 Detail, Node005, Refreshed Value: old value=0.9, new value=1.1, type=decimal
+2019-11-19 18:59:56.465 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:59:56.465 Detail, Node005, Refreshed Value: old value=1, new value=1, type=int
+2019-11-19 18:59:56.465 Detail, Node005, Changes to this value are not verified
+2019-11-19 18:59:56.465 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:59:56.468 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:59:56.476 Detail, Node005, Notification: ValueChanged
+2019-11-19 18:59:56.477 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:00.964 Detail, Node005,   Received: 0x01, 0x14, 0x00, 0x04, 0x00, 0x05, 0x0e, 0x32, 0x02, 0x21, 0x34, 0x00, 0x00, 0x00, 0x09, 0x00, 0x01, 0x00, 0x00, 0x00, 0x0b, 0xc2
+2019-11-19 19:00:00.964 Detail, 
+2019-11-19 19:00:00.964 Detail, Node005, Refreshed Value: old value=false, new value=false, type=bool
+2019-11-19 19:00:00.964 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:00.964 Info, Node005, Received Meter report from node 5: Power=0.9W
+2019-11-19 19:00:00.965 Detail, Node005, Refreshed Value: old value=1.2, new value=0.9, type=decimal
+2019-11-19 19:00:00.965 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:00.965 Info, Node005,     Previous value was 1.1W, received 1 seconds ago.
+2019-11-19 19:00:00.965 Detail, Node005, Refreshed Value: old value=1.1, new value=1.1, type=decimal
+2019-11-19 19:00:00.965 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:00.965 Detail, Node005, Refreshed Value: old value=1, new value=1, type=int
+2019-11-19 19:00:00.965 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:00.965 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:00.969 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:00.972 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:00.974 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:06.963 Detail, Node005,   Received: 0x01, 0x14, 0x00, 0x04, 0x00, 0x05, 0x0e, 0x32, 0x02, 0x21, 0x34, 0x00, 0x00, 0x00, 0x0b, 0x00, 0x01, 0x00, 0x00, 0x00, 0x09, 0xc2
+2019-11-19 19:00:06.963 Detail, 
+2019-11-19 19:00:06.963 Detail, Node005, Refreshed Value: old value=false, new value=false, type=bool
+2019-11-19 19:00:06.963 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:06.963 Info, Node005, Received Meter report from node 5: Power=1.1W
+2019-11-19 19:00:06.963 Detail, Node005, Refreshed Value: old value=0.9, new value=1.1, type=decimal
+2019-11-19 19:00:06.963 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:06.963 Info, Node005,     Previous value was 0.9W, received 1 seconds ago.
+2019-11-19 19:00:06.963 Detail, Node005, Refreshed Value: old value=1.1, new value=0.9, type=decimal
+2019-11-19 19:00:06.963 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:06.963 Detail, Node005, Refreshed Value: old value=1, new value=1, type=int
+2019-11-19 19:00:06.963 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:06.963 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:06.969 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:06.973 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:06.975 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:09.965 Detail, Node005,   Received: 0x01, 0x14, 0x00, 0x04, 0x00, 0x05, 0x0e, 0x32, 0x02, 0x21, 0x34, 0x00, 0x00, 0x00, 0x09, 0x00, 0x01, 0x00, 0x00, 0x00, 0x0a, 0xc3
+2019-11-19 19:00:09.965 Detail, 
+2019-11-19 19:00:09.965 Detail, Node005, Refreshed Value: old value=false, new value=false, type=bool
+2019-11-19 19:00:09.965 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:09.965 Info, Node005, Received Meter report from node 5: Power=0.9W
+2019-11-19 19:00:09.965 Detail, Node005, Refreshed Value: old value=1.1, new value=0.9, type=decimal
+2019-11-19 19:00:09.965 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:09.965 Info, Node005,     Previous value was 1.0W, received 1 seconds ago.
+2019-11-19 19:00:09.965 Detail, Node005, Refreshed Value: old value=0.9, new value=1.0, type=decimal
+2019-11-19 19:00:09.965 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:09.965 Detail, Node005, Refreshed Value: old value=1, new value=1, type=int
+2019-11-19 19:00:09.965 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:09.965 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:09.969 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:09.970 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:09.972 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:11.464 Detail, Node005,   Received: 0x01, 0x14, 0x00, 0x04, 0x00, 0x05, 0x0e, 0x32, 0x02, 0x21, 0x34, 0x00, 0x00, 0x00, 0x0b, 0x00, 0x01, 0x00, 0x00, 0x00, 0x09, 0xc2
+2019-11-19 19:00:11.465 Detail, 
+2019-11-19 19:00:11.465 Detail, Node005, Refreshed Value: old value=false, new value=false, type=bool
+2019-11-19 19:00:11.465 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:11.465 Info, Node005, Received Meter report from node 5: Power=1.1W
+2019-11-19 19:00:11.465 Detail, Node005, Refreshed Value: old value=0.9, new value=1.1, type=decimal
+2019-11-19 19:00:11.465 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:11.465 Info, Node005,     Previous value was 0.9W, received 1 seconds ago.
+2019-11-19 19:00:11.465 Detail, Node005, Refreshed Value: old value=1.0, new value=0.9, type=decimal
+2019-11-19 19:00:11.465 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:11.465 Detail, Node005, Refreshed Value: old value=1, new value=1, type=int
+2019-11-19 19:00:11.465 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:11.465 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:11.468 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:11.472 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:11.474 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:14.465 Detail, Node005,   Received: 0x01, 0x14, 0x00, 0x04, 0x00, 0x05, 0x0e, 0x32, 0x02, 0x21, 0x34, 0x00, 0x00, 0x00, 0x0d, 0x00, 0x01, 0x00, 0x00, 0x00, 0x0b, 0xc6
+2019-11-19 19:00:14.465 Detail, 
+2019-11-19 19:00:14.465 Detail, Node005, Refreshed Value: old value=false, new value=false, type=bool
+2019-11-19 19:00:14.465 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:14.465 Info, Node005, Received Meter report from node 5: Power=1.3W
+2019-11-19 19:00:14.465 Detail, Node005, Refreshed Value: old value=1.1, new value=1.3, type=decimal
+2019-11-19 19:00:14.465 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:14.465 Info, Node005,     Previous value was 1.1W, received 1 seconds ago.
+2019-11-19 19:00:14.465 Detail, Node005, Refreshed Value: old value=0.9, new value=1.1, type=decimal
+2019-11-19 19:00:14.465 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:14.465 Detail, Node005, Refreshed Value: old value=1, new value=1, type=int
+2019-11-19 19:00:14.465 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:14.465 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:14.468 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:14.473 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:14.476 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:17.466 Detail, Node005,   Received: 0x01, 0x14, 0x00, 0x04, 0x00, 0x05, 0x0e, 0x32, 0x02, 0x21, 0x34, 0x00, 0x00, 0x00, 0x0b, 0x00, 0x01, 0x00, 0x00, 0x00, 0x0c, 0xc7
+2019-11-19 19:00:17.466 Detail, 
+2019-11-19 19:00:17.466 Detail, Node005, Refreshed Value: old value=false, new value=false, type=bool
+2019-11-19 19:00:17.466 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:17.466 Info, Node005, Received Meter report from node 5: Power=1.1W
+2019-11-19 19:00:17.466 Detail, Node005, Refreshed Value: old value=1.3, new value=1.1, type=decimal
+2019-11-19 19:00:17.466 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:17.466 Info, Node005,     Previous value was 1.2W, received 1 seconds ago.
+2019-11-19 19:00:17.466 Detail, Node005, Refreshed Value: old value=1.1, new value=1.2, type=decimal
+2019-11-19 19:00:17.466 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:17.466 Detail, Node005, Refreshed Value: old value=1, new value=1, type=int
+2019-11-19 19:00:17.466 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:17.466 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:17.467 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:17.470 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:17.472 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:18.966 Detail, Node005,   Received: 0x01, 0x14, 0x00, 0x04, 0x00, 0x05, 0x0e, 0x32, 0x02, 0x21, 0x34, 0x00, 0x00, 0x00, 0x09, 0x00, 0x01, 0x00, 0x00, 0x00, 0x0b, 0xc2
+2019-11-19 19:00:18.966 Detail, 
+2019-11-19 19:00:18.966 Detail, Node005, Refreshed Value: old value=false, new value=false, type=bool
+2019-11-19 19:00:18.966 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:18.966 Info, Node005, Received Meter report from node 5: Power=0.9W
+2019-11-19 19:00:18.966 Detail, Node005, Refreshed Value: old value=1.1, new value=0.9, type=decimal
+2019-11-19 19:00:18.966 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:18.966 Info, Node005,     Previous value was 1.1W, received 1 seconds ago.
+2019-11-19 19:00:18.966 Detail, Node005, Refreshed Value: old value=1.2, new value=1.1, type=decimal
+2019-11-19 19:00:18.966 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:18.966 Detail, Node005, Refreshed Value: old value=1, new value=1, type=int
+2019-11-19 19:00:18.966 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:18.966 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:18.968 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:18.970 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:18.972 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:30.966 Detail, Node005,   Received: 0x01, 0x14, 0x00, 0x04, 0x00, 0x05, 0x0e, 0x32, 0x02, 0x21, 0x34, 0x00, 0x00, 0x00, 0x0b, 0x00, 0x01, 0x00, 0x00, 0x00, 0x0a, 0xc1
+2019-11-19 19:00:30.966 Detail, 
+2019-11-19 19:00:30.966 Detail, Node005, Refreshed Value: old value=false, new value=false, type=bool
+2019-11-19 19:00:30.966 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:30.966 Info, Node005, Received Meter report from node 5: Power=1.1W
+2019-11-19 19:00:30.966 Detail, Node005, Refreshed Value: old value=0.9, new value=1.1, type=decimal
+2019-11-19 19:00:30.966 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:30.966 Info, Node005,     Previous value was 1.0W, received 1 seconds ago.
+2019-11-19 19:00:30.966 Detail, Node005, Refreshed Value: old value=1.1, new value=1.0, type=decimal
+2019-11-19 19:00:30.966 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:30.966 Detail, Node005, Refreshed Value: old value=1, new value=1, type=int
+2019-11-19 19:00:30.966 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:30.966 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:30.970 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:30.973 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:30.976 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:32.466 Detail, Node005,   Received: 0x01, 0x14, 0x00, 0x04, 0x00, 0x05, 0x0e, 0x32, 0x02, 0x21, 0x34, 0x00, 0x00, 0x00, 0x0c, 0x00, 0x01, 0x00, 0x00, 0x00, 0x0b, 0xc7
+2019-11-19 19:00:32.466 Detail, 
+2019-11-19 19:00:32.466 Detail, Node005, Refreshed Value: old value=false, new value=false, type=bool
+2019-11-19 19:00:32.466 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:32.466 Info, Node005, Received Meter report from node 5: Power=1.2W
+2019-11-19 19:00:32.466 Detail, Node005, Refreshed Value: old value=1.1, new value=1.2, type=decimal
+2019-11-19 19:00:32.466 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:32.466 Info, Node005,     Previous value was 1.1W, received 1 seconds ago.
+2019-11-19 19:00:32.466 Detail, Node005, Refreshed Value: old value=1.0, new value=1.1, type=decimal
+2019-11-19 19:00:32.466 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:32.466 Detail, Node005, Refreshed Value: old value=1, new value=1, type=int
+2019-11-19 19:00:32.466 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:32.466 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:32.470 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:32.473 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:32.476 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:36.966 Detail, Node005,   Received: 0x01, 0x14, 0x00, 0x04, 0x00, 0x05, 0x0e, 0x32, 0x02, 0x21, 0x34, 0x00, 0x00, 0x00, 0x0a, 0x00, 0x01, 0x00, 0x00, 0x00, 0x0b, 0xc1
+2019-11-19 19:00:36.966 Detail, 
+2019-11-19 19:00:36.966 Detail, Node005, Refreshed Value: old value=false, new value=false, type=bool
+2019-11-19 19:00:36.966 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:36.966 Info, Node005, Received Meter report from node 5: Power=1.0W
+2019-11-19 19:00:36.966 Detail, Node005, Refreshed Value: old value=1.2, new value=1.0, type=decimal
+2019-11-19 19:00:36.966 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:36.966 Info, Node005,     Previous value was 1.1W, received 1 seconds ago.
+2019-11-19 19:00:36.966 Detail, Node005, Refreshed Value: old value=1.1, new value=1.1, type=decimal
+2019-11-19 19:00:36.966 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:36.966 Detail, Node005, Refreshed Value: old value=1, new value=1, type=int
+2019-11-19 19:00:36.966 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:36.966 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:36.971 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:36.978 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:36.980 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:50.465 Detail, Node005,   Received: 0x01, 0x14, 0x00, 0x04, 0x00, 0x05, 0x0e, 0x32, 0x02, 0x21, 0x34, 0x00, 0x00, 0x00, 0x0c, 0x00, 0x01, 0x00, 0x00, 0x00, 0x0b, 0xc7
+2019-11-19 19:00:50.465 Detail, 
+2019-11-19 19:00:50.465 Detail, Node005, Refreshed Value: old value=false, new value=false, type=bool
+2019-11-19 19:00:50.465 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:50.465 Info, Node005, Received Meter report from node 5: Power=1.2W
+2019-11-19 19:00:50.465 Detail, Node005, Refreshed Value: old value=1.0, new value=1.2, type=decimal
+2019-11-19 19:00:50.466 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:50.466 Info, Node005,     Previous value was 1.1W, received 1 seconds ago.
+2019-11-19 19:00:50.466 Detail, Node005, Refreshed Value: old value=1.1, new value=1.1, type=decimal
+2019-11-19 19:00:50.466 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:50.466 Detail, Node005, Refreshed Value: old value=1, new value=1, type=int
+2019-11-19 19:00:50.466 Detail, Node005, Changes to this value are not verified
+2019-11-19 19:00:50.466 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:50.469 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:50.473 Detail, Node005, Notification: ValueChanged
+2019-11-19 19:00:50.475 Detail, Node005, Notification: ValueChanged
