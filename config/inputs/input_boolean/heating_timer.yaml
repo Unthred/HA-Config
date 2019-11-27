@@ -1,6 +1,3 @@
-enable_heating_schedules:
-  name: Enable Heating Schedules
-  icon: mdi:toggle-switch
 vestibule_schedule_active:
   name: Vestibule Schedule Active
   icon: mdi:toggle-switch

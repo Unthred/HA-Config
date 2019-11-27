@@ -20,35 +20,47 @@ turn_heating_off:
   alias: Turn Heating Off
   sequence:
   - service: climate.set_temperature
-    entity_id: climate.kitchen
-    data_template:
-      temperature: '7'
-      hvac_mode: cool
-  - service: climate.set_temperature
     entity_id: climate.vestibule
     data_template:
       temperature: '7'
       hvac_mode: cool
+  - service: homeassistant.turn_off
+    entity_id: input_boolean.enable_vestibule_schedule
   - service: climate.set_temperature
     entity_id: climate.livingroom
     data_template:
       temperature: '7'
       hvac_mode: cool
+  - service: homeassistant.turn_off
+    entity_id: input_boolean.enable_livingroom_schedule
   - service: climate.set_temperature
     entity_id: climate.office
     data_template:
       temperature: '7'
       hvac_mode: cool
+  - service: homeassistant.turn_off
+    entity_id: input_boolean.enable_livingroom_schedule
   - service: climate.set_temperature
-    entity_id: climate.bedroom
+    entity_id: climate.kitchen
     data_template:
       temperature: '7'
       hvac_mode: cool
+  - service: homeassistant.turn_off
+    entity_id: input_boolean.enable_kitchen_schedule
   - service: climate.set_temperature
     entity_id: climate.katrin
     data_template:
       temperature: '7'
       hvac_mode: cool
+  - service: homeassistant.turn_off
+    entity_id: input_boolean.enable_katrin_schedule
+  - service: climate.set_temperature
+    entity_id: climate.bedroom
+    data_template:
+      temperature: '7'
+      hvac_mode: cool
+  - service: homeassistant.turn_off
+    entity_id: input_boolean.enable_bedroom_schedule
 home_off:
   alias: Home Off
   sequence:
@@ -65,6 +77,9 @@ home_off:
       entity_id: switch.spiral_lights
   - service: script.turn_heating_off
   - service: script.all_media_players_off
+  - service:  homeassistant.turn_off
+    data: 
+      entity_id: input_boolean.dev_mode
 moron_machine_on:
   alias: Moron Machine On
   sequence:
@@ -109,11 +124,13 @@ all_media_players_off:
   - service: media_player.turn_off
     data:
       entity_id: media_player.marvin
-#send_message:
-#  alias: Send Message From Front End
-#  sequence:
-#    - service: notify.
-#      data_template: {{ states('input_text.send_message') }}
+send_message_to_ui_selected_user:
+  alias: Send a message entered in the ui to the user selected in the ui
+  sequence:
+    service_template: 'notify.{{states("input_select.home_users")}}'
+    data_template:
+      title: "Message From Home Assistant"
+      message: '{{states.input_text.send_message.state}}'
 kr_volume_up:
   alias: Volume Up
   sequence:

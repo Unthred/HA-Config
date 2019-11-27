@@ -3,4 +3,4 @@
   title: Squiggley
   services:
 #    - service: mobile_app_squigglephone
-    - service: mobile_app_squiggle_pad
+    - service: mobile_app_squigglepad

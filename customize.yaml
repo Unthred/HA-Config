@@ -42,3 +42,9 @@ binary_sensor.mouse_trap_one:
   icon: mdi:mouse-variant
 binary_sensor.mouse_trap_two:
   icon: mdi:mouse-variant
+device_tracker.squigglepad:
+  friendly_name: "Squiggley"
+  picture: /local/images/smiley_punk.jpg
+device_tracker.claires_iphone:
+  friendly_name: "Wee Bear"
+  picture: /local/images/bear/jpg

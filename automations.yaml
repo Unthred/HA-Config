@@ -107,6 +107,9 @@
   condition: []
   action:
   - service: script.home_off
+  - service: input_boolean.turn_on
+    data_template:
+      entity_id: input_boolean.everyone_sleeping
 - id: 'Occupancy: Turn On Garden Lights At Dusk'
   alias: 'Occupancy: Turn On Garden Lights At Dusk'
   trigger:
@@ -124,6 +127,9 @@
   - minutes: /1
     platform: time_pattern
   condition:
+  - condition: state
+    entity_id: input_boolean.everyone_sleeping
+    state: 'off'
   - below: '400'
     condition: numeric_state
     entity_id: sensor.gateway_illumination_sensor
@@ -153,7 +159,51 @@
     service: script.home_off
   - data:
       message: Turning everything Off as nobody does be home
-    service: notify.android_squiggle_pad
+    service: notify.squiggley
+- id: 'Occupancy: Turn On the Common Lights When Someone Opens the Front Door'
+  alias: 'Occupancy: Turn On the Common Lights When Someone Opens the Front Door'
+  trigger:
+  - entity_id: binary_sensor.front_door_sensor
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - below: '400'
+    condition: numeric_state
+    entity_id: sensor.gateway_illumination_sensor
+  action:
+  - condition: state
+    entity_id: group.common_lights
+    state: 'off'
+  - data:
+      entity_id: group.common_lights
+    service: homeassistant.turn_on
+  - delay: 00:10:00
+  - data:
+      entity_id: group.common_lights
+    service: homeassistant.turn_off
+- id: 'Occupancy: Announce Arrive/Leave Home'
+  alias: 'Occupancy: Announce Arrive/Leave Home'
+  trigger:
+    - entity_id: device_tracker.claires_iphone, device_tracker.squigglepad
+      from: 'not_home'
+      platform: state
+      to: 'home'
+    - entity_id: device_tracker.claires_iphone, device_tracker.squigglepad
+      from: 'home'
+      platform: state
+      to: 'not_home'
+  action:
+    - service: notify.squiggley
+      data_template:
+        message: >
+          {{ trigger.to_state.attributes.friendly_name }} is {% if trigger.to_state.state == 'home' %}back{% else %}away{% endif %}.
+        title: ""
+    - service: tts.google_translate_say
+      entity_id: media_player.office_speaker
+      data_template:
+        message: >
+          {{ trigger.to_state.attributes.friendly_name }} is {% if trigger.to_state.state == 'home' %}back{% else %}away{% endif %}.
 - id: 'Server: Turn On The Fan When Its Hot'
   alias: 'Server: Turn On Fan When Its Hot'
   trigger:
@@ -198,28 +248,6 @@
   - data:
       message: There's a moose been caught aboot this hoose! Trap Two
     service: notify.squiggley
-- id: 'Occupancy: Turn On the Common Lights When Someone Opens the Front Door'
-  alias: 'Occupancy: Turn On the Common Lights When Someone Opens the Front Door'
-  trigger:
-  - entity_id: binary_sensor.front_door_sensor
-    from: 'off'
-    platform: state
-    to: 'on'
-  condition:
-  - below: '400'
-    condition: numeric_state
-    entity_id: sensor.gateway_illumination_sensor
-  action:
-  - condition: state
-    entity_id: group.common_lights
-    state: 'off'
-  - data:
-      entity_id: group.common_lights
-    service: homeassistant.turn_on
-  - delay: 00:10:00
-  - data:
-      entity_id: group.common_lights
-    service: homeassistant.turn_off
 - id: 'Toilet: Turn On Lights When Motion Detected'
   alias: 'Toilet: Turn On Lights When Motion Detected'
   trigger:
@@ -330,15 +358,13 @@
   alias: 'Livingroom: Toggle input_boolean On/Off'
   description: ''
   trigger:
-  - entity_id: binary_sensor.livingroom_on_off_switch
-    from: 'off'
     platform: state
-    to: 'on'
+    entity_id: binary_sensor.livingroom_on_off_switch
   condition: []
   action:
   - data:
       entity_id: input_boolean.livingroom_on
-    service: homeassistant.toggle
+    service: input_boolean.toggle
 - id: 'Heating: Active/deactivate heating schedule for room'
   alias: 'Heating: Active/deactivate heating schedule for room'
   trigger:
@@ -349,7 +375,7 @@
       sensor.katrin_heating_off, sensor.bedroom_heating_on, sensor.bedroom_heating_off
     to: 'True'
   action:
-    service_template: 'input_boolean.turn_{{ trigger.entity_id.split(''_'')[-1] }}'
+    service_template: input_boolean.turn_{{ trigger.entity_id.split('_')[-1] }}
     data_template:
       entity_id: "{% if trigger.entity_id.split('_')[2] == 'on'  %}\n  input_boolean.{{\
         \ trigger.entity_id.split('.')[1].replace('heating_on', 'schedule_active')\
@@ -370,8 +396,10 @@
       entity_id: sensor.house_occupancy_status
       state: 'on'
     - condition: template
-      value_template: >
-        {{ is_state('input_boolean.'+trigger.entity_id.split('_')[1].replace('boolean.','')+'_schedule_active', 'on')}}
+      value_template: '{{ is_state(''input_boolean.''+trigger.entity_id.split(''_'')[1].replace(''boolean.'','''')+''_schedule_active'',
+        ''on'')}}
+
+        '
   action:
     service: climate.set_temperature
     data_template:
@@ -384,6 +412,27 @@
     platform: state
     entity_id: sensor.house_occupancy_status
     to: 'on'
+  condition:
+    condition: or
+    conditions:
+    - condition: state
+      entity_id: input_boolean.vestibule_schedule_active
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.livingroom_schedule_active
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.office_schedule_active
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.kitchen_schedule_active
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.katrin_schedule_active
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.bedroom_schedule_active
+      state: 'on'
   action:
     service: notify.android_squiggle_pad
     data:
@@ -435,12 +484,3 @@
     service: script.turn_on
     data_template:
       entity_id: script.turn_heating_off
-- id: Notify Selected Person with User Inputed Message
-  alias: Notify Selected Person with User Inputed Message
-  trigger:
-    platform: state
-    entity_id: input_select.home_users
-  action:
-  - service: notify.squiggley
-    data_template:
-      message: '{{states.input_text.send_message}}'

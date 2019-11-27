@@ -1,0 +1,10 @@
+heating_schedules:
+  name: Heating Schedule Controls
+  view: no
+  entities:
+    - input_boolean.vestibule_schedule_active
+    - input_boolean.livingroom_schedule_active
+    - input_boolean.office_schedule_active
+    - input_boolean.kitchen_schedule_active
+    - input_boolean.katrin_schedule_active
+    - input_boolean.bedroom_schedule_active

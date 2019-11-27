@@ -7,7 +7,7 @@
   turn_on_action:
     - service: wake_on_lan.send_magic_packet
       data:
-        mac: "C0:3F:D5:6E:E5:3E"
+        mac: "02:00:00:25:0F:01"
         broadcast_address: 255.255.255.255 
   turn_off_action:
     - service: kodi.call_method

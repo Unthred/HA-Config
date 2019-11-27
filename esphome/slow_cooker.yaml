@@ -1,0 +1,47 @@
+esphome:
+  name: slow_cooker
+  platform: ESP8266
+  board: esp01_1m
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Slow Cooker Fallback Hotspot"
+    password: "uGLm4qPIInU5"
+
+captive_portal:
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO0
+      mode: INPUT_PULLUP
+      inverted: True
+    name: "Slow Cooker Button"
+    on_press:
+      - switch.toggle: slow_cooker_fakebutton
+
+switch:
+  - platform: template
+    name: "Slow Cooker Relay"
+    optimistic: true
+    id: slow_cooker_fakebutton
+    turn_on_action:
+    - switch.turn_on: slow_cooker_relay
+    turn_off_action:
+    - switch.turn_off: slow_cooker_relay
+  - platform: gpio
+    id: slow_cooker_relay
+    pin: GPIO12
+
