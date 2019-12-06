@@ -1,0 +1,3 @@
+- platform: switch
+  name: Kitchen Tree
+  entity_id: switch.kitchen_tree_relay

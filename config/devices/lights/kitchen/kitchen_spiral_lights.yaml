@@ -1,0 +1,17 @@
+- name: "Spiral Lights"
+  platform: mqtt
+  schema: json
+  retain: true
+  command_topic: "spiral/command/power"
+#  brightness_command_topic: "spiral/command/brightness"
+  brightness: true
+  brightness_scale: 4
+  color_temp: false
+  #effect: true
+  #effects_list:
+  #  - flash
+  #  - strobe
+  #  - fade
+  #  - smooth
+  rgb: true
+  qos: 0

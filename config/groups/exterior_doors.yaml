@@ -1,7 +1,0 @@
-exterior_doors:
-  name: Exterior Doors
-  view: no
-  entities:
-    - binary_sensor.front_door_sensor
-    - binary_sensor.garage_door_sensor
-    - binary_sensor.kitchen_door_sensor

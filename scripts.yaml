@@ -80,8 +80,8 @@ home_off:
   - service:  homeassistant.turn_off
     data: 
       entity_id: input_boolean.dev_mode
-moron_machine_on:
-  alias: Moron Machine On
+activate_moron_machine:
+  alias: Activate Moron Machine
   sequence:
   - service: media_player.turn_on
     data:
@@ -101,13 +101,13 @@ moron_machine_on:
     data:
       entity_id: media_player.squiggley_amp
       source: "livingroom kodi"
-moron_machine_off:
-  alias: Moron Machine Off
+deactivate_moron_machine:
+  alias: Deactivate Moron Machine
   sequence:
   - service: media_player.turn_off
     entity_id:
     - media_player.marvin
-  - delay: 00:00:20
+#  - delay: 00:00:20
   - service: media_player.turn_off
     entity_id:
     - media_player.squiggley_amp
@@ -120,7 +120,7 @@ moron_machine_off:
 all_media_players_off:
   alias: turn Off All Media Players
   sequence:
-  - service: script.moron_machine_off
+  - service: script.deactivate_moron_machine
   - service: media_player.turn_off
     data:
       entity_id: media_player.marvin
@@ -229,3 +229,27 @@ kr_playlist:
       entity_id: media_player.zaphod
       method: Audio.Details.Album
     service: media_player.kodi_call_method
+update_locations:
+  alias: Request mobile devices location update
+  sequence:
+  - service: notify.wee_bear
+    data:
+      message: "request_location_update"
+  - service: notify.squiggley
+    data:
+      message: "request_location_update"
+flash_gateway:
+  alias: Flash Xioami Gateway
+  sequence:
+    - service: light.turn_on
+      data:
+        color_name: blue
+        brightness_pct: '40'
+        transition: 5
+        entity_id: light.xiaomi_gateway_light
+    - service: light.turn_on
+      data:
+        color_name: blue
+        brightness_pct: '0'
+        transition: 5
+        entity_id: light.xiaomi_gateway_light

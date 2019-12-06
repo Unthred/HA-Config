@@ -1,0 +1,38 @@
+icon: 'fas:sliders-h'
+title: Lightning Settings
+background: var(--background-image)
+badges: []
+cards:
+  - entities:
+      - entity: input_boolean.migraine_mode
+      - entity: input_number.normal_brightness
+      - entity: input_number.migraine_brightness
+      - entity: input_boolean.lighting_timer
+    show_header_toggle: false
+    title: Lighting Controls
+    type: entities
+  - entities:
+      - input_datetime.lighting_weekday_morning_start
+      - input_datetime.lighting_weekday_morning_stop
+      - input_datetime.lighting_weekday_evening_start
+      - input_datetime.lighting_weekday_evening_stop
+    show_header_toggle: false
+    title: Week Day Lighting Timers
+    type: entities
+  - entities:
+      - input_datetime.lighting_weekend_morning_start
+      - input_datetime.lighting_weekend_morning_stop
+      - input_datetime.lighting_weekend_evening_start
+      - input_datetime.lighting_weekend_evening_stop
+    show_header_toggle: false
+    title: Weekend Lighting Timers
+    type: entities
+  - entities:
+      - entity: sensor.next_sunrise
+        icon: 'mdi:weather-sunset-up'
+        name: 'Next Sunrise:'
+      - entity: sensor.next_sunset
+        icon: 'mdi:weather-sunset-down'
+        name: 'Next Sunset:'
+    title: Sunrise & Sunset
+    type: entities

@@ -1,0 +1,39 @@
+icon: 'fas:desktop'
+title: Office
+background: var(--background-image)
+badges: []
+cards:
+  - entity: climate.office
+    type: thermostat
+  - cards:
+      - color: auto
+        color_type: icon
+        entity: switch.office_lamp_relay
+        haptic: medium
+        hold_action:
+          action: more-info
+          entity_id: switch.office_lamp_relay
+        icon: 'mdi:desk-lamp'
+        name: Office Lamp
+        tap_action:
+          action: call-service
+          service: homeassistant.toggle
+          service_data:
+            entity_id: switch.office_lamp_relay
+        type: 'custom:button-card'
+      - color: auto
+        color_type: icon
+        entity: switch.office_speakers_relay
+        haptic: medium
+        hold_action:
+          action: more-info
+          entity_id: switch.office_speakers_relay
+        icon: 'mdi:speaker'
+        name: Office Speakers
+        tap_action:
+          action: call-service
+          service: switch.toggle
+          service_data:
+            entity_id: switch.office_speakers_relay
+        type: 'custom:button-card'
+    type: 'custom:hui-horizontal-stack-card'

@@ -1,0 +1,17 @@
+- name: Squiggley Work
+  latitude: 55.963060
+  longitude: -3.202069
+  radius: 200
+  icon: 'fas:building'
+
+- name: Wee Bear Gym
+  latitude: 55.943409
+  longitude: -3.226732
+  radius: 200
+  icon: 'fas:dumbell'
+
+- name: Wee Bear Work
+  latitude: 55.943167
+  longitude: -3.209173
+  radius: 200
+  icon: 'fas:building'

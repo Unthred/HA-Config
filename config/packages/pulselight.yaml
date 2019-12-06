@@ -1,0 +1,205 @@
+###########################################
+########## Package / Pulselight  ##########
+###########################################
+
+
+##########  Author: Daniel Karlsson
+##########  Date: 10.08.2018
+
+# The script is being called with following data
+# "light_id": "light.xxxxx"  > the light entity_id you wish to control
+# "brightness": "xxx"        > max brightness the light should reach
+# "transition": "xxx"        > the time the light will pulsating
+# "delay":"xx"               > this value should be equal or more tha transition
+# "color":"red"              > name of the color the light should being
+
+# In automation the script is called as followed
+#
+# action:
+#   - service: script.pulselight_start
+#     data:
+#       brightness: '200'
+#       color: red
+#       delay: '05'
+#       light_id: light.xxxx
+#       transition: '5'
+#
+# There is a input_boolean condition in the script for easy stopping of the loop
+
+
+
+
+
+
+#################################
+##########  Customize  ##########
+#################################
+
+homeassistant:
+  customize:
+    script.pulselight_loop:
+      hidden: true
+
+    script.pulselight_action:
+      hidden: true
+
+    script.pulselight_start:
+      hidden: true
+  
+    script.pulselight_stop:
+      hidden: true
+
+    input_text.pulselight_color:
+      hidden: true
+
+    input_text.pulselight_light_id:
+      hidden: true
+
+    input_number.pulselight_transition:
+      hidden: true
+
+    input_number.pulselight_delay:
+      hidden: true
+
+    input_number.pulselight_brightness:
+      hidden: true
+
+##############################################
+##########  Entites for Pulselight  ##########
+##############################################
+
+input_boolean:
+  pulselight_active:
+    name: Pulselight Active
+    initial: off
+    icon: mdi:blur-radial
+
+      
+input_text:
+  pulselight_color:
+    name: Pulselight Color
+    initial: Red
+
+  pulselight_light_id:
+    name: Pulselight Light Id
+    initial: none
+
+input_number:
+
+  pulselight_transition:
+    name: Pulselight Transition
+    initial: 10
+    max: 255
+    min: 0
+    step: 1
+
+  pulselight_delay:
+    name: Pulselight Delay
+    initial: 10
+    max: 255
+    min: 0
+
+  pulselight_brightness:
+    name: Pulselight Brightness
+    initial: 250
+    max: 255
+    min: 0
+
+#############################################
+##########  Script for Pulselight  ##########
+#############################################
+
+script:
+  pulselight_start:
+    alias: Pulselight Start
+    sequence:
+    
+    - service: input_boolean.turn_on
+      data:
+        entity_id: input_boolean.pulselight_active
+
+    - service: input_number.set_value
+      data_template:
+        entity_id: input_number.pulselight_brightness
+        value: '{{ brightness }}'
+      
+    - service: input_text.set_value
+      data_template:
+        entity_id: input_text.pulselight_color
+        value: '{{ color }}'
+      
+    - service: input_number.set_value
+      data_template:
+        entity_id: input_number.pulselight_transition
+        value: '{{ transition }}'
+
+    - service: input_number.set_value
+      data_template:
+        entity_id: input_number.pulselight_delay
+        value: '{{ delay }}'
+      
+    - service: input_text.set_value
+      data_template:
+        entity_id: input_text.pulselight_light_id
+        value: '{{ light_id }}'
+    
+    - service: script.turn_on
+      data_template:
+        entity_id: script.pulselight_action
+
+  pulselight_action:
+    alias: Pulselight
+    sequence:
+    
+    - condition: state
+      entity_id: input_boolean.pulselight_active
+      state: 'on'
+  
+    - service: homeassistant.turn_on
+      data_template:      
+        brightness: '{{ states.input_number.pulselight_brightness.state | int }}'
+        color_name: '{{ states.input_text.pulselight_color.state }}'
+        transition: '{{ states.input_number.pulselight_transition.state | int }}'
+        entity_id: '{{ states.input_text.pulselight_light_id.state }}'
+      
+    
+    - delay: 00:00:{{ states('input_number.pulselight_delay') | int }}
+  
+    - service: homeassistant.turn_off
+      data_template:      
+        transition: '{{ states.input_number.pulselight_transition.state | int }}'
+        entity_id: '{{ states.input_text.pulselight_light_id.state }}'
+    - service: script.turn_on
+      data:
+        entity_id: script.pulselight_loop
+    
+# Looping the scripts
+  pulselight_loop:
+    alias: Pulse Loop
+    sequence:
+    
+    - service: input_boolean.turn_on
+      data:
+        entity_id: input_boolean.pulselight_active
+        
+    - delay: 00:00:{{ states('input_number.pulselight_delay') | int  }}
+    - service: script.turn_on
+      data_template:
+        entity_id: script.pulselight_action
+
+# Stopping 
+  pulselight_stop:
+    alias: Pulselight Stop
+    sequence:
+
+    - service: homeassistant.turn_off
+      data_template:      
+        entity_id: '{{ states.input_text.pulselight_light_id.state }}'
+
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.pulselight_active
+
+
+
+##########################################################################################

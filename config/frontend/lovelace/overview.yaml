@@ -1,0 +1,253 @@
+icon: 'mdi:chess-rook'
+panel: false
+title: Overview
+background: var(--background-image)
+badges: []
+cards:
+  - card:
+      options:
+        secondary_info: last-changed
+      show_header_toggle: false
+      title: Hoose Presence
+      type: glance
+    filter:
+      include:
+        - domain: person
+          state: home
+    show_empty: false
+    type: 'custom:auto-entities'
+  - card:
+      title: Heating On
+      type: glance
+    filter:
+      include:
+        - attributes:
+            temperature: '> 7'
+          domain: climate
+          options:
+            icon: 'fas:temperature-high'
+    show_empty: false
+    type: 'custom:auto-entities'
+  - cards:
+      - card:
+          entity: sensor.recycling_bin_today
+          image: /local/icons/recyclinggreenbin/recycling_bin_today.png
+          show_name: false
+          show_state: false
+          type: picture-entity
+        conditions:
+          - entity: sensor.recycling_bin_today
+            state: 'True'
+        type: conditional
+      - card:
+          entity: sensor.recycling_bin_tomorrow
+          image: /local/icons/recyclinggreenbin/recycling_bin_tomorrow.png
+          show_name: false
+          show_state: false
+          type: picture-entity
+        conditions:
+          - entity: sensor.recycling_bin_tomorrow
+            state: 'True'
+        type: conditional
+      - card:
+          entity: sensor.landfill_bin_today
+          image: /local/icons/recyclinggreenbin/landfill_waste_bin_today.png
+          show_name: false
+          show_state: false
+          type: picture-entity
+        conditions:
+          - entity: sensor.landfill_bin_today
+            state: 'True'
+        type: conditional
+      - card:
+          entity: sensor.landfill_bin_tomorrow
+          image: /local/icons/recyclinggreenbin/landfill_waste_bin_tomorrow.png
+          show_name: false
+          show_state: false
+          type: picture-entity
+        conditions:
+          - entity: sensor.landfill_bin_tomorrow
+            state: 'True'
+        type: conditional
+      - card:
+          entity: sensor.garden_bin_today
+          image: /local/icons/recyclinggreenbin/garden_waste_bin_today.png
+          show_name: false
+          show_state: false
+          type: picture-entity
+        conditions:
+          - entity: sensor.garden_bin_today
+            state: 'True'
+        type: conditional
+      - card:
+          entity: sensor.garden_bin_tomorrow
+          image: /local/icons/recyclinggreenbin/garden_waste_bin_tomorrow.png
+          show_name: false
+          show_state: false
+          type: picture-entity
+        conditions:
+          - entity: sensor.garden_bin_tomorrow
+            state: 'True'
+        type: conditional
+    type: vertical-stack
+  - cards:
+      - color: red
+        color_type: icon
+        entity: script.home_off
+        haptic: medium
+        icon: 'fas:home'
+        name: Home Off
+        tap_action:
+          action: call-service
+          service: script.turn_on
+          service_data:
+            entity_id: script.home_off
+        type: 'custom:button-card'
+      - color: red
+        color_type: icon
+        entity: script.turn_heating_on
+        haptic: medium
+        icon: 'fas:temperature-low'
+        name: Heating On
+        show_state: false
+        state:
+          - color: red
+            icon: 'fas:temperature-high'
+            operator: template
+            style: null
+            value: >
+              return (states['climate.vestibule'].attributes.temperature > 7
+              ||
+                      states['climate.livingroom'].attributes.temperature > 7 ||
+                      states['climate.office'].attributes.temperature > 7 || 
+                      states['climate.kitchen'].attributes.temperature > 7 ||
+                      states['climate.katrin'].attributes.temperature > 7 ||
+                      states['climate.bedroom'].attributes.temperature > 7)
+        tap_action:
+          action: call-service
+          service: script.turn_on
+          service_data:
+            entity_id: script.turn_heating_on
+        type: 'custom:button-card'
+      - color: blue
+        color_type: icon
+        entity: script.turn_heating_off
+        haptic: medium
+        icon: 'fas:temperature-low'
+        name: Heating Off
+        show_state: false
+        state:
+          - color: blue
+            icon: 'fas:temperature-high'
+            operator: template
+            style: null
+            value: >
+              return (states['climate.vestibule'].attributes.temperature = 7
+              &&
+                      states['climate.livingroom'].attributes.temperature = 7 &&             
+                      states['climate.office'].attributes.temperature = 7 && 
+                      states['climate.kitchen'].attributes.temperature = 7 &&
+                      states['climate.katrin'].attributes.temperature = 7 &&
+                      states['climate.bedroom'].attributes.temperature = 7)
+        tap_action:
+          action: call-service
+          service: script.turn_on
+          service_data:
+            entity_id: script.turn_heating_off
+        type: 'custom:button-card'
+      - color: auto
+        color_type: icon
+        entity: group.common_lights
+        haptic: medium
+        hold_action:
+          action: more-info
+          entity_id: group.common_lights
+        icon: 'fas:lightbulb'
+        name: Common Lights
+        tap_action:
+          action: call-service
+          service: homeassistant.toggle
+          service_data:
+            entity_id: group.common_lights
+        type: 'custom:button-card'
+      - color: auto
+        color_type: icon
+        entity: light.front_garden_light
+        haptic: medium
+        hold_action:
+          action: more-info
+          entity_id: light.front_garden_light
+        icon: 'bha:led-strip'
+        name: Garden Lights
+        tap_action:
+          action: call-service
+          service: light.toggle
+          service_data:
+            entity_id: light.front_garden_light
+        type: 'custom:button-card'
+    type: 'custom:hui-horizontal-stack-card'
+  - card:
+      options:
+        secondary_info: last-changed
+      title: Lights
+      type: entities
+    filter:
+      exclude:
+        - name: /Lower/
+        - name: /Upper/
+        - entity_id: group.common_lights
+      include:
+        - domain: light
+          state: 'on'
+        - entity_id: switch.spiral_lights
+          state: 'on'
+    show_empty: false
+    type: 'custom:auto-entities'
+  - card:
+      title: Door/Window/Motion Sensors
+      type: glance
+    entities:
+      - binary_sensor.exterior_front_door_motion_sensor
+      - binary_sensor.front_door_sensor
+      - binary_sensor.vestibule_motion_sensor
+      - binary_sensor.skylight_sensor
+      - binary_sensor.kitchen_door_sensor
+      - binary_sensor.kitchen_window_sensor
+      - binary_sensor.office_window_one_sensor
+      - binary_sensor.office_window_two_sensor
+      - binary_sensor.garage_door_sensor
+      - binary_sensor.garage_door_motion_sensor
+      - binary_sensor.katrin_window_one_sensor
+      - binary_sensor.katrin_window_two_sensor
+      - binary_sensor.bedroom_window_one_sensor
+      - binary_sensor.bedroom_window_two_sensor
+      - binary_sensor.large_wardrobe_one_motion_sensor
+      - binary_sensor.large_wardrobe_two_motion_sensor
+      - binary_sensor.small_wardrobe_motion_sensor
+      - binary_sensor.squiggley_nightlight_motion_sensor
+      - binary_sensor.squiggley_wee_bear_motion_sensor
+      - binary_sensor.bathroom_window_sensor
+    id: door_window_open
+    show_empty: false
+    show_header_toggle: false
+    state_filter:
+      - open
+      - 'on'
+    type: entity-filter
+  - card:
+      options:
+        secondary_info: last-changed
+      title: Sockets
+      type: entities
+    filter:
+      exclude:
+        - name: /spiral/
+        - name: /Kitchen Spiral/
+        - name: /Kitchen Tree/
+        - entity_id: switch.fairy_lights
+      include:
+        - domain: switch
+          state: 'on'
+    show_empty: false
+    show_header_toggle: true
+    type: 'custom:auto-entities'

@@ -1,0 +1,5 @@
+- platform: group
+  name: Dog Lamps
+  entities: 
+    - light.dita
+    - light.marmaduke

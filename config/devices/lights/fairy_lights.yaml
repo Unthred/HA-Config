@@ -1,3 +1,0 @@
-- platform: switch
-  name: Fairy Lights
-  entity_id: switch.fairy_lights

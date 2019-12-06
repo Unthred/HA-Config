@@ -42,9 +42,29 @@ binary_sensor.mouse_trap_one:
   icon: mdi:mouse-variant
 binary_sensor.mouse_trap_two:
   icon: mdi:mouse-variant
-device_tracker.squigglepad:
-  friendly_name: "Squiggley"
+device_tracker.squigglepad_2:
+  friendly_name: Squiggley
   picture: /local/images/smiley_punk.jpg
-device_tracker.claires_iphone:
-  friendly_name: "Wee Bear"
+device_tracker.claires_iphone_2:
+  friendly_name: Wee Bear
   picture: /local/images/bear/jpg
+light.bear_stripper:
+  icon: fas:paw
+light.dog_lamps:
+  icon: fas:dog
+light.front_garden_light:
+  icon: bha:led-strip
+light.kitchen_tree:
+  icon: mdi:palm-tree
+light.fairy_lights:
+  icon: fas:female
+light.spiral_lights:
+  icon: fas:spinner
+switch.spiral_lights:
+  icon: fas:spinner
+light.kitchen_strippers:
+  icon: bha:led-strip
+switch.office_lamp_relay:
+  icon: mdi:desk-lamp
+switch.office_speakers_relay:
+  icon: mdi:speaker

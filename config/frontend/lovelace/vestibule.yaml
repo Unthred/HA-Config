@@ -1,0 +1,42 @@
+icon: 'fas:dungeon'
+title: Vestibule
+background: var(--background-image)
+badges: []
+cards:
+  - entity: climate.vestibule
+    type: thermostat
+  - cards:
+      - entity: light.bear_stripper
+        icon: 'bha:led-strip'
+        name: Bear Stripper
+        tap_action:
+          action: call-service
+          service: light.toggle
+          service_data:
+            entity_id: light.bear_stripper
+        type: entity-button
+      - entity: light.xiaomi_gateway_light
+        name: Xiaomi Gateway
+        tap_action:
+          action: call-service
+          service: light.toggle
+          service_data:
+            entity_id: light.xiaomi_gateway_light
+        type: entity-button
+    type: horizontal-stack
+  - cards:
+      - entities:
+          - entity: sensor.gateway_illumination_sensor
+          - entity: sensor.gateway_humidity_sensor
+          - entity: light.xiaomi_gateway_light
+        title: Xioami Gateway
+        type: entities
+    type: horizontal-stack
+  - cards:
+      - entity: light.vestibule_one
+        name: Vestibule One
+        type: light
+      - entity: light.vestibule_two
+        name: Vestibule Two
+        type: light
+    type: horizontal-stack

@@ -1,5 +1,0 @@
-- platform: group
-  name: Vestibule Lights
-  entities: 
-    - light.vestibule_one
-    - light.vestibule_two

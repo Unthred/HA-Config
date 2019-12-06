@@ -185,25 +185,45 @@
 - id: 'Occupancy: Announce Arrive/Leave Home'
   alias: 'Occupancy: Announce Arrive/Leave Home'
   trigger:
-    - entity_id: device_tracker.claires_iphone, device_tracker.squigglepad
-      from: 'not_home'
-      platform: state
-      to: 'home'
-    - entity_id: device_tracker.claires_iphone, device_tracker.squigglepad
-      from: 'home'
-      platform: state
-      to: 'not_home'
+  - entity_id: device_tracker.claires_iphone_2, device_tracker.squigglepad_2
+    from: not_home
+    platform: state
+    to: home
+  - entity_id: device_tracker.claires_iphone_2, device_tracker.squigglepad_2
+    from: home
+    platform: state
+    to: not_home
   action:
-    - service: notify.squiggley
-      data_template:
-        message: >
-          {{ trigger.to_state.attributes.friendly_name }} is {% if trigger.to_state.state == 'home' %}back{% else %}away{% endif %}.
-        title: ""
-    - service: tts.google_translate_say
-      entity_id: media_player.office_speaker
-      data_template:
-        message: >
-          {{ trigger.to_state.attributes.friendly_name }} is {% if trigger.to_state.state == 'home' %}back{% else %}away{% endif %}.
+  - service: notify.squiggley
+    data_template:
+      message: '{{ trigger.to_state.attributes.friendly_name }} is {% if trigger.to_state.state
+        == ''home'' %}back{% else %}away{% endif %}.
+
+        '
+      title: ''
+  - service: tts.google_translate_say
+    entity_id: media_player.office_speaker
+    data_template:
+      message: '{{ trigger.to_state.attributes.friendly_name }} is {% if trigger.to_state.state
+        == ''home'' %}back{% else %}away{% endif %}.
+
+        '
+- id: 'Occupancy: Dev : Send message on location updates'
+  alias: 'Occupancy: Dev : Send message on location updates'
+  trigger:
+  - entity_id: device_tracker.claires_iphone_2, device_tracker.squigglepad_2
+    platform: state
+  action:
+  - service: notify.squiggley
+    data_template:
+      message: "{% if trigger.from_state.state != trigger.to_state.state %}\n  Update\
+        \ from {{ trigger.to_state.attributes.friendly_name }} - state changed from\
+        \ {{ trigger.from_state.state }} to {{ trigger.to_state.state }} Old Lattitude\
+        \ = Latitude = {{ trigger.from_state.attributes.latitude }} New latitude =\
+        \ Latitude = {{ trigger.to_state.attributes.latitude }}\n{% elif trigger.from_state.state\
+        \ == trigger.to_state.state %}\n  {{ trigger.to_state.attributes.friendly_name\
+        \ }} no state change. Latitude = {{ trigger.to_state.attributes.latitude }}\n\
+        {% endif %}\n"
 - id: 'Server: Turn On The Fan When Its Hot'
   alias: 'Server: Turn On Fan When Its Hot'
   trigger:
@@ -328,11 +348,11 @@
     state: 'on'
   action:
   - data:
-      entity_id: switch.ambilight_relay
+      entity_id: switch.slow_cooker_relay
     service: switch.turn_on
   - data:
       message: Turning on the slow cooker
-    service: notify.android_squiggle_pad
+    service: notify.squiggley
 - id: 'Slow Cooker: Turn Off Slow Cooker at specified time'
   alias: 'Slow Cooker: Turn Off Slow Cooker at specified time'
   trigger:
@@ -342,29 +362,34 @@
   action:
   - service: switch.turn_off
     data:
-      entity_id: switch.ambilight_relay
-  - service: notify.android_squiggle_pad
+      entity_id: switch.slow_cooker_relay
+  - service: notify.squiggley
     data:
       message: Turning off the slow cooker
-- id: 'Livingroom: Toggle On/Off'
-  alias: 'Livingroom: Toggle On/Off'
-  description: Turns on/off the tv, amp, kodi, ambilighting and eventually lights
+- id: 'Livingroom: Moron Machine On/Off'
+  alias: 'Livingroom: Moron Machine On/Off'
+  description: For Google Assistant to be able to turn the moron machine on or off
   trigger:
     platform: state
-    entity_id: input_boolean.livingroom_on
+    entity_id: input_boolean.moron_machine
   action:
-    service_template: script.moron_machine_{{trigger.to_state.state}}
-- id: 'Livingroom: Toggle input_boolean On/Off'
-  alias: 'Livingroom: Toggle input_boolean On/Off'
-  description: ''
+    service: script.turn_on
+    data_template:
+      entity_id: "{% if is_state('sensor.moron_machine_status', 'on') %}\n  script.deactivate_moron_machine\n\
+        {% elif is_state('sensor.moron_machine_status', 'off') %}\n  script.activate_moron_machine\n\
+        {% endif %}\n"
+- id: 'Livingroom: Toggle On/Off'
+  alias: 'Livingroom: Toggle On/Off'
+  description: Turns on the tv, amp, kodi, ambilighting and eventually lights
   trigger:
     platform: state
     entity_id: binary_sensor.livingroom_on_off_switch
   condition: []
   action:
-  - data:
-      entity_id: input_boolean.livingroom_on
-    service: input_boolean.toggle
+    service: script.turn_on
+    data_template:
+      entity_id: "{% if is_state('sensor.moron_machine_status', 'on') %}\n  script.deactivate_moron_machine\n\
+        {% else %}\n  script.activate_moron_machine\n{% endif %}\n"
 - id: 'Heating: Active/deactivate heating schedule for room'
   alias: 'Heating: Active/deactivate heating schedule for room'
   trigger:
@@ -401,11 +426,16 @@
 
         '
   action:
-    service: climate.set_temperature
+  - service: climate.set_temperature
     data_template:
       entity_id: climate.{{trigger.entity_id.split('_')[1].replace('boolean.', '')}}
       temperature: '{{ states(''input_number.''+trigger.entity_id.split(''_'')[1].replace(''boolean.'',
         '''')+''_temperature'') }}'
+  - service: notify.squiggley
+    data_template:
+      message: Activated by schedule {{trigger.entity_id.split('_')[1].replace('boolean.',
+        '')}} to {{ states('input_number.'+trigger.entity_id.split('_')[1].replace('boolean.',
+        '')+'_temperature') }}
 - id: 'Heating: Turn on when schedule is active and Someone Arrives Home'
   alias: 'Heating: Turn on when schedule is active and Someone Arrives Home'
   trigger:
@@ -434,7 +464,7 @@
       entity_id: input_boolean.bedroom_schedule_active
       state: 'on'
   action:
-    service: notify.android_squiggle_pad
+    service: notify.squiggley
     data:
       message: Need to work out which rooms we shout turn the heating on in
       title: Heating Automation
@@ -447,10 +477,14 @@
       input_boolean.katrin_schedule_active, input_boolean.bedroom_schedule_active
     to: 'off'
   action:
-    service: climate.set_temperature
+  - service: climate.set_temperature
     data_template:
       entity_id: climate.{{ trigger.entity_id.split('_')[1].replace('boolean.', '')}}
       temperature: 7
+  - service: notify.squiggley
+    data_template:
+      message: Deactivated by schedule {{trigger.entity_id.split('_')[1].replace('boolean.',
+        '')}} to 7 }}
 - id: 'Heating: Turn All Heating off week day nights'
   alias: 'Heating: Turn All Heating off week day nights'
   trigger:
@@ -484,3 +518,171 @@
     service: script.turn_on
     data_template:
       entity_id: script.turn_heating_off
+- id: 'Movie Night: Marvin Movie Playing'
+  alias: 'Movie Night: Marvin Movie Playing'
+  trigger:
+  - entity_id: media_player.marvin
+    platform: state
+    to: playing
+  condition: 
+    condition: state
+    entity_id: input_boolean.movie_lighting
+    state: 'on'
+  action:
+  - service: light.turn_on
+    data:
+      brightness_pct: '0'
+      transition: 5
+      entity_id: light.movie_lights
+- id: 'Movie Night: Movie Ended'
+  alias: 'Movie Night: Movie Ended'
+  trigger:
+  - entity_id: media_player.marvin
+    platform: state
+    to: idle
+  condition: 
+    condition: state
+    entity_id: input_boolean.movie_lighting
+    state: 'on'
+  action:
+  - service: light.turn_on
+    data:
+      brightness_pct: '75'
+      transition: 3
+      entity_id: light.movie_lights
+- id: 'Movie Night: Movie Paused'
+  alias: 'Movie Night: Movie Paused'
+  trigger:
+  - entity_id: media_player.marvin
+    from: playing
+    platform: state
+    to: paused
+  condition: 
+    condition: state
+    entity_id: input_boolean.movie_lighting
+    state: 'on'
+  action:
+  - service: light.turn_on
+    data:
+      brightness_pct: '40'
+      transition: 2
+      entity_id: light.movie_lights
+- id: 'Zigbee: Enable Zigbee Join'
+  alias: 'Zigbee: Enable Zigbee Join'
+  hide_entity: true
+  trigger:
+    platform: state
+    entity_id: input_boolean.zigbee_permit_join
+    to: 'on'
+  action:
+  - service: mqtt.publish
+    data:
+      topic: zigbee2mqtt/bridge/config/permit_join
+      payload: 'true'
+  - service: timer.start
+    data:
+      entity_id: timer.zigbee_permit_join
+- id: 'Zigbee: Disable Zigbee Join'
+  alias: 'Zigbee: Disable Zigbee Join'
+  trigger:
+  - entity_id: input_boolean.zigbee_permit_join
+    platform: state
+    to: 'off'
+  action:
+  - data:
+      payload: 'false'
+      topic: zigbee2mqtt/bridge/config/permit_join
+    service: mqtt.publish
+  - data:
+      entity_id: timer.zigbee_permit_join
+    service: timer.cancel
+  hide_entity: true
+- id: 'Zigbee: Disable Zigbee Join Timer'
+  alias: 'Zigbee: Disable Zigbee Join Timer'
+  hide_entity: true
+  trigger:
+  - platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.zigbee_permit_join
+  action:
+  - service: mqtt.publish
+    data:
+      topic: zigbee2mqtt/bridge/config/permit_join
+      payload: 'false'
+  - service: input_boolean.turn_off
+    data:
+      entity_id: input_boolean.zigbee_permit_join
+- id: Sunset Transition
+  alias: Sunset Transition
+  description: Sunset Transition
+  trigger:
+  - platform: time_pattern
+    minutes: /2
+    seconds: 0
+  condition:
+    condition: and
+    conditions:
+    - condition: time
+      after: '16:00:00'
+      before: '23:00:00'
+    - condition: numeric_state
+      entity_id: sensor.sun_elevation
+      above: '0'
+      below: '9'
+    - condition: or
+      conditions:
+      - condition: template
+        value_template: '{{ states.light.dog_lamps.attributes.brightness < (((0.0625*(states.sun.sun.attributes.elevation**2))-(31.125*states.sun.sun.attributes.elevation)+246.5)|int)
+          }} '
+      - condition: template
+        value_template: '{{ states.light.dog_lamps.attributes.brightness==null }} '
+  action:
+  - data:
+      entity_id: light.dog_lamps
+    service: light.turn_on
+- id: 'Car Defroster: Start Monitoring Temperature'
+  alias: 'Car Defroster: Start Monitoring Temperature'
+  description: 'Car Defroster: Start Monitoring Temperature'
+  trigger:
+  - at: 08:11
+    platform: time
+  condition:
+  - condition: state
+    entity_id: sensor.house_occupancy_status
+    state: 'on'
+  action:
+  - data:
+      entity_id: automation.car_defroster_flash_light_if_car_needs_defrosted
+    service: automation.turn_on
+- id: 'Car Defroster: Flash Light If Car Needs Defrosted'
+  alias: 'Car Defroster: Flash Light If Car Needs Defrosted'
+  description: 'Car Defroster: Flash Light If Car Needs Defrosted'
+  trigger:
+  - platform: time_pattern
+    seconds: /30
+  condition:
+  - below: '10'
+    condition: numeric_state
+    entity_id: sensor.front_garden_temperature
+  action:
+  - data:
+      brightness: '200'
+      color: blue
+      delay: '01'
+      light_id: light.xiaomi_gateway_light
+      transition: '1'
+    service: script.pulselight_loop
+- id: 'Car Defroster: Stop Monitoring Temperature'
+  alias: 'Car Defroster: Stop Monitoring Temperature'
+  description: 'Car Defroster: Stop Monitoring Temperature'
+  trigger:
+  - at: 08:13
+    platform: time
+  condition: []
+  action:
+  - data:
+      entity_id: automation.car_defroster_flash_light_if_car_needs_defrosted
+    service: automation.turn_off
+  - data: {}
+    service: script.pulselight_stop

@@ -1,0 +1,9 @@
+car_defrost_weekday_morning_start:
+  name: Start checking if the car needs defrosted
+  has_time: true
+  has_date: false
+
+car_defrost_weekday_morning_stop:
+  name: Stop checking if the car needs defrosted
+  has_time: true
+  has_date: false

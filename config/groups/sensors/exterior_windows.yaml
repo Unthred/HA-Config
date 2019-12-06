@@ -1,0 +1,13 @@
+exterior_windows:
+  name: Exterior Windows
+  view: no
+  entities:
+    - binary_sensor.bathroom_window_sensor
+    - binary_sensor.bedroom_window_one_sensor
+    - binary_sensor.bedroom_window_two_sensor
+    - binary_sensor.katrin_window_one_sensor
+    - binary_sensor.katrin_window_two_sensor
+    - binary_sensor.kitchen_window_sensor
+    - binary_sensor.office_window_one_sensor
+    - binary_sensor.office_window_two_sensor
+    - binary_sensor.skylight_sensor

@@ -1,0 +1,7 @@
+- platform: group
+  name: Kitchen Strippers
+  entities: 
+    - light.lower_cooking_stripper
+    - light.lower_main_stripper
+    - light.upper_cooking_stripper
+    - light.upper_main_stripper

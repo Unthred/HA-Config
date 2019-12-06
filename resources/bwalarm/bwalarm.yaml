@@ -83,4 +83,9 @@ users:
   enabled: false
   code: 3df2f4544e344f31975453f1d45f5950
   picture: ha.png
+- id: a839c5ac7bd442b0a402e2e5426e6cef
+  name: Home Assistant Cast
+  enabled: false
+  code: a839c5ac7bd442b0a402e2e5426e6cef
+  picture: ha.png
 admin_password: DangerHome42

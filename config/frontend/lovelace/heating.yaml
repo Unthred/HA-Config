@@ -1,0 +1,132 @@
+icon: 'mdi:radiator'
+path: heating
+title: Heating
+background: var(--background-image)
+badges: []
+cards:
+  - cards:
+      - entity: climate.vestibule
+        type: thermostat
+      - entities:
+          - entity: input_boolean.vestibule_schedule_active
+          - entity: input_number.vestibule_temperature
+            type: 'custom:slider-entity-row'
+          - entity: input_datetime.heating_vestibule_weekday_morning_start
+          - entity: input_datetime.heating_vestibule_weekday_morning_stop
+          - entity: input_datetime.heating_vestibule_weekend_morning_start
+          - entity: input_datetime.heating_vestibule_weekend_morning_stop
+        head: input_boolean.enable_vestibule_schedule
+        type: 'custom:fold-entity-row'
+    type: vertical-stack
+  - cards:
+      - entity: climate.livingroom
+        type: thermostat
+      - entities:
+          - entity: input_number.livingroom_temperature
+            type: 'custom:slider-entity-row'
+          - entity: input_datetime.heating_livingroom_weekday_morning_start
+          - entity: input_datetime.heating_livingroom_weekday_morning_stop
+          - entity: input_datetime.heating_livingroom_weekend_morning_start
+          - entity: input_datetime.heating_livingroom_weekend_morning_stop
+        head: input_boolean.enable_livingroom_schedule
+        type: 'custom:fold-entity-row'
+    type: vertical-stack
+  - cards:
+      - entity: climate.office
+        type: thermostat
+      - entities:
+          - entity: input_number.office_temperature
+            type: 'custom:slider-entity-row'
+          - entity: input_datetime.heating_office_weekday_morning_start
+          - entity: input_datetime.heating_office_weekday_morning_stop
+          - entity: input_datetime.heating_office_weekend_morning_start
+          - entity: input_datetime.heating_office_weekend_morning_stop
+        head: input_boolean.enable_office_schedule
+        type: 'custom:fold-entity-row'
+    type: vertical-stack
+  - cards:
+      - entity: climate.kitchen
+        type: thermostat
+      - entities:
+          - entity: input_number.kitchen_temperature
+            type: 'custom:slider-entity-row'
+          - entity: input_datetime.heating_kitchen_weekday_morning_start
+          - entity: input_datetime.heating_kitchen_weekday_morning_stop
+          - entity: input_datetime.heating_kitchen_weekend_morning_start
+          - entity: input_datetime.heating_kitchen_weekend_morning_stop
+        head: input_boolean.enable_kitchen_schedule
+        type: 'custom:fold-entity-row'
+    type: vertical-stack
+  - cards:
+      - entity: climate.katrin
+        type: thermostat
+      - entities:
+          - entity: input_number.katrin_temperature
+            type: 'custom:slider-entity-row'
+          - entity: input_datetime.heating_katrin_weekday_morning_start
+          - entity: input_datetime.heating_katrin_weekday_morning_stop
+          - entity: input_datetime.heating_katrin_weekend_morning_start
+          - entity: input_datetime.heating_katrin_weekend_morning_stop
+        head: input_boolean.enable_katrin_schedule
+        type: 'custom:fold-entity-row'
+    type: vertical-stack
+  - cards:
+      - entity: climate.bedroom
+        type: thermostat
+      - entities:
+          - entity: input_number.bedroom_temperature
+            type: 'custom:slider-entity-row'
+          - entity: input_datetime.heating_bedroom_weekday_morning_start
+          - entity: input_datetime.heating_bedroom_weekday_morning_stop
+          - entity: input_datetime.heating_bedroom_weekend_morning_start
+          - entity: input_datetime.heating_bedroom_weekend_morning_stop
+        head: input_boolean.enable_bedroom_schedule
+        type: 'custom:fold-entity-row'
+    type: vertical-stack
+  - entities:
+      - entity: input_datetime.heating_all_rooms_week_night_stop
+      - entity: input_datetime.heating_all_rooms_weekend_night_stop
+    show_header_toggle: false
+    title: Heating Off All Rooms
+    type: entities
+  - entities:
+      - entity: sensor.vestibule_current_temperature
+        name: Vestibule Current
+        smooth: true
+      - entity: sensor.vestibule_target_temperature
+        name: Vestibule Target
+        smooth: true
+      - entity: sensor.livingroom_current_temperature
+        name: Livingroom Current
+        smooth: true
+      - entity: sensor.livingroom_target_temperature
+        name: Livingroom Target
+        smooth: true
+      - entity: sensor.office_current_temperature
+        name: Office Current
+        smooth: true
+      - entity: sensor.office_target_temperature
+        name: Office Target
+        smooth: true
+      - entity: sensor.kitchen_current_temperature
+        name: Kitchen Current
+        smooth: true
+      - entity: sensor.kitchen_target_temperature
+        name: Kitchen Target
+        smooth: true
+      - entity: sensor.katrin_current_temperature
+        name: Katrin Current
+        smooth: true
+      - entity: sensor.katrin_target_temperature
+        name: Katrin Target
+        smooth: true
+      - entity: sensor.bedroom_current_temperature
+        name: Bedroom Current
+        smooth: true
+      - entity: sensor.bedroom_target_temperature
+        name: Bedroom Target
+        smooth: true
+    hours_to_show: 48
+    refresh_interval: 30
+    title: House Temperatures
+    type: history-graph

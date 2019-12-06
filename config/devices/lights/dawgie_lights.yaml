@@ -1,5 +1,0 @@
-- platform: group
-  name: Dawgie Lights
-  entities: 
-    - light.dita
-    - light.marmaduke

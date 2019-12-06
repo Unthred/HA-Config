@@ -1,0 +1,62 @@
+badges: []
+cards:
+  - cards:
+      - entity: climate.kitchen
+        type: thermostat
+      - entities:
+          - entity: input_boolean.kitchen_schedule_active
+          - entity: sensor.kitchen_heating_on
+          - entity: sensor.kitchen_heating_off
+          - entity: input_number.kitchen_temperature
+            type: 'custom:slider-entity-row'
+          - entity: input_datetime.heating_kitchen_weekday_morning_start
+          - entity: input_datetime.heating_kitchen_weekday_morning_stop
+          - entity: input_datetime.heating_kitchen_weekend_morning_start
+          - entity: input_datetime.heating_kitchen_weekend_morning_stop
+        head: input_boolean.enable_kitchen_schedule
+        type: 'custom:fold-entity-row'
+    type: vertical-stack
+  - card:
+      title: Heating On
+      type: glance
+    filter:
+      include:
+        - attributes:
+            temperature: '> 7'
+          domain: climate
+          options:
+            icon: 'fas:temperature-high'
+            secondary_info: '[[ {entity}.attributes.temperature ]]'
+            type: 'custom:secondaryinfo-entity-row'
+    show_empty: false
+    type: 'custom:auto-entities'
+  - card:
+      show_header_toggle: false
+      title: Heating On
+      type: entities
+    filter:
+      include:
+        - attributes:
+            temperature: '>7'
+          domain: climate
+    type: 'custom:auto-entities'
+  - entities:
+      - entity: input_boolean.livingroom_schedule_active
+      - entity: sensor.livingroom_heating_on
+      - entity: sensor.livingroom_heating_off
+    type: entities
+  - entities:
+      - entity: climate.bedroom
+        filter:
+          include:
+            - climate.bedroom.*
+        type: 'custom:entity-attributes-card'
+    title: Entities card
+    type: entities
+  - entities:
+      - entity: input_boolean.everyone_sleeping
+      - entity: input_boolean.livingroom_on
+    type: entities
+icon: 'fas:radiation'
+path: heating-dev-test
+title: Heating Dev Test

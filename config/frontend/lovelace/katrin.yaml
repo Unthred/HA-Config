@@ -1,0 +1,7 @@
+background: var(--background-image)
+badges: []
+cards:
+  - entity: climate.katrin
+    type: thermostat
+icon: 'fas:bed'
+title: Katrin
