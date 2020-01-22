@@ -2,4 +2,4 @@
   name: Dog Lamps
   entities: 
     - light.dita
-    - light.marmaduke
+    - light.marmaduke_lamp

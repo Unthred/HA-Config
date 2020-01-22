@@ -1,0 +1,7 @@
+- platform: group
+  name: Bedroom Lamps
+  entities: 
+    - light.squiggley_lamp
+    - light.wee_bear_lamp
+    - light.floor_lamp
+    - light.wardrobe_lamp

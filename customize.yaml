@@ -29,13 +29,49 @@ binary_sensor.kitchen_window_sensor:
 binary_sensor.skylight_sensor:
   device_class: window
 person.wee_bear:
-  entity_picture: https://home.yeradonkey.com/local/images/bear.jpg
+  entity_picture: /local/images/bear.jpg
 person.squiggley_woo:
-  entity_picture: https://home.yeradonkey.com/local/images/smiley_punk.jpg
+  entity_picture: /local/images/smiley_punk.jpg
 light.dita:
+  friendly_name: Dita Lamp
   icon: fas:dog
-light.marmaduke:
+light.marmaduke_lamp:
+  friendly_name: Marmaduke Lamp
   icon: fas:dog
+light.door_lamp:
+  friendly_name: Door Lamp
+  icon: mdi:lamp
+light.couch_lamp_one:
+  friendly_name: Couch Lamp One
+light.couch_lamp_two:
+  friendly_name: Couch Lamp Two
+  icon: mdi:lamp
+light.tv_lamp:
+  friendly_name: TV Lamp
+  icon: mdi:lamp
+light.squiggley_lamp:
+  friendly_name: Squiggley Lamp
+light.wee_bear_lamp:
+  friendly_name: Wee Bear Lamp
+  icon: mdi:lamp
+light.floor_lamp:
+  friendly_name: Floor Lamp
+  icon: mdi:floor-lamp
+light.bedroom_ceiling_one:
+  friendly_name: Bedroom Ceiling One
+  icon: 'mdi:spotlight-beam'
+light.bedroom_ceiling_two:
+  friendly_name: Bedroom Ceiling Two
+  icon: 'mdi:spotlight-beam'
+light.bedroom_ceiling_three:
+  friendly_name: Bedroom Ceiling Three
+  icon: 'mdi:spotlight-beam'
+light.bedroom_ceiling_four:
+  friendly_name: Bedroom Ceiling Four
+  icon: 'mdi:spotlight-beam'
+light.bedroom_ceiling_five:
+  friendly_name: Bedroom Ceiling Five
+  icon: 'mdi:spotlight-beam'
 input_select.house_occupancy_status:
   entity_picture: https://home.yeradonkey.com/local/images/happy_house.png
 binary_sensor.mouse_trap_one:
@@ -49,8 +85,10 @@ device_tracker.claires_iphone_2:
   friendly_name: Wee Bear
   picture: /local/images/bear/jpg
 light.bear_stripper:
+  friendly_name: Bear Stripper
   icon: fas:paw
 light.dog_lamps:
+  friendly_name: Dog Lamps
   icon: fas:dog
 light.front_garden_light:
   icon: bha:led-strip

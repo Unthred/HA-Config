@@ -1,0 +1,39 @@
+- platform: group
+  name: Livingroom Ceiling
+  entities: 
+    - light.window_ceiling_one
+    - light.window_ceiling_two
+    - light.window_ceiling_three
+    - light.window_ceiling_four
+    - light.mural_ceiling_one
+    - light.mural_ceiling_two
+    - light.tv_ceiling_one
+    - light.back_wall_ceiling_one
+    - light.back_wall_ceiling_two
+    - light.back_wall_ceiling_three
+
+- platform: group
+  name: Window Ceiling
+  entities: 
+    - light.window_ceiling_one
+    - light.window_ceiling_two
+    - light.window_ceiling_three
+    - light.window_ceiling_four
+
+- platform: group
+  name: Mural Ceiling
+  entities: 
+    - light.mural_ceiling_one
+    - light.mural_ceiling_two
+
+- platform: group
+  name: TV Ceiling
+  entities: 
+    - light.tv_ceiling_one
+
+- platform: group
+  name: Back Wall Ceiling
+  entities: 
+    - light.back_wall_ceiling_one
+    - light.back_wall_ceiling_two
+    - light.back_wall_ceiling_three

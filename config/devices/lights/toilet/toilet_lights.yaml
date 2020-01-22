@@ -1,4 +1,5 @@
 - platform: group
   name: Toilet Lights
   entities: 
-    - light.toilet_light_1
+    - light.toilet_one
+    - light.toilet_two

@@ -1,0 +1,43 @@
+- platform: group
+  name: Kitchen Ceiling
+  entities: 
+    - light.main_ceiling_one
+    - light.main_ceiling_two
+    - light.main_ceiling_three
+    - light.main_ceiling_four
+    - light.main_ceiling_five
+    - light.main_ceiling_six
+    - light.cooking_ceiling_one
+    - light.cooking_ceiling_two
+    - light.table_ceiling_one
+    - light.table_ceiling_two
+    - light.bench_ceiling_one
+    - light.bench_ceiling_two
+
+- platform: group
+  name: Main Ceiling
+  entities: 
+    - light.main_ceiling_one
+    - light.main_ceiling_two
+    - light.main_ceiling_three
+    - light.main_ceiling_four
+    - light.main_ceiling_five
+    - light.main_ceiling_six
+
+- platform: group
+  name: Cooking Ceiling
+  entities: 
+    - light.cooking_ceiling_one
+    - light.cooking_ceiling_two
+
+- platform: group
+  name: Table Ceiling
+  entities: 
+    - light.table_ceiling_one
+    - light.table_ceiling_two
+
+- platform: group
+  name: Bench Ceiling
+  entities: 
+    - light.bench_ceiling_one
+    - light.bench_ceiling_two

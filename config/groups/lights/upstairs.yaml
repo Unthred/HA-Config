@@ -1,0 +1,9 @@
+upstairs_lights:
+  name: Upstairs lights
+  entities: 
+    - light.stair_ceiling
+    - light.bedroom_ceiling
+    - light.bedroom_lamps
+    - light.large_wardrobe_stripper
+    - light.small_wardrobe_stripper
+    - light.nightlight_stripper

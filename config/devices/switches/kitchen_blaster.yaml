@@ -1,5 +1,5 @@
 - platform: broadlink
-  host: 192.168.13.80
+  host: 192.168.13.4
   mac: 34:EA:34:58:A0:DF
   timeout: 15
   switches:

@@ -1,0 +1,6 @@
+- platform: group
+  name: Stair Ceiling
+  entities: 
+    - light.stair_ceiling_one
+    - light.stair_ceiling_two
+    - light.stair_ceiling_three

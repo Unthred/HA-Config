@@ -24,11 +24,11 @@ cards:
     show_empty: false
     type: 'custom:auto-entities'
   - entities:
-      - entity: binary_sensor.front_doorbell_switch
+      - entity: sensor.front_doorbell_switch
         secondary_info: last-changed
-      - entity: binary_sensor.home_off_switch
+      - entity: sensor.home_off_switch
         secondary_info: last-changed
-      - entity: binary_sensor.livingroom_on_off_switch
+      - entity: sensor.livingroom_on_off_switch_click
         secondary_info: last-changed
     title: Test Switches
     type: entities

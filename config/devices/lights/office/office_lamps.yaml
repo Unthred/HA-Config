@@ -1,0 +1,4 @@
+#- platform: group
+#  name: Office Lamps
+#  entities: 
+#    - switch.office_lamp_relay

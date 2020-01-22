@@ -40,14 +40,16 @@
 - id: 'Bedroom: Turn On Nightlight When Dark'
   alias: 'Bedroom: Turn On Nightlight When Dark'
   trigger:
-  - entity_id: binary_sensor.squiggley_nightlight_motion_sensor
-    from: 'off'
-    platform: state
-    to: 'on'
-  - entity_id: binary_sensor.wee_bear_nightlight_motion_sensor
-    from: 'off'
-    platform: state
-    to: 'on'
+  - device_id: 822656699269482e9e2b446f8689f43c
+    domain: binary_sensor
+    entity_id: binary_sensor.squiggley_nightlight_motion_sensor_occupancy
+    platform: device
+    type: motion
+  - device_id: 34bc52dde87e40fc880a0095e7ebc56a
+    domain: binary_sensor
+    entity_id: binary_sensor.wee_bear_nightlight_motion_sensor_occupancy
+    platform: device
+    type: motion
   condition: []
   action:
   - data:
@@ -60,14 +62,21 @@
 - id: 'Bedroom: Light Wee Bears Wardrobe When The Door Opens'
   alias: 'Bedroom: Light Wee Bears Wardrobe When The Door Opens'
   trigger:
-  - entity_id: binary_sensor.large_wardrobe_one_motion_sensor
-    from: 'off'
-    platform: state
-    to: 'on'
-  - entity_id: binary_sensor.large_wardrobe_two_motion_sensor
-    from: 'off'
-    platform: state
-    to: 'on'
+  - device_id: f006cfbf0dd948879ed5d99b79e8d087
+    domain: binary_sensor
+    entity_id: binary_sensor.wee_bear_wardrobe_door_one_contact
+    platform: device
+    type: opened
+  - device_id: 45da12f50661448785e368a049276411
+    domain: binary_sensor
+    entity_id: binary_sensor.wee_bear_wardrobe_door_two_contact
+    platform: device
+    type: opened
+  - device_id: 195b37745e4b4af5810f6207203be865
+    domain: binary_sensor
+    entity_id: binary_sensor.wee_bear_wardrobe_door_three_contact
+    platform: device
+    type: opened
   condition:
   - condition: state
     entity_id: light.large_wardrobe_stripper
@@ -76,40 +85,82 @@
   - data:
       entity_id: light.large_wardrobe_stripper
     service: light.turn_on
-  - delay: 00:10:00
+- id: 'Bedroom: Turn Off Wee Bears Wardrobe Light When The Door Closes'
+  alias: 'Bedroom: Turn Off Wee Bears Wardrobe Light When The Door Closes'
+  description: ''
+  trigger:
+  - device_id: f006cfbf0dd948879ed5d99b79e8d087
+    domain: binary_sensor
+    entity_id: binary_sensor.wee_bear_wardrobe_door_one_contact
+    platform: device
+    type: not_opened
+  - device_id: 45da12f50661448785e368a049276411
+    domain: binary_sensor
+    entity_id: binary_sensor.wee_bear_wardrobe_door_two_contact
+    platform: device
+    type: not_opened
+  - device_id: 195b37745e4b4af5810f6207203be865
+    domain: binary_sensor
+    entity_id: binary_sensor.wee_bear_wardrobe_door_three_contact
+    platform: device
+    type: not_opened
+  condition:
+  - condition: state
+    entity_id: binary_sensor.wee_bear_wardrobe_door_one_contact
+    state: 'off'
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.wee_bear_wardrobe_door_two_contact
+      state: 'off'
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: binary_sensor.wee_bear_wardrobe_door_three_contact
+        state: 'off'
+  action:
   - data:
       entity_id: light.large_wardrobe_stripper
+    service: light.turn_off
+- id: 'Bedroom: Turn Off Squiggley''s Wardrobe Light When The Door Closes'
+  alias: 'Bedroom: Turn Off Squiggley''s Wardrobe Light When The Door Closes'
+  description: ''
+  trigger:
+  - device_id: 5cda886b86794a49a9df3ff8c5a22c29
+    domain: binary_sensor
+    entity_id: binary_sensor.squiggley_wardrobe_door_contact
+    platform: device
+    type: not_opened
+  condition: []
+  action:
+  - data:
+      entity_id: light.small_wardrobe_stripper
     service: light.turn_off
 - id: 'Bedroom: Light Squiggleys Wardrobe When The Door Opens'
   alias: 'Bedroom: Light Squiggleys Wardrobe When The Door Opens'
   trigger:
-  - entity_id: binary_sensor.small_wardrobe_motion_sensor
-    from: 'off'
-    platform: state
-    to: 'on'
+  - device_id: 5cda886b86794a49a9df3ff8c5a22c29
+    domain: binary_sensor
+    entity_id: binary_sensor.squiggley_wardrobe_door_contact
+    platform: device
+    type: opened
   condition: []
   action:
   - data:
       entity_id: light.small_wardrobe_stripper
     service: light.turn_on
-  - delay: 00:05:00
-  - data:
-      entity_id: light.small_wardrobe_stripper
-    service: light.turn_off
 - id: 'Bedroom: Turn House Off When Button Pressed'
   alias: 'Bedroom: Turn House Off When Button Pressed'
   description: Turn the whole house off when button pressed
   trigger:
-  - entity_id: binary_sensor.home_off_switch
-    from: 'off'
+  - entity_id: sensor.home_off_switch_click
     platform: state
-    to: 'on'
   condition: []
   action:
   - service: script.home_off
-  - service: input_boolean.turn_on
-    data_template:
+  - data_template:
       entity_id: input_boolean.everyone_sleeping
+    service: input_boolean.turn_on
 - id: 'Occupancy: Turn On Garden Lights At Dusk'
   alias: 'Occupancy: Turn On Garden Lights At Dusk'
   trigger:
@@ -119,8 +170,8 @@
   condition: []
   action:
   - data:
-      entity_id: light.front_garden_light
-    service: light.turn_on
+      entity_id: group.front_garden_lights
+    service: homeassistant.turn_on
 - id: 'Occupancy: Turn On Lights When Dark and Someone Is Home'
   alias: 'Occupancy: Turn On Lights When Dark and Someone Is Home'
   trigger:
@@ -157,6 +208,9 @@
   action:
   - data: {}
     service: script.home_off
+  - service: media_player.turn_off
+    entity_id:
+    - media_player.marvin
   - data:
       message: Turning everything Off as nobody does be home
     service: notify.squiggley
@@ -224,6 +278,40 @@
         \ == trigger.to_state.state %}\n  {{ trigger.to_state.attributes.friendly_name\
         \ }} no state change. Latitude = {{ trigger.to_state.attributes.latitude }}\n\
         {% endif %}\n"
+- id: 'Occupancy: Notify Squiggley when someone arrives home'
+  alias: 'Occupancy: Notify Squiggley when someone arrives home'
+  description: ''
+  trigger:
+  - entity_id: person.squiggley_woo
+    event: enter
+    platform: zone
+    zone: zone.home
+  - entity_id: person.wee_bear
+    event: enter
+    platform: zone
+    zone: zone.home
+  condition: []
+  action:
+  - data_template:
+      message: '{{ trigger.to_state.attributes.friendly_name }} has arrived home waaaaaahoooooo!!!'
+    service: notify.squiggley
+- id: 'Occupancy: Notify Squiggley when someone leaves home'
+  alias: 'Occupancy: Notify Squiggley when someone leaves home'
+  description: ''
+  trigger:
+  - entity_id: person.squiggley_woo
+    event: leave
+    platform: zone
+    zone: zone.home
+  - entity_id: person.wee_bear
+    event: enter
+    platform: zone
+    zone: zone.home
+  condition: []
+  action:
+  - data_template:
+      message: '{{ trigger.to_state.attributes.friendly_name }} has left the building!'
+    service: notify.squiggley
 - id: 'Server: Turn On The Fan When Its Hot'
   alias: 'Server: Turn On Fan When Its Hot'
   trigger:
@@ -268,73 +356,119 @@
   - data:
       message: There's a moose been caught aboot this hoose! Trap Two
     service: notify.squiggley
-- id: 'Toilet: Turn On Lights When Motion Detected'
-  alias: 'Toilet: Turn On Lights When Motion Detected'
+- id: 'Toilet: Motion Detected And Door Closed Then Stop Timer And Set Occupied'
+  alias: 'Toilet: Motion Detected And Door Closed Then Stop Timer And Set Occupied'
   trigger:
-  - platform: state
-    entity_id: binary_sensor.toilet_motion_sensor
-    to: 'on'
-  action:
-  - service: timer.start
-    entity_id: timer.toilet_lights
-  - service: light.turn_on
-    entity_id: light.toilet_lights
-- id: 'Toilet: Stop Toilet Lights Timer When Door is Closed'
-  alias: 'Toilet: Stop Toilet Lights Timer When Door is Closed'
-  trigger:
-  - entity_id: binary_sensor.toilet_door_sensor
-    from: 'on'
-    platform: state
-    to: 'off'
+  - device_id: 47cd4607d0ce4b238cfbda038f535140
+    domain: binary_sensor
+    entity_id: binary_sensor.toilet_motion_sensor_occupancy
+    platform: device
+    type: motion
   condition:
   - condition: state
-    entity_id: light.toilet_lights
-    state: 'on'
+    entity_id: binary_sensor.toilet_door_sensor_contact
+    state: 'off'
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.toilet_motion_sensor_occupancy
+      state: 'on'
   action:
-  - entity_id: timer.toilet_lights
+  - entity_id: timer.toilet_ceiling_lights_timer
     service: timer.cancel
-- id: 'Toilet: Start Toilet Lights Timer When Door is Opened'
-  alias: 'Toilet: Start Toilet Lights Timer When Door is Opened'
+  - entity_id: input_boolean.toilet_occupied
+    service: input_boolean.turn_on
+- id: 'Toilet: Occupied And Door Opened Then Start Timer'
+  alias: 'Toilet: Occupied And Door Opened Then Start Timer'
   trigger:
-  - entity_id: binary_sensor.toilet_door_sensor
-    from: 'off'
-    platform: state
-    to: 'on'
+  - device_id: 0f0c07f6241b40d8b9dfbd708c842a6e
+    domain: binary_sensor
+    entity_id: binary_sensor.toilet_door_sensor_contact
+    platform: device
+    type: opened
   condition:
   - condition: state
-    entity_id: light.toilet_lights
+    entity_id: input_boolean.toilet_occupied
     state: 'on'
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: light.toilet_ceiling_lights
+      state: 'on'
   action:
-  - entity_id: timer.toilet_lights
+  - entity_id: input_boolean.toilet_occupied
+    service: input_boolean.turn_off
+  - data_template:
+      duration: 00:{{ states.input_number.toilet_ceiling_lights_timer.state | int }}:00
+      entity_id: timer.toilet_ceiling_lights_timer
+    service: timer.start
+- id: 'Toilet: Unoccupied, Door is Opened Then Turn On Lights And Start Timer'
+  alias: 'Toilet: Unoccupied, Door is Opened Then Turn On Lights And Start Timer'
+  trigger:
+  - device_id: 0f0c07f6241b40d8b9dfbd708c842a6e
+    domain: binary_sensor
+    entity_id: binary_sensor.toilet_door_sensor_contact
+    platform: device
+    type: opened
+  - device_id: 47cd4607d0ce4b238cfbda038f535140
+    domain: binary_sensor
+    entity_id: binary_sensor.toilet_motion_sensor_occupancy
+    platform: device
+    type: motion
+  condition:
+  - condition: state
+    entity_id: input_boolean.toilet_occupied
+    state: 'off'
+  action:
+  - entity_id: light.toilet_ceiling_lights
+    service: light.turn_on
+  - data_template:
+      duration: 00:{{ states.input_number.toilet_ceiling_lights_timer.state | int }}:00
+      entity_id: timer.toilet_ceiling_lights_timer
     service: timer.start
 - id: 'Toilet: Turn off lights at end of timer'
   alias: 'Toilet: Turn off lights at end of timer'
   trigger:
-  - platform: event
+  - event_data:
+      entity_id: timer.toilet_ceiling_lights_timer
     event_type: timer.finished
-    event_data:
-      entity_id: timer.toilet_lights
+    platform: event
   action:
+  - entity_id: light.toilet_ceiling_lights
     service: light.turn_off
-    entity_id: light.toilet_lights
-- id: 'Vestibule: Turn On Lights When Motion Is Detected'
-  alias: 'Vestibule: Turn On Lights When Motion Is Detected'
+- id: 'Toilet: Occupied Turn vestibule One Light To Red'
+  alias: 'Toilet: Occupied Turn vestibule One Light To Red'
+  description: ''
   trigger:
-  - entity_id: binary_sensor.vestibule_motion_sensor
+  - entity_id: input_boolean.toilet_occupied
     from: 'off'
     platform: state
     to: 'on'
-  condition:
-  - condition: state
-    entity_id: light.vestibule_one
-    state: 'off'
+  condition: []
   action:
   - data:
-      entity_id: light.Vestibule_One
+      color_name: red
+      entity_id: light.vestibule_one
+    service: light.turn_on
+- id: 'Vestibule: Turn On Lights When Motion Is Detected'
+  alias: 'Vestibule: Turn On Lights When Motion Is Detected'
+  trigger:
+  - device_id: 7b7ac4ac6a3f4ff390fa7dce96a3959f
+    domain: binary_sensor
+    entity_id: binary_sensor.vestibule_motion_sensor_occupancy
+    platform: device
+    type: motion
+  condition:
+  - condition: state
+    entity_id: light.vestibule_ceiling_lights
+    state: 'off'
+  action:
+  - data: {}
+    entity_id: light.vestibule_ceiling_lights
     service: light.turn_on
   - delay: 00:005:00
-  - data:
-      entity_id: light.Vestibule_One
+  - data: {}
+    entity_id: light.vestibule_ceiling_lights
     service: light.turn_off
 - id: 'Slow Cooker: Turn On at specified time'
   alias: 'Slow Cooker: Turn On at specified time'
@@ -359,13 +493,17 @@
   - platform: template
     value_template: '{{ states.sensor.time.state == (states.input_datetime.slow_cooker_stop.attributes.timestamp
       | int | timestamp_custom("%H:%M", False)) }}'
+  condition:
+  - condition: state
+    entity_id: input_boolean.slow_cooker_timer
+    state: 'on'
   action:
-  - service: switch.turn_off
-    data:
+  - data:
       entity_id: switch.slow_cooker_relay
-  - service: notify.squiggley
-    data:
+    service: switch.turn_off
+  - data:
       message: Turning off the slow cooker
+    service: notify.squiggley
 - id: 'Livingroom: Moron Machine On/Off'
   alias: 'Livingroom: Moron Machine On/Off'
   description: For Google Assistant to be able to turn the moron machine on or off
@@ -383,13 +521,50 @@
   description: Turns on the tv, amp, kodi, ambilighting and eventually lights
   trigger:
     platform: state
-    entity_id: binary_sensor.livingroom_on_off_switch
+    entity_id: sensor.livingroom_on_off_switch_click
   condition: []
   action:
     service: script.turn_on
     data_template:
       entity_id: "{% if is_state('sensor.moron_machine_status', 'on') %}\n  script.deactivate_moron_machine\n\
         {% else %}\n  script.activate_moron_machine\n{% endif %}\n"
+- id: 'Heating: Turn On Boost heating for room'
+  alias: 'Heating: Turn On Boost heating for room'
+  trigger:
+  - entity_id: input_boolean.boost_vestibule_heating, input_boolean.boost_livingroom_heating,
+      input_boolean.boost_office_heating, input_boolean.boost_kitchen_heating, input_boolean.boost_katrin_heating,
+      input_boolean.boost_bedroom_heating
+    from: 'off'
+    platform: state
+    to: 'on'
+  action:
+  - service: timer.start
+    data_template:
+      duration: '{% set entity_str =''input_number.''+trigger.entity_id.split(''_'')[2]+''_boost''%}    {%
+        set mins = states[entity_str].state | int %}     00:{{mins}}:00'
+      entity_id: timer.{{trigger.entity_id.split('_')[2]}}_boost_timer
+  - service: climate.set_temperature
+    data_template:
+      entity_id: climate.{{trigger.entity_id.split('_')[2]}}
+      temperature: '{{ states(''input_number.''+trigger.entity_id.split(''_'')[2]+''_temperature'')
+        }}'
+- id: 'Heating: Turn Off Boost heating for room'
+  alias: 'Heating: Turn Off Boost heating for room'
+  trigger:
+  - entity_id: input_boolean.boost_vestibule_heating, input_boolean.boost_livingroom_heating,
+      input_boolean.boost_office_heating, input_boolean.boost_kitchen_heating, input_boolean.boost_katrin_heating,
+      input_boolean.boost_bedroom_heating
+    from: 'on'
+    platform: state
+    to: 'off'
+  action:
+  - service: timer.cancel
+    data_template:
+      entity_id: timer.{{trigger.entity_id.split('_')[2]}}_boost_timer
+  - service: climate.set_temperature
+    data_template:
+      entity_id: climate.{{trigger.entity_id.split('_')[2]}}
+      temperature: 7
 - id: 'Heating: Active/deactivate heating schedule for room'
   alias: 'Heating: Active/deactivate heating schedule for room'
   trigger:
@@ -422,9 +597,7 @@
       state: 'on'
     - condition: template
       value_template: '{{ is_state(''input_boolean.''+trigger.entity_id.split(''_'')[1].replace(''boolean.'','''')+''_schedule_active'',
-        ''on'')}}
-
-        '
+        ''on'')}}'
   action:
   - service: climate.set_temperature
     data_template:
@@ -521,52 +694,52 @@
 - id: 'Movie Night: Marvin Movie Playing'
   alias: 'Movie Night: Marvin Movie Playing'
   trigger:
-  - entity_id: media_player.marvin
+  - entity_id: media_player.zaphod
     platform: state
     to: playing
-  condition: 
-    condition: state
+  condition:
+  - condition: state
     entity_id: input_boolean.movie_lighting
     state: 'on'
   action:
-  - service: light.turn_on
-    data:
+  - data:
       brightness_pct: '0'
-      transition: 5
       entity_id: light.movie_lights
+      transition: 5
+    service: light.turn_on
 - id: 'Movie Night: Movie Ended'
   alias: 'Movie Night: Movie Ended'
   trigger:
-  - entity_id: media_player.marvin
+  - entity_id: media_player.zaphod
     platform: state
     to: idle
-  condition: 
-    condition: state
+  condition:
+  - condition: state
     entity_id: input_boolean.movie_lighting
     state: 'on'
   action:
-  - service: light.turn_on
-    data:
+  - data:
       brightness_pct: '75'
-      transition: 3
       entity_id: light.movie_lights
+      transition: 3
+    service: light.turn_on
 - id: 'Movie Night: Movie Paused'
   alias: 'Movie Night: Movie Paused'
   trigger:
-  - entity_id: media_player.marvin
+  - entity_id: media_player.zaphod
     from: playing
     platform: state
     to: paused
-  condition: 
-    condition: state
+  condition:
+  - condition: state
     entity_id: input_boolean.movie_lighting
     state: 'on'
   action:
-  - service: light.turn_on
-    data:
+  - data:
       brightness_pct: '40'
-      transition: 2
       entity_id: light.movie_lights
+      transition: 2
+    service: light.turn_on
 - id: 'Zigbee: Enable Zigbee Join'
   alias: 'Zigbee: Enable Zigbee Join'
   hide_entity: true
@@ -686,3 +859,121 @@
     service: automation.turn_off
   - data: {}
     service: script.pulselight_stop
+- id: 'Xmas: Turn On Garden Lights At Dusk'
+  alias: 'Xmas: Turn On Garden Lights At Dusk'
+  trigger:
+  - event: sunset
+    offset: 01:00:00
+    platform: sun
+  condition: []
+  action:
+  - data:
+      entity_id: group.outside_xmas_lights
+    service: homeassistant.turn_on
+- id: 'Front Door: Turn On Lights When Someone Is At The Front Door'
+  alias: 'Front Door: Turn On Lights When Someone Is At The Front Door'
+  description: ''
+  trigger:
+  - device_id: f894d9904a6e4ab68c6aef0c13f66778
+    domain: binary_sensor
+    entity_id: binary_sensor.external_front_door_motion_sensor_occupancy
+    platform: device
+    type: motion
+  condition:
+  - condition: state
+    entity_id: light.front_door_eve_lights
+    state: 'off'
+  action:
+  - entity_id: light.front_door_eve_lights
+    service: light.turn_on
+  - delay: 00:05:00
+  - entity_id: light.front_door_eve_lights
+    service: light.turn_off
+- id: 'Bedroom: Turn On Lights When Switch One Clicked'
+  alias: 'Bedroom: Turn On Lights When Switch One Clicked'
+  description: ''
+  trigger:
+  - device_id: ae3368569840475b8364e629b48d2632
+    domain: binary_sensor
+    entity_id: binary_sensor.bedroom_light_switch_one_contact
+    platform: device
+    type: opened
+  - device_id: ae3368569840475b8364e629b48d2632
+    domain: binary_sensor
+    entity_id: binary_sensor.bedroom_light_switch_one_contact
+    platform: device
+    type: not_opened
+  condition: []
+  action:
+  - entity_id: light.bedroom_ceiling_one
+    service: light.toggle
+  - entity_id: light.bedroom_ceiling_two
+    service: light.toggle
+- id: 'Bedroom: Turn On Lights When Switch Two Clicked'
+  alias: 'Bedroom: Turn On Lights When Switch Two Clicked'
+  description: ''
+  trigger:
+  - device_id: 42af7668dbaf4e018ec666b69e105813
+    domain: binary_sensor
+    entity_id: binary_sensor.bedroom_light_switch_two_contact
+    platform: device
+    type: opened
+  - device_id: 42af7668dbaf4e018ec666b69e105813
+    domain: binary_sensor
+    entity_id: binary_sensor.bedroom_light_switch_two_contact
+    platform: device
+    type: not_opened
+  condition: []
+  action:
+  - entity_id: light.bedroom_ceiling_three
+    service: light.toggle
+  - entity_id: light.bedroom_ceiling_four
+    service: light.toggle
+  - entity_id: light.bedroom_ceiling_five
+    service: light.toggle
+- id: 'Heating: Turn Off When Boost Timer is Finished'
+  alias: 'Heating: Turn Off When Boost Timer is Finished'
+  description: ''
+  trigger:
+  - event_data:
+      entity_id: timer.vestibule_boost_timer
+    event_type: timer.finished
+    platform: event
+  - event_data:
+      entity_id: timer.livingroom_boost_timer
+    event_type: timer.finished
+    platform: event
+  - event_data:
+      entity_id: timer.office_boost_timer
+    event_type: timer.finished
+    platform: event
+  - event_data:
+      entity_id: timer.kitchen_boost_timer
+    event_type: timer.finished
+    platform: event
+  - event_data:
+      entity_id: timer.bathroom_boost_timer
+    event_type: timer.finished
+    platform: event
+  - event_data:
+      entity_id: timer.katrin_boost_timer
+    event_type: timer.finished
+    platform: event
+  - event_data:
+      entity_id: timer.bedroom_boost_timer
+    event_type: timer.finished
+    platform: event
+  condition: []
+  action:
+  - data_template:
+      entity_id: input_boolean.boost_{{ trigger.event.data.entity_id.split('.',1)[1].split('_')[0] }}_heating
+    service: input_boolean.turn_off
+- id: 'Zigbee2MqttMap: Update every 10 mins'
+  alias: 'Zigbee2MqttMap: Update every 10 mins'
+  description: ''
+  trigger:
+  - minutes: /10
+    platform: time_pattern
+  condition: []
+  action:
+  - service: zigbee2mqtt_networkmap.update

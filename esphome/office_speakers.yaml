@@ -1,6 +1,7 @@
 esphome:
   name: office_speakers
   platform: ESP8266
+  esp8266_restore_from_flash: true
   board: esp01_1m
 
 wifi:

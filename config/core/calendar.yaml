@@ -1,0 +1,8 @@
+- platform: caldav
+  username: Squiggley
+  password: !secret squiggley_caldav
+  url: https://cloud.yeradonkey.com/remote.php/dav/calendars/Squiggley/
+  custom_calendars:
+    - name: 'Holiday'
+      calendar: 'Holidays'
+      search: '*'

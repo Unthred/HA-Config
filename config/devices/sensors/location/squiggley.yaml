@@ -1,0 +1,8 @@
+- platform: places
+  name: Squiggley Location
+  devicetracker_id: device_tracker.squigglepad_2
+  options: street, street_number, postal_code, city, country
+  map_provider: google
+  map_zoom: 19
+  home_zone: zone.home
+  api_key: !secret squiggley_openstreetmap_api

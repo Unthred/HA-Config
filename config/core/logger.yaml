@@ -8,8 +8,9 @@
 
 default: info
 logs:
+  homeassistant.core: info
   homeassistant.components: error
-  homeassistant.components.mqtt: debug
+  homeassistant.components.mqtt: error
   homeassistant.components.http: error
   homeassistant.components.zwave: error
   homeassistant.components.light: error

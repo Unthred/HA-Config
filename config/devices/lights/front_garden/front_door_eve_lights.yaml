@@ -1,0 +1,6 @@
+- platform: group
+  name: Front Door Eve Lights
+  entities: 
+    - light.eve_ceiling_one
+    - light.eve_ceiling_two
+    - light.eve_ceiling_three

@@ -4,82 +4,103 @@ turn_heating_on:
   - service: climate.set_temperature
     entity_id: climate.kitchen
     data_template:
-      temperature: '{{ states("input_number.heating_temperature") }}'
+      temperature: '{{ states("input_number.kitchen_temperature") }}'
       hvac_mode: heat
   - service: climate.set_temperature
     entity_id: climate.vestibule
     data_template:
-      temperature: '{{ states("input_number.heating_temperature") }}'
+      temperature: '{{ states("input_number.vestibule_temperature") }}'
       hvac_mode: heat
   - service: climate.set_temperature
     entity_id: climate.livingroom
     data_template:
-      temperature: '{{ states("input_number.heating_temperature") }}'
+      temperature: '{{ states("input_number.livingroom_temperature") }}'
       hvac_mode: heat
 turn_heating_off:
   alias: Turn Heating Off
   sequence:
+  - service: homeassistant.turn_off
+    entity_id: input_boolean.vestibule_schedule_active
+  - service: homeassistant.turn_off
+    entity_id: input_boolean.boost_vestibule_heating
   - service: climate.set_temperature
     entity_id: climate.vestibule
     data_template:
       temperature: '7'
       hvac_mode: cool
   - service: homeassistant.turn_off
-    entity_id: input_boolean.enable_vestibule_schedule
+    entity_id: input_boolean.livingroom_schedule_active
+  - service: homeassistant.turn_off
+    entity_id: input_boolean.boost_livingroom_heating
   - service: climate.set_temperature
     entity_id: climate.livingroom
     data_template:
       temperature: '7'
       hvac_mode: cool
   - service: homeassistant.turn_off
-    entity_id: input_boolean.enable_livingroom_schedule
+    entity_id: input_boolean.office_schedule_active
+  - service: homeassistant.turn_off
+    entity_id: input_boolean.boost_office_heating
   - service: climate.set_temperature
     entity_id: climate.office
     data_template:
       temperature: '7'
       hvac_mode: cool
   - service: homeassistant.turn_off
-    entity_id: input_boolean.enable_livingroom_schedule
+    entity_id: input_boolean.kitchen_schedule_active
+  - service: homeassistant.turn_off
+    entity_id: input_boolean.boost_kitchen_heating
   - service: climate.set_temperature
     entity_id: climate.kitchen
     data_template:
       temperature: '7'
       hvac_mode: cool
   - service: homeassistant.turn_off
-    entity_id: input_boolean.enable_kitchen_schedule
+    entity_id: input_boolean.katrin_schedule_active
+  - service: homeassistant.turn_off
+    entity_id: input_boolean.boost_katrin_heating
   - service: climate.set_temperature
     entity_id: climate.katrin
     data_template:
       temperature: '7'
       hvac_mode: cool
   - service: homeassistant.turn_off
-    entity_id: input_boolean.enable_katrin_schedule
+    entity_id: input_boolean.bedroom_schedule_active
+  - service: homeassistant.turn_off
+    entity_id: input_boolean.boost_bedroom_heating
   - service: climate.set_temperature
     entity_id: climate.bedroom
     data_template:
       temperature: '7'
       hvac_mode: cool
-  - service: homeassistant.turn_off
-    entity_id: input_boolean.enable_bedroom_schedule
 home_off:
   alias: Home Off
   sequence:
-  - service: homeassistant.turn_off
-    data:
-      entity_id: group.all_lights
-  - service: homeassistant.turn_off
-    data:
-      entity_id: switch.spiral_lights
-  - delay: 00:00:01
-  - service: script.all_media_players_off
-  - service: homeassistant.turn_off
-    data:
-      entity_id: switch.spiral_lights
+  - service: script.turn_all_lights_off
   - service: script.turn_heating_off
-  - service: script.all_media_players_off
+  - service: script.turn_sockets_off
   - service:  homeassistant.turn_off
-    data: 
-      entity_id: input_boolean.dev_mode
+    entity_id: input_boolean.dev_mode
+  - service: script.turn_downstairs_media_players_off
+turn_all_lights_off:
+  alias: Turn off all the lights
+  sequence:
+  - service: homeassistant.turn_off
+    entity_id: group.downstairs_lights
+  - service: homeassistant.turn_off
+    entity_id: group.upstairs_lights
+turn_sockets_off:
+  alias: Turn sockets off
+  sequence:
+  - service: switch.turn_off
+    data:
+      entity_id: switch.ambilight_relay
+  - service: switch.turn_off
+    data:
+      entity_id: switch.office_lamp_relay
+  - service: switch.turn_off
+    data:
+      entity_id: switch.office_speakers_relay
 activate_moron_machine:
   alias: Activate Moron Machine
   sequence:
@@ -93,7 +114,7 @@ activate_moron_machine:
   - delay: 00:00:02
   - service: media_player.turn_on
     data:
-      entity_id: media_player.marvin
+      entity_id: media_player.zaphod
   - service: switch.turn_on
     data:
       entity_id: switch.ambilight_relay
@@ -106,8 +127,7 @@ deactivate_moron_machine:
   sequence:
   - service: media_player.turn_off
     entity_id:
-    - media_player.marvin
-#  - delay: 00:00:20
+    - media_player.zaphod
   - service: media_player.turn_off
     entity_id:
     - media_player.squiggley_amp
@@ -117,13 +137,13 @@ deactivate_moron_machine:
   - service: switch.turn_off
     data:
       entity_id: switch.ambilight_relay
-all_media_players_off:
-  alias: turn Off All Media Players
+turn_downstairs_media_players_off:
+  alias: Turn Off Downstair Media Players
   sequence:
   - service: script.deactivate_moron_machine
   - service: media_player.turn_off
-    data:
-      entity_id: media_player.marvin
+    entity_id:
+    - media_player.slartibartfarst
 send_message_to_ui_selected_user:
   alias: Send a message entered in the ui to the user selected in the ui
   sequence:
@@ -131,98 +151,98 @@ send_message_to_ui_selected_user:
     data_template:
       title: "Message From Home Assistant"
       message: '{{states.input_text.send_message.state}}'
-kr_volume_up:
+zaphod_volume_up:
   alias: Volume Up
   sequence:
     data:
       entity_id: media_player.zaphod
     service: media_player.volume_up
-kr_volume_mute:
+zaphod_volume_mute:
   alias: Volume Mute
   sequence:
     data:
       entity_id: media_player.zaphod
     service: media_player.volume_mute
-kr_volume_down:
+zaphod_volume_down:
   alias: Volume Down
   sequence:
     data:
       entity_id: media_player.zaphod
     service: media_player.volume_down
-kr_up:
+zaphod_up:
   alias: Remote Up
   sequence:
     data:
       entity_id: media_player.zaphod
       method: Input.Up
     service: media_player.kodi_call_method
-kr_down:
+zaphod_down:
   alias: Remote Down
   sequence:
     data:
       entity_id: media_player.zaphod
       method: Input.Down
     service: media_player.kodi_call_method
-kr_left:
+zaphod_left:
   alias: Remote Left
   sequence:
     data:
       entity_id: media_player.zaphod
       method: Input.Left
     service: media_player.kodi_call_method
-kr_right:
+zaphod_right:
   alias: Remote Right
   sequence:
     data:
       entity_id: media_player.zaphod
       method: Input.Right
     service: media_player.kodi_call_method
-kr_select:
+zaphod_select:
   alias: Remote Select
   sequence:
     data:
       entity_id: media_player.zaphod
       method: Input.Select
     service: media_player.kodi_call_method
-kr_home:
+zaphod_home:
   alias: Remote Home
   sequence:
     data:
       entity_id: media_player.zaphod
       method: Input.Home
     service: media_player.kodi_call_method
-kr_back:
+zaphod_back:
   alias: Remote Back
   sequence:
     data:
       entity_id: media_player.zaphod
       method: Input.Back
     service: media_player.kodi_call_method
-kr_next:
+zaphod_next:
   alias: Remote Next
   sequence:
     data:
       entity_id: media_player.zaphod
     service: media_player.media_next_track
-kr_prev:
+zaphod_prev:
   alias: Remote Prev
   sequence:
     data:
       entity_id: media_player.zaphod
     service: media_player.media_previous_track
-kr_play_pause:
+zaphod_play_pause:
   alias: Remote PlayPause
   sequence:
     data:
       entity_id: media_player.zaphod
     service: media_player.media_play_pause
-kr_stop:
+zaphod_stop:
   alias: Remote Stop
   sequence:
     data:
       entity_id: media_player.zaphod
     service: media_player.media_stop
-kr_playlist:
+zaphod_playlist:
   alias: Remote Playlist
   sequence:
     data:

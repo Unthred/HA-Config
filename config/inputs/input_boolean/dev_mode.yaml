@@ -1,3 +1,60 @@
 dev_mode:
   name: Development Mode
   icon: mdi:toggle-switch
+automation_logging:
+  name: Automation Logging
+  icon: mdi:toggle-switch  
+mqtt_logging:
+  name: MQTT Logging
+  icon: mdi:toggle-switch  
+python_logging:
+  name: Python Scripts Logging
+  icon: mdi:toggle-switch    
+device_tracker_logging:
+  name: Device Tracker Logging
+  icon: mdi:toggle-switch    
+core_logging:
+  name: Core Logging
+  icon: mdi:toggle-switch
+http_logging:
+  name: Http Logging
+  icon: mdi:toggle-switch
+zwave_logging:
+  name: Zwave Logging
+  icon: mdi:toggle-switch
+light_logging:
+  name: Light Logging
+  icon: mdi:toggle-switch
+sensor_logging:
+  name: Sensor Logging
+  icon: mdi:toggle-switch
+notify_logging:
+  name: Notify Logging
+  icon: mdi:toggle-switch
+scripts_logging:
+  name: Scripts Logging
+  icon: mdi:toggle-switch
+climate_logging:
+  name: Climate Logging
+  icon: mdi:toggle-switch
+history_logging:
+  name: History Logging
+  icon: mdi:toggle-switch
+influx_logging:
+  name: Influx Logging
+  icon: mdi:toggle-switch
+media_player_logging:
+  name: Media Player Logging
+  icon: mdi:toggle-switch
+websocket_logging:
+  name: Websocket Logging
+  icon: mdi:toggle-switch
+binary_sensor_logging:
+  name: Binary Sensor Logging
+  icon: mdi:toggle-switch
+switch_logging:
+  name: Switch Logging
+  icon: mdi:toggle-switch
+alarm_logging:
+  name: Alarm Logging
+  icon: mdi:toggle-switch

@@ -1,0 +1,15 @@
+downstairs_lights:
+  name: Downstairs Lights
+  entities: 
+    - light.toilet_ceiling_lights
+    - light.vestibule_ceiling_lights
+    - light.livingroom_ceiling
+    - light.livingroom_lamps
+    - light.office_ceiling
+    - light.office_lamps
+    - light.kitchen_ceiling
+    - light.kitchen_strippers
+    - light.kitchen_tree
+    - light.spiral_lights
+    - light.hall_ceiling
+    - group.common_lights

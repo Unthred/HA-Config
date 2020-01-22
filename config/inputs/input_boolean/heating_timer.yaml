@@ -4,11 +4,17 @@ vestibule_schedule_active:
 enable_vestibule_schedule:
   name: Enable Vestibule Schedule
   icon: mdi:toggle-switch
+boost_vestibule_heating:
+  name: Boost Vestibule Heating
+  icon: mdi:toggle-switch
 livingroom_schedule_active:
   name: Livingroom Schedule Active
   icon: mdi:toggle-switch
 enable_livingroom_schedule:
   name: Enable Livingroom Schedule
+  icon: mdi:toggle-switch
+boost_livingroom_heating:
+  name: Boost Livingroom Heating
   icon: mdi:toggle-switch
 office_schedule_active:
   name: Office Schedule Active
@@ -16,11 +22,17 @@ office_schedule_active:
 enable_office_schedule:
   name: Enable Office Schedule
   icon: mdi:toggle-switch
+boost_office_heating:
+  name: Boost Office Heating
+  icon: mdi:toggle-switch
 kitchen_schedule_active:
   name: Kitchen Schedule Active
   icon: mdi:toggle-switch
 enable_kitchen_schedule:
   name: Enable Kitchen Schedule
+  icon: mdi:toggle-switch
+boost_kitchen_heating:
+  name: Boost Kitchen Heating
   icon: mdi:toggle-switch
 katrin_schedule_active:
   name: Katrin Schedule Active
@@ -28,9 +40,15 @@ katrin_schedule_active:
 enable_katrin_schedule:
   name: Enable Katrin Schedule
   icon: mdi:toggle-switch
+boost_katrin_heating:
+  name: Boost Katrin Heating
+  icon: mdi:toggle-switch
 bedroom_schedule_active:
   name: Bedroom Schedule Active
   icon: mdi:toggle-switch
 enable_bedroom_schedule:
   name: Enable Bedroom Schedule
+  icon: mdi:toggle-switch
+boost_bedroom_heating:
+  name: Boost Bedroom Heating
   icon: mdi:toggle-switch

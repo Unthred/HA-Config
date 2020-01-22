@@ -1,0 +1,7 @@
+- platform: group
+  name: Office Ceiling
+  entities: 
+    - light.office_ceiling_one
+    - light.office_ceiling_two
+    - light.office_ceiling_three
+    - light.office_ceiling_four

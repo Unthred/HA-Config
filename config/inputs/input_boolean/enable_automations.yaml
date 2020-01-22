@@ -1,0 +1,6 @@
+toilet_ceiling_lights_enabled:
+  name: Toilet Light Aytomations
+  icon: mdi:toggle-switch
+vestibule_lights_enabled:
+  name: Vestibule Light Aytomations
+  icon: mdi:toggle-switch  

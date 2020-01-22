@@ -17,3 +17,6 @@
 ip_bans.yaml
 secrets.yaml
 known_devices.yaml
+yamly.pub
+plex.config
+*.log

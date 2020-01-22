@@ -256,6 +256,47 @@
       value_template: > 
         {{ (states.sensor.tautulli.attributes['stevoid4@gmail.com'].total_bandwidth|float) / 1024 | round(2) }}
       unit_of_measurement: Mbps
+      
+    plex_jackhammertechno_gmail_com_activity:
+      friendly_name: "Conor Activity"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes['jackhammertechno@gmail.com'].Activity }}
+    plex_jackhammertechno_gmail_com_playing:
+      friendly_name: "Conor Playing"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes['jackhammertechno@gmail.com'].full_title }}
+    plex_jackhammertechno_gmail_com_stream_count:
+      friendly_name: "Conor Stream Count"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes['jackhammertechno@gmail.com'].stream_count }}
+    plex_jackhammertechno_gmail_com_stream_count_transcode:
+      friendly_name: "Conor Transcode Count"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes['jackhammertechno@gmail.com'].stream_count_transcode }}
+    plex_jackhammertechno_gmail_com_stream_count_direct_play:
+      friendly_name: "Conor Direct Play Count"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes['jackhammertechno@gmail.com'].stream_count_direct_play }}
+    plex_jackhammertechno_gmail_com_stream_count_direct_stream:
+      friendly_name: "Conor Direct Stream Count"
+      value_template: > 
+        {{ states.sensor.tautulli.attributes['jackhammertechno@gmail.com'].stream_count_direct_stream }}
+    plex_jackhammertechno_gmail_com_lan_bandwidth:
+      friendly_name: "Conor Lan Bandwidth"
+      value_template: > 
+        {{ (states.sensor.tautulli.attributes['jackhammertechno@gmail.com'].lan_bandwidth|float) / 1024 | round(2) }}
+      unit_of_measurement: Mbps
+    plex_jackhammertechno_gmail_com_wan_bandwidth:
+      friendly_name: "Conor Wan Bandwidth"
+      value_template: > 
+        {{ (states.sensor.tautulli.attributes['jackhammertechno@gmail.com'].wan_bandwidth|float) / 1024 | round(2) }}
+      unit_of_measurement: Mbps
+    plex_jackhammertechno_gmail_com_total_bandwidth:
+      friendly_name: "Stevo Total Bandwidth"
+      value_template: > 
+        {{ (states.sensor.tautulli.attributes['jackhammertechno@gmail.com'].total_bandwidth|float) / 1024 | round(2) }}
+      unit_of_measurement: Mbps
+    
     plex_stream_count:
       friendly_name: "Stream Count"
       value_template: > 

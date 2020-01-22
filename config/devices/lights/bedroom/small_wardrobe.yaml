@@ -1,0 +1,4 @@
+- platform: group
+  name: Small Wardrobe
+  entities: 
+    - light.small_wardrobe

@@ -1,0 +1,6 @@
+outside_xmas_lights:
+  name: Outside Xmas Lights
+  view: no
+  entities: 
+  #- switch.office_lamp_relay
+

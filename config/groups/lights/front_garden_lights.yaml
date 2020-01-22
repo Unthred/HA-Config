@@ -1,0 +1,5 @@
+front_garden_lights:
+  name: Front Garden Lights
+  view: no
+  entities: 
+  - switch.front_garden_light

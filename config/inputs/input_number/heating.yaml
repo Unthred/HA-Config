@@ -1,0 +1,72 @@
+vestibule_temperature:
+  name: Vestibule Temperature
+  min: 7
+  max: 25
+  step: 1
+  icon: mdi:home-thermometer
+vestibule_boost:
+  name: Vestibule Boost
+  min: 30
+  max: 180
+  step: 30
+  icon: mdi:home-thermometer
+livingroom_temperature:
+  name: Livingroom Temperature
+  min: 7
+  max: 25
+  step: 1
+  icon: mdi:home-thermometer
+livingroom_boost:
+  name: Livingroom Boost
+  min: 30
+  max: 180
+  step: 30
+  icon: mdi:home-thermometer
+office_temperature:
+  name: Office Temperature
+  min: 7
+  max: 25
+  step: 1
+  icon: mdi:home-thermometer
+office_boost:
+  name: Office Boost
+  min: 30
+  max: 180
+  step: 30
+  icon: mdi:home-thermometer
+kitchen_temperature:
+  name: Kitchen Temperature
+  min: 7
+  max: 25
+  step: 1
+  icon: mdi:home-thermometer
+kitchen_boost:
+  name: Kitchen Boost
+  min: 30
+  max: 180
+  step: 30
+  icon: mdi:home-thermometer
+katrin_temperature:
+  name: Katrin Temperature
+  min: 7
+  max: 25
+  step: 1
+  icon: mdi:home-thermometer
+katrin_boost:
+  name: Katrin Boost
+  min: 30
+  max: 180
+  step: 30
+  icon: mdi:home-thermometer
+bedroom_temperature:
+  name: Bedroom Temperature
+  min: 7
+  max: 25
+  step: 1
+  icon: mdi:home-thermometer
+bedroom_boost:
+  name: Bedroom Boost
+  min: 30
+  max: 180
+  step: 30
+  icon: mdi:home-thermometer

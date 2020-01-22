@@ -1,0 +1,10 @@
+- platform: group
+  name: Livingroom Lamps
+  entities: 
+    - light.dita
+    - light.marmaduke_lamp
+    - light.couch_lamp_one
+    - light.couch_lamp_two
+    - light.tv_lamp
+    - light.door_lamp
+  

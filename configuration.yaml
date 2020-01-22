@@ -54,9 +54,19 @@ tts:
 hacs:
   token: !secret HACS_token
 
-mqtt:
-  broker: core-mosquitto
-  discovery: true
+pi_hole:
+  host: localhost:4865
+
+webhook:
+
+zigbee2mqtt_networkmap:
+  #topic: your topic (optional, default zigbee2mqtt)
+panel_iframe:
+  networkmap:
+    title: 'Zigbee Map'
+    url: '/local/community/zigbee2mqtt_networkmap/map.html'
+    icon: 'mdi:graphql'
+  
 #lovelace_gen:
 
 #lovelace:  
@@ -73,7 +83,8 @@ logger: !include config/core/logger.yaml
 climate: !include config/devices/heating/heatmiser.yaml
 nest: !include config/devices/smoke/nest.yaml
 sensor: !include_dir_merge_list config/devices/sensors
-xiaomi_aqara: !include_dir_merge_named config/devices/gateways
+binary_sensor: !include_dir_merge_list config/devices/binary_sensors
+#xiaomi_aqara: !include_dir_merge_named config/devices/gateways
 influxdb: !include config/core/influx.yaml
 recorder: !include config/core/recorder.yaml
 ourgroceries: !include config/core/ourgroceries.yaml
@@ -83,6 +94,7 @@ switch: !include_dir_merge_list config/devices/switches
 shell_command: !include_dir_merge_list config/shell_commands/
 timer: !include_dir_merge_named config/timers/
 zone: !include config/core/zones.yaml
+calendar: !include config/core/calendar.yaml
 ################################################################################
 #                                    Alarm System                              #
 ################################################################################
@@ -105,11 +117,8 @@ input_text: !include_dir_merge_named config/inputs/input_text
 #                                    frontend                                  #
 ################################################################################
 frontend: 
-  themes: !include_dir_merge_named config/frontend/themes
+  themes: !include_dir_merge_named themes
   extra_html_url:
-    #- /local/hass-fontawesome-solid.html
     - /local/icons/fontawesome/hass-fontawesome-solid.html
     - /local/icons/bha-icons/hass-bha-icons.html
-      #  - /local/hass-fontawesome-regular.html
-      #- /local/hass-fontawesome-brands.html
 

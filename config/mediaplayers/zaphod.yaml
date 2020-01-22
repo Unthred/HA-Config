@@ -1,12 +1,12 @@
 - platform: kodi
-  host: 192.168.13.21
+  host: 192.168.13.22
   name: zaphod
-  username: !secret marvin_kodi_username
-  password: !secret marvin_kodi_password
+  username: !secret zaphod_kodi_username
+  password: !secret zaphod_kodi_password
   turn_on_action: 
     - service: wake_on_lan.send_magic_packet
       data:
-        mac: "B8:AE:ED:EB:77:F4"
+        mac: !secret zaphod_mac
         broadcast_address: 255.255.255.255
   turn_off_action: 
     - service: kodi.call_method

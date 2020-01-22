@@ -1,0 +1,6 @@
+inside_xmas_lights:
+  name: Inside Xmas Lights
+  view: no
+  entities: 
+#  - switch.slow_cooker_relay
+#  - switch.office_speakers_relay

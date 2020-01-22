@@ -7,7 +7,7 @@
   turn_on_action:
     - service: wake_on_lan.send_magic_packet
       data:
-        mac: "02:00:00:25:0F:01"
+        mac: !secret marvin_mac
         broadcast_address: 255.255.255.255 
   turn_off_action:
     - service: kodi.call_method

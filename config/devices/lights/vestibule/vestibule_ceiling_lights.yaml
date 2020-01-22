@@ -1,0 +1,8 @@
+- platform: group
+  name: Vestibule Ceiling Lights
+  entities: 
+  - light.vestibule_one
+  - light.vestibule_two
+  - light.vestibule_three
+  - light.vestibule_four
+

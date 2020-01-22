@@ -1,0 +1,9 @@
+- platform: group
+  name: Bedroom Ceiling
+  entities: 
+    - light.bedroom_ceiling_one
+    - light.bedroom_ceiling_two
+    - light.bedroom_ceiling_three
+    - light.bedroom_ceiling_four
+    - light.bedroom_ceiling_five
+    - light.small_wardrobe

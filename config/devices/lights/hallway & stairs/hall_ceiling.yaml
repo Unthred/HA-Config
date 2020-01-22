@@ -1,0 +1,6 @@
+- platform: group
+  name: Hall Ceiling
+  entities: 
+    - light.hall_ceiling_one
+    - light.hall_ceiling_two
+    - light.hall_ceiling_three

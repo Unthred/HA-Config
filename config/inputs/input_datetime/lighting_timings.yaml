@@ -30,3 +30,8 @@ lighting_weekend_evening_stop:
   name: Weekend evening stop
   has_time: true
   has_date: false
+toilet_ceiling_lights_duration:
+  name: Toilet Lights Duration
+  has_time: true
+  has_date: false
+  icon: mdi:toilet
