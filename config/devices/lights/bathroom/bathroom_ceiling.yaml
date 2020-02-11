@@ -1,0 +1,9 @@
+- platform: group
+  name: Bathroom Ceiling
+  entities: 
+    - light.bathroom_ceiling_one
+    - light.bathroom_ceiling_two
+    # - light.bathroom_ceiling_three
+    # - light.bathroom_ceiling_four
+    # - light.bathroom_ceiling_five
+    # - light.bathroom_ceiling_six

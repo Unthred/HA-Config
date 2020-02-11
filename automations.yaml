@@ -259,9 +259,7 @@
     entity_id: media_player.office_speaker
     data_template:
       message: '{{ trigger.to_state.attributes.friendly_name }} is {% if trigger.to_state.state
-        == ''home'' %}back{% else %}away{% endif %}.
-
-        '
+        == ''home'' %}back{% else %}away{% endif %}.'
 - id: 'Occupancy: Dev : Send message on location updates'
   alias: 'Occupancy: Dev : Send message on location updates'
   trigger:
@@ -279,7 +277,7 @@
         \ }} no state change. Latitude = {{ trigger.to_state.attributes.latitude }}\n\
         {% endif %}\n"
 - id: 'Occupancy: Notify Squiggley when someone arrives home'
-  alias: 'Occupancy: Notify Squiggley when someone arrives home'
+  alias: 'Occupancy: Perform Welcome Home When Someone Arrives'
   description: ''
   trigger:
   - entity_id: person.squiggley_woo
@@ -292,9 +290,9 @@
     zone: zone.home
   condition: []
   action:
-  - data_template:
-      message: '{{ trigger.to_state.attributes.friendly_name }} has arrived home waaaaaahoooooo!!!'
-    service: notify.squiggley
+  - data: {}
+    entity_id: group.common_lights
+    service: homeassistant.turn_on
 - id: 'Occupancy: Notify Squiggley when someone leaves home'
   alias: 'Occupancy: Notify Squiggley when someone leaves home'
   description: ''
@@ -374,7 +372,7 @@
       entity_id: binary_sensor.toilet_motion_sensor_occupancy
       state: 'on'
   action:
-  - entity_id: timer.toilet_ceiling_lights_timer
+  - entity_id: timer.toilet_lights_timer
     service: timer.cancel
   - entity_id: input_boolean.toilet_occupied
     service: input_boolean.turn_on
@@ -393,14 +391,15 @@
   - condition: and
     conditions:
     - condition: state
-      entity_id: light.toilet_ceiling_lights
+      entity_id: light.toilet_ceiling
       state: 'on'
   action:
   - entity_id: input_boolean.toilet_occupied
     service: input_boolean.turn_off
   - data_template:
-      duration: 00:{{ states.input_number.toilet_ceiling_lights_timer.state | int }}:00
-      entity_id: timer.toilet_ceiling_lights_timer
+      duration: 00:{{ states.input_number.toilet_timer.state | int }}:00
+      entity_id: timer.toilet_lights_timer
+    entity_id: timer.toilet_lights_timer
     service: timer.start
 - id: 'Toilet: Unoccupied, Door is Opened Then Turn On Lights And Start Timer'
   alias: 'Toilet: Unoccupied, Door is Opened Then Turn On Lights And Start Timer'
@@ -420,21 +419,22 @@
     entity_id: input_boolean.toilet_occupied
     state: 'off'
   action:
-  - entity_id: light.toilet_ceiling_lights
+  - entity_id: light.toilet_ceiling
     service: light.turn_on
   - data_template:
-      duration: 00:{{ states.input_number.toilet_ceiling_lights_timer.state | int }}:00
-      entity_id: timer.toilet_ceiling_lights_timer
+      duration: 00:{{ states.input_number.toilet_timer.state | int }}:00
+      entity_id: timer.toilet_lights_timer
+    entity_id: timer.toilet_lights_timer
     service: timer.start
 - id: 'Toilet: Turn off lights at end of timer'
   alias: 'Toilet: Turn off lights at end of timer'
   trigger:
   - event_data:
-      entity_id: timer.toilet_ceiling_lights_timer
+      entity_id: timer.toilet_lights_timer
     event_type: timer.finished
     platform: event
   action:
-  - entity_id: light.toilet_ceiling_lights
+  - entity_id: light.toilet_ceiling
     service: light.turn_off
 - id: 'Toilet: Occupied Turn vestibule One Light To Red'
   alias: 'Toilet: Occupied Turn vestibule One Light To Red'
@@ -533,7 +533,7 @@
   trigger:
   - entity_id: input_boolean.boost_vestibule_heating, input_boolean.boost_livingroom_heating,
       input_boolean.boost_office_heating, input_boolean.boost_kitchen_heating, input_boolean.boost_katrin_heating,
-      input_boolean.boost_bedroom_heating
+      input_boolean.boost_bedroom_heating, input_boolean.boost_bedroom_heating
     from: 'off'
     platform: state
     to: 'on'
@@ -553,7 +553,7 @@
   trigger:
   - entity_id: input_boolean.boost_vestibule_heating, input_boolean.boost_livingroom_heating,
       input_boolean.boost_office_heating, input_boolean.boost_kitchen_heating, input_boolean.boost_katrin_heating,
-      input_boolean.boost_bedroom_heating
+      input_boolean.boost_bedroom_heating, input_boolean.boost_bedroom_heating
     from: 'on'
     platform: state
     to: 'off'
@@ -565,6 +565,44 @@
     data_template:
       entity_id: climate.{{trigger.entity_id.split('_')[2]}}
       temperature: 7
+- id: 'Heating: Turn Off When Boost Timer is Finished'
+  alias: 'Heating: Turn Off When Boost Timer is Finished'
+  description: ''
+  trigger:
+  - event_data:
+      entity_id: timer.vestibule_boost_timer
+    event_type: timer.finished
+    platform: event
+  - event_data:
+      entity_id: timer.livingroom_boost_timer
+    event_type: timer.finished
+    platform: event
+  - event_data:
+      entity_id: timer.office_boost_timer
+    event_type: timer.finished
+    platform: event
+  - event_data:
+      entity_id: timer.kitchen_boost_timer
+    event_type: timer.finished
+    platform: event
+  - event_data:
+      entity_id: timer.bathroom_boost_timer
+    event_type: timer.finished
+    platform: event
+  - event_data:
+      entity_id: timer.katrin_boost_timer
+    event_type: timer.finished
+    platform: event
+  - event_data:
+      entity_id: timer.bedroom_boost_timer
+    event_type: timer.finished
+    platform: event
+  condition: []
+  action:
+  - data_template:
+      entity_id: input_boolean.boost_{{ trigger.event.data.entity_id.split('.',1)[1].split('_')[0]
+        }}_heating
+    service: input_boolean.turn_off
 - id: 'Heating: Active/deactivate heating schedule for room'
   alias: 'Heating: Active/deactivate heating schedule for room'
   trigger:
@@ -604,11 +642,6 @@
       entity_id: climate.{{trigger.entity_id.split('_')[1].replace('boolean.', '')}}
       temperature: '{{ states(''input_number.''+trigger.entity_id.split(''_'')[1].replace(''boolean.'',
         '''')+''_temperature'') }}'
-  - service: notify.squiggley
-    data_template:
-      message: Activated by schedule {{trigger.entity_id.split('_')[1].replace('boolean.',
-        '')}} to {{ states('input_number.'+trigger.entity_id.split('_')[1].replace('boolean.',
-        '')+'_temperature') }}
 - id: 'Heating: Turn on when schedule is active and Someone Arrives Home'
   alias: 'Heating: Turn on when schedule is active and Someone Arrives Home'
   trigger:
@@ -654,10 +687,6 @@
     data_template:
       entity_id: climate.{{ trigger.entity_id.split('_')[1].replace('boolean.', '')}}
       temperature: 7
-  - service: notify.squiggley
-    data_template:
-      message: Deactivated by schedule {{trigger.entity_id.split('_')[1].replace('boolean.',
-        '')}} to 7 }}
 - id: 'Heating: Turn All Heating off week day nights'
   alias: 'Heating: Turn All Heating off week day nights'
   trigger:
@@ -931,43 +960,6 @@
     service: light.toggle
   - entity_id: light.bedroom_ceiling_five
     service: light.toggle
-- id: 'Heating: Turn Off When Boost Timer is Finished'
-  alias: 'Heating: Turn Off When Boost Timer is Finished'
-  description: ''
-  trigger:
-  - event_data:
-      entity_id: timer.vestibule_boost_timer
-    event_type: timer.finished
-    platform: event
-  - event_data:
-      entity_id: timer.livingroom_boost_timer
-    event_type: timer.finished
-    platform: event
-  - event_data:
-      entity_id: timer.office_boost_timer
-    event_type: timer.finished
-    platform: event
-  - event_data:
-      entity_id: timer.kitchen_boost_timer
-    event_type: timer.finished
-    platform: event
-  - event_data:
-      entity_id: timer.bathroom_boost_timer
-    event_type: timer.finished
-    platform: event
-  - event_data:
-      entity_id: timer.katrin_boost_timer
-    event_type: timer.finished
-    platform: event
-  - event_data:
-      entity_id: timer.bedroom_boost_timer
-    event_type: timer.finished
-    platform: event
-  condition: []
-  action:
-  - data_template:
-      entity_id: input_boolean.boost_{{ trigger.event.data.entity_id.split('.',1)[1].split('_')[0] }}_heating
-    service: input_boolean.turn_off
 - id: 'Zigbee2MqttMap: Update every 10 mins'
   alias: 'Zigbee2MqttMap: Update every 10 mins'
   description: ''
@@ -977,3 +969,261 @@
   condition: []
   action:
   - service: zigbee2mqtt_networkmap.update
+- id: 'Hallway: Turn On Lights When Stair Switch One Clicked'
+  alias: 'Hallway: Turn On Lights When Stair Switch One Clicked'
+  description: ''
+  trigger:
+  - device_id: f9761d65d25849d29567f604e71ca9a9
+    domain: binary_sensor
+    entity_id: binary_sensor.stair_light_switch_one_contact
+    platform: device
+    type: opened
+  - device_id: f9761d65d25849d29567f604e71ca9a9
+    domain: binary_sensor
+    entity_id: binary_sensor.stair_light_switch_one_contact
+    platform: device
+    type: not_opened
+  - device_id: bd4a673abd184a52801844036baf4747
+    domain: binary_sensor
+    entity_id: binary_sensor.stair_light_switch_two_contact
+    platform: device
+    type: opened
+  - device_id: bd4a673abd184a52801844036baf4747
+    domain: binary_sensor
+    entity_id: binary_sensor.stair_light_switch_two_contact
+    platform: device
+    type: not_opened
+  condition: []
+  action:
+  - device_id: 7bfd958291ad430a9d89117ada0a320e
+    domain: light
+    entity_id: light.stair_ceiling_one
+    type: toggle
+  - device_id: fd28729701914072b5da80bdf2f030b0
+    domain: light
+    entity_id: light.stair_ceiling_two
+    type: toggle
+  - device_id: 2f2a74f5653b4c4582e3779aa394b7b0
+    domain: light
+    entity_id: light.stair_ceiling_three
+    type: toggle
+- id: 'Hallway: Turn on Lights When Hallway Light Switch One Clicked'
+  alias: 'Hallway: Turn on Lights When Hallway Light Switch One Clicked'
+  description: ''
+  trigger:
+  - device_id: 94ca5f1e866c47f297da24729c703104
+    domain: binary_sensor
+    entity_id: binary_sensor.hallway_light_switch_one_contact
+    platform: device
+    type: opened
+  - device_id: 94ca5f1e866c47f297da24729c703104
+    domain: binary_sensor
+    entity_id: binary_sensor.hallway_light_switch_one_contact
+    platform: device
+    type: not_opened
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.hall_ceiling
+    service: light.toggle
+- id: 'Vestibule: Toggle Lights When Switch Clicked'
+  alias: 'Vestibule: Toggle Lights When Switch Clicked'
+  description: ''
+  trigger:
+  - device_id: bd211435581d48b8922e598955184b39
+    domain: binary_sensor
+    entity_id: binary_sensor.vestibule_light_switch_one_contact
+    platform: device
+    type: opened
+  - device_id: bd211435581d48b8922e598955184b39
+    domain: binary_sensor
+    entity_id: binary_sensor.vestibule_light_switch_one_contact
+    platform: device
+    type: not_opened
+  condition: []
+  action:
+  - entity_id: light.vestibule_ceiling_lights
+    service: light.toggle
+- id: 'Logger: Configure Logging Levels'
+  alias: 'Logger: Configure Logging Levels'
+  description: ''
+  trigger:
+  - entity_id: input_boolean.core_logging, input_boolean.mqtt_logging, input_boolean.http_logging,
+      input_boolean.zwave_logging, input_boolean.light_logging, input_boolean.sensor_logging,
+      input_boolean.notify_logging, input_boolean.scripts_logging, input_boolean.climate_logging,
+      input_boolean.history_logging, input_boolean.recorder_logging, input_boolean.influxdb_logging,
+      input_boolean.automation_logging, input_boolean.media_player_logging, input_boolean.websocket_logging,
+      input_boolean.binary_sensor_logging, input_boolean.device_tracker_logging, input_boolean.broadlink_logging,
+      input_boolean.media_player_cast_logging, input_boolean.sensor_travisci_logging,
+      input_boolean.unifi_direct_logging, input_boolean.heatmiserneo_logging, input_boolean.esphome_logging,
+      input_boolean.location_logging
+    platform: state
+  condition: []
+  action:
+  - service: logger.set_level
+    data_template:
+      homeassistant.core: "{% if states.input_boolean.core_logging.state == 'on' %}\n\
+        \  {{ states.input_select.log_level.state }}\n{% else %}\n  error\n{% endif\
+        \ %}\n"
+      homeassistant.components.mqtt: "{% if states.input_boolean.mqtt_logging.state\
+        \ == 'on' %}\n  {{ states.input_select.log_level.state }}\n{% else %}\n  error\n\
+        {% endif %}\n"
+      homeassistant.components.http: "{% if states.input_boolean.http_logging.state\
+        \ == 'on' %}\n  {{ states.input_select.log_level.state }}\n{% else %}\n  error\n\
+        {% endif %}\n"
+      homeassistant.components.zwave: "{% if states.input_boolean.zwave_logging.state\
+        \ == 'on' %}\n  {{ states.input_select.log_level.state }}\n{% else %}\n  error\n\
+        {% endif %}\n"
+      homeassistant.components.light: "{% if states.input_boolean.light_logging.state\
+        \ == 'on' %}\n  {{ states.input_select.log_level.state }}\n{% else %}\n  error\n\
+        {% endif %}\n"
+      homeassistant.components.sensor: "{% if states.input_boolean.sensor_logging.state\
+        \ == 'on' %}\n  {{ states.input_select.log_level.state }}\n{% else %}\n  error\n\
+        {% endif %}\n"
+      homeassistant.components.notify: "{% if states.input_boolean.notify_logging.state\
+        \ == 'on' %}\n  {{ states.input_select.log_level.state }}\n{% else %}\n  error\n\
+        {% endif %}\n"
+      homeassistant.components.scripts: "{% if states.input_boolean.scripts_logging.state\
+        \ == 'on' %}\n  {{ states.input_select.log_level.state }}\n{% else %}\n  error\n\
+        {% endif %}\n"
+      homeassistant.helpers.script: "{% if states.input_boolean.scripts_logging.state\
+        \ == 'on' %}\n  {{ states.input_select.log_level.state }}\n{% else %}\n  error\n\
+        {% endif %}\n"
+      homeassistant.components.climate: "{% if states.input_boolean.climate_logging.state\
+        \ == 'on' %}\n  {{ states.input_select.log_level.state }}\n{% else %}\n  error\n\
+        {% endif %}\n"
+      homeassistant.components.history: "{% if states.input_boolean.history_logging.state\
+        \ == 'on' %}\n  {{ states.input_select.log_level.state }}\n{% else %}\n  error\n\
+        {% endif %}\n"
+      homeassistant.components.recorder: "{% if states.input_boolean.recorder_logging.state\
+        \ == 'on' %}\n  {{ states.input_select.log_level.state }}\n{% else %}\n  error\n\
+        {% endif %}\n"
+      homeassistant.components.influxdb: "{% if states.input_boolean.influxdb_logging.state\
+        \ == 'on' %}\n  {{ states.input_select.log_level.state }}\n{% else %}\n  error\n\
+        {% endif %}\n"
+      homeassistant.components.automation: "{% if states.input_boolean.automation_logging.state\
+        \ == 'on' %}\n  {{ states.input_select.log_level.state }}\n{% else %}\n  error\n\
+        {% endif %}\n"
+      homeassistant.components.media_player: "{% if states.input_boolean.media_player_logging.state\
+        \ == 'on' %}\n  {{ states.input_select.log_level.state }}\n{% else %}\n  error\n\
+        {% endif %}\n"
+      homeassistant.components.websocket_api: "{% if states.input_boolean.websocket_logging.state\
+        \ == 'on' %}\n  {{ states.input_select.log_level.state }}\n{% else %}\n  error\n\
+        {% endif %}\n"
+      homeassistant.components.binary_sensor: "{% if states.input_boolean.binary_sensor_logging.state\
+        \ == 'on' %}\n  {{ states.input_select.log_level.state }}\n{% else %}\n  error\n\
+        {% endif %}\n"
+      homeassistant.components.device_tracker: "{% if states.input_boolean.device_tracker_logging.state\
+        \ == 'on' %}\n  {{ states.input_select.log_level.state }}\n{% else %}\n  error\n\
+        {% endif %}\n"
+      homeassistant.components.switch.broadlink: "{% if states.input_boolean.broadlink_logging.state\
+        \ == 'on' %}\n  {{ states.input_select.log_level.state }}\n{% else %}\n  error\n\
+        {% endif %}\n"
+      homeassistant.components.media_player.cast: "{% if states.input_boolean.media_player_cast_logging.state\
+        \ == 'on' %}\n  {{ states.input_select.log_level.state }}\n{% else %}\n  error\n\
+        {% endif %}\n"
+      homeassistant.components.alarm_control_panel: "{% if states.input_boolean.alarm_logging.state\
+        \ == 'on' %}\n  {{ states.input_select.log_level.state }}\n{% else %}\n  error\n\
+        {% endif %}\n"
+      homeassistant.components.sensor.travisci: "{% if states.input_boolean.sensor_travisci_logging.state\
+        \ == 'on' %}\n  {{ states.input_select.log_level.state }}\n{% else %}\n  error\n\
+        {% endif %}\n"
+      homeassistant.components.device_tracker.unifi_direct: "{% if states.input_boolean.unifi_direct_logging.state\
+        \ == 'on' %}\n  {{ states.input_select.log_level.state }}\n{% else %}\n  error\n\
+        {% endif %}\n"
+      homeassistant.components.climate.heatmiserneo: "{% if states.input_boolean.heatmiserneo_logging.state\
+        \ == 'on' %}\n  {{ states.input_select.log_level.state }}\n{% else %}\n  error\n\
+        {% endif %}\n"
+      aioesphomeapi.connection: "{% if states.input_boolean.esphome_logging.state\
+        \ == 'on' %}\n  {{ states.input_select.log_level.state }}\n{% else %}\n  error\n\
+        {% endif %}\n"
+      custom_components.places.sensor: "{% if states.input_boolean.location_logging.state\
+        \ == 'on' %}\n  {{ states.input_select.log_level.state }}\n{% else %}\n  error\n\
+        {% endif %}\n"
+      homeassistant.helpers.entity_registry: "{% if states.input_boolean.entity_registry_logging.state\
+        \ == 'on' %}\n  {{ states.input_select.log_level.state }}\n{% else %}\n  error\n\
+        {% endif %}\n"
+- id: '1580404750559'
+  alias: 'Bathroom: Turn On Lights When Bathroom Switch One Clicked'
+  description: ''
+  trigger:
+  - device_id: 0cff8ca9402f4fe2ad16e3be300f7566
+    domain: binary_sensor
+    entity_id: binary_sensor.bathroom_light_switch_contact
+    platform: device
+    type: opened
+  - device_id: 0cff8ca9402f4fe2ad16e3be300f7566
+    domain: binary_sensor
+    entity_id: binary_sensor.bathroom_light_switch_contact
+    platform: device
+    type: not_opened
+  condition: []
+  action:
+  - entity_id: light.bathroom_ceiling_one, light.bathroom_ceiling_two
+    service: light.toggle
+- id: 'Makeup: Start Timer and Turn On Lights'
+  alias: 'Makeup: Start Timer and Turn On Lights'
+  description: ''
+  trigger:
+  - entity_id: input_boolean.makeup_lights
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data_template:
+      duration: 00:{{states.input_number.makeup_lights_duration.state | int}}:00
+    entity_id: timer.bathroom_makeup_timer
+    service: timer.start
+  - data:
+      brightness_pct: 100
+      color_temp: 1
+      white_value: 255
+    entity_id: light.bathroom_ceiling
+    service: light.turn_on
+- id: 'Makeup : Stop Timer and Turn Off Switch'
+  alias: 'Makeup : Stop Timer and Turn Off Switch'
+  description: ''
+  trigger:
+  - event_data:
+      entity_id: timer.bathroom_makeup_timer
+    event_type: timer.finished
+    platform: event
+  condition: []
+  action:
+  - entity_id: input_boolean.makeup_lights
+    service: input_boolean.turn_off
+- id: 'Makeup: Reset Lights When Switch Turned Off'
+  alias: 'Makeup: Reset Lights When Switch Turned Off'
+  description: ''
+  trigger:
+  - entity_id: input_boolean.makeup_lights
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      brightness_pct: 50
+      color_temp: 350
+      white_value: 0
+    entity_id: light.bathroom_ceiling
+    service: light.turn_on
+  - entity_id: timer.bathroom_makeup_timer
+    service: timer.cancel
+- id: 'Plex: Notify Squiggley When Playing Starts'
+  alias: "Plex Spy notification"
+  trigger:
+    - platform: state
+      entity_id: sensor.plex_heart_of_gold
+  action:
+    - service: notify.squiggley
+      data_template:
+        message: >
+          {% for attr in states.sensor.plex_heart_of_gold.attributes %}
+            {%- if not attr=="friendly_name" and not attr=="unit_of_measurement" and not attr=="icon" -%}
+              {{attr}} is watching {{states.sensor.plex_heart_of_gold.attributes[attr]}}
+            {%- endif %}
+          {%- endfor -%}
+
+

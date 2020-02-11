@@ -55,6 +55,27 @@ binary_sensor_logging:
 switch_logging:
   name: Switch Logging
   icon: mdi:toggle-switch
+broadlink_logging:
+  name: Broadlink Logging
+  icon: mdi:toggle-switch
 alarm_logging:
   name: Alarm Logging
+  icon: mdi:toggle-switch
+travisci_logging:
+  name: Travis Ci Logging
+  icon: mdi:toggle-switch
+unifi_direct_logging:
+  name: Unifi Direct Logging
+  icon: mdi:toggle-switch
+heatmiserneo_logging:
+  name: Heatmiser Neo Logging
+  icon: mdi:toggle-switch
+esphome_logging:
+  name: EspHome Logging
+  icon: mdi:toggle-switch
+location_logging:
+  name: Location Logging
+  icon: mdi:toggle-switch
+entity_registry_logging:
+  name: Entity Registry Logging
   icon: mdi:toggle-switch

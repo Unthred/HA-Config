@@ -79,7 +79,7 @@ home_off:
   - service: script.turn_all_lights_off
   - service: script.turn_heating_off
   - service: script.turn_sockets_off
-  - service:  homeassistant.turn_off
+  - service: homeassistant.turn_off
     entity_id: input_boolean.dev_mode
   - service: script.turn_downstairs_media_players_off
 turn_all_lights_off:
@@ -104,6 +104,9 @@ turn_sockets_off:
 activate_moron_machine:
   alias: Activate Moron Machine
   sequence:
+  - service: light.turn_on
+    data:
+      entity_id: light.livingroom_lamps
   - service: media_player.turn_on
     data:
       entity_id: media_player.livingroom_tv
@@ -121,7 +124,7 @@ activate_moron_machine:
   - service: media_player.select_source
     data:
       entity_id: media_player.squiggley_amp
-      source: "livingroom kodi"
+      source: livingroom kodi
 deactivate_moron_machine:
   alias: Deactivate Moron Machine
   sequence:
@@ -147,9 +150,9 @@ turn_downstairs_media_players_off:
 send_message_to_ui_selected_user:
   alias: Send a message entered in the ui to the user selected in the ui
   sequence:
-    service_template: 'notify.{{states("input_select.home_users")}}'
+    service_template: notify.{{states("input_select.home_users")}}
     data_template:
-      title: "Message From Home Assistant"
+      title: Message From Home Assistant
       message: '{{states.input_text.send_message.state}}'
 zaphod_volume_up:
   alias: Volume Up
@@ -254,22 +257,31 @@ update_locations:
   sequence:
   - service: notify.wee_bear
     data:
-      message: "request_location_update"
+      message: request_location_update
   - service: notify.squiggley
     data:
-      message: "request_location_update"
+      message: request_location_update
 flash_gateway:
   alias: Flash Xioami Gateway
   sequence:
-    - service: light.turn_on
-      data:
-        color_name: blue
-        brightness_pct: '40'
-        transition: 5
-        entity_id: light.xiaomi_gateway_light
-    - service: light.turn_on
-      data:
-        color_name: blue
-        brightness_pct: '0'
-        transition: 5
-        entity_id: light.xiaomi_gateway_light
+  - service: light.turn_on
+    data:
+      color_name: blue
+      brightness_pct: '40'
+      transition: 5
+      entity_id: light.xiaomi_gateway_light
+  - service: light.turn_on
+    data:
+      color_name: blue
+      brightness_pct: '0'
+      transition: 5
+      entity_id: light.xiaomi_gateway_light
+'1581348061970':
+  alias: Make-up Time
+  sequence:
+  - data:
+      brightness_pct: 50
+      color_temp: 350
+      white_value: 255
+    entity_id: light.bathroom_ceiling
+    service: light.turn_on

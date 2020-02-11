@@ -1,3 +1,7 @@
 lighting_timer:
   name: Lighting timer
   icon: mdi:toggle-switch
+
+makeup_lights:
+  name: Makeup Lights
+  icon: fas:paint-roller

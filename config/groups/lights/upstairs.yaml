@@ -7,3 +7,4 @@ upstairs_lights:
     - light.large_wardrobe_stripper
     - light.small_wardrobe_stripper
     - light.nightlight_stripper
+    - light.bathroom_ceiling

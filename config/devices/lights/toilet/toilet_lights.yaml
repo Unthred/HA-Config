@@ -1,5 +1,5 @@
 - platform: group
-  name: Toilet Lights
+  name: Toilet Ceiling
   entities: 
     - light.toilet_one
     - light.toilet_two

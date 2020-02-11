@@ -8,3 +8,7 @@
     - light.tv_lamp
     - light.door_lamp
   
+- platform: group
+  name: Table Lamps
+  entities:
+    - light.livingroom_lamps 

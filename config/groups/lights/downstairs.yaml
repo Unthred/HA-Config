@@ -1,7 +1,7 @@
 downstairs_lights:
   name: Downstairs Lights
   entities: 
-    - light.toilet_ceiling_lights
+    - light.toilet_ceiling
     - light.vestibule_ceiling_lights
     - light.livingroom_ceiling
     - light.livingroom_lamps

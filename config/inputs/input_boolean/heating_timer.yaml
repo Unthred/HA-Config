@@ -34,6 +34,15 @@ enable_kitchen_schedule:
 boost_kitchen_heating:
   name: Boost Kitchen Heating
   icon: mdi:toggle-switch
+bathroom_schedule_active:
+  name: Bathroom Schedule Active
+  icon: mdi:toggle-switch
+enable_bathroom_schedule:
+  name: Enable Bathroom Schedule
+  icon: mdi:toggle-switch
+boost_bathroom_heating:
+  name: Boost Bathroom Heating
+  icon: mdi:toggle-switch
 katrin_schedule_active:
   name: Katrin Schedule Active
   icon: mdi:toggle-switch

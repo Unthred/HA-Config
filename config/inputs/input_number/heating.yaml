@@ -70,3 +70,15 @@ bedroom_boost:
   max: 180
   step: 30
   icon: mdi:home-thermometer
+bathroom_temperature:
+  name: Bathroom Temperature
+  min: 7
+  max: 25
+  step: 1
+  icon: mdi:home-thermometer
+bathroom_boost:
+  name: Bathroom Boost
+  min: 30
+  max: 180
+  step: 30
+  icon: mdi:home-thermometer

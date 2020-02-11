@@ -1,0 +1,13 @@
+toilet_lights_timer:
+  name: Toilet Lights Timer Duration
+  icon: mdi:toilet
+  min: 1
+  max: 30
+  step: 1
+
+makeup_lights_duration:
+  name: Makup Lights Duration
+  min: 5
+  max: 60
+  step: 1
+  icon: fas:paint-roller

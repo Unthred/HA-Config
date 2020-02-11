@@ -90,4 +90,9 @@ users:
   enabled: false
   code: a839c5ac7bd442b0a402e2e5426e6cef
   picture: ha.png
+- id: 72ef01a1761944bf9cbd1b931c2f1f09
+  name: Fixed Tablet User
+  enabled: false
+  code: 72ef01a1761944bf9cbd1b931c2f1f09
+  picture: ha.png
 admin_password: DangerHome42

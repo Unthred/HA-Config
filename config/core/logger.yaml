@@ -6,33 +6,33 @@
 
 # Log Severities: notset, debug, info, warn, warning, error, fatal, critical
 
-default: info
+default: error
 logs:
-  homeassistant.core: info
+  homeassistant.core: error
   homeassistant.components: error
   homeassistant.components.mqtt: error
   homeassistant.components.http: error
   homeassistant.components.zwave: error
   homeassistant.components.light: error
-  homeassistant.components.sensor: debug
-  homeassistant.components.notify: debug
-  homeassistant.components.scripts: debug
+  homeassistant.components.sensor: error
+  homeassistant.components.notify: error
+  homeassistant.components.scripts: error
   homeassistant.components.climate: error
   homeassistant.components.history: error
   homeassistant.components.recorder: error
   homeassistant.components.influxdb: error
-  homeassistant.components.automation: debug
+  homeassistant.components.automation: error
   homeassistant.components.media_player: error
   homeassistant.components.xiaomi_aqara: error
   homeassistant.components.websocket_api: error
   homeassistant.components.binary_sensor: error
-  homeassistant.components.device_tracker: debug
+  homeassistant.components.device_tracker: error
   homeassistant.components.switch.broadlink:  error
   homeassistant.components.media_player.cast: error
-  homeassistant.components.alarm_control_panel: debug
+  homeassistant.components.alarm_control_panel: error
   homeassistant.components.sensor.travisci: error
   homeassistant.components.device_tracker.unifi_direct: error
-  homeassistant.components.climate.heatmiserneo: debug
+  homeassistant.components.climate.heatmiserneo: error
   
   #custom_components: debug
   #pyupdate: error

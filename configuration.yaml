@@ -87,7 +87,7 @@ binary_sensor: !include_dir_merge_list config/devices/binary_sensors
 #xiaomi_aqara: !include_dir_merge_named config/devices/gateways
 influxdb: !include config/core/influx.yaml
 recorder: !include config/core/recorder.yaml
-ourgroceries: !include config/core/ourgroceries.yaml
+# ourgroceries: !include config/core/ourgroceries.yaml
 media_player: !include_dir_merge_list config/mediaplayers
 light: !include_dir_merge_list config/devices/lights/
 switch: !include_dir_merge_list config/devices/switches
