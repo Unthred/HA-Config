@@ -1,6 +1,5 @@
 exterior_windows:
   name: Exterior Windows
-  view: no
   entities:
     - binary_sensor.bathroom_window_sensor
     - binary_sensor.bedroom_window_one_sensor

@@ -59,19 +59,19 @@ light.floor_lamp:
   icon: mdi:floor-lamp
 light.bedroom_ceiling_one:
   friendly_name: Bedroom Ceiling One
-  icon: 'mdi:spotlight-beam'
+  icon: mdi:spotlight-beam
 light.bedroom_ceiling_two:
   friendly_name: Bedroom Ceiling Two
-  icon: 'mdi:spotlight-beam'
+  icon: mdi:spotlight-beam
 light.bedroom_ceiling_three:
   friendly_name: Bedroom Ceiling Three
-  icon: 'mdi:spotlight-beam'
+  icon: mdi:spotlight-beam
 light.bedroom_ceiling_four:
   friendly_name: Bedroom Ceiling Four
-  icon: 'mdi:spotlight-beam'
+  icon: mdi:spotlight-beam
 light.bedroom_ceiling_five:
   friendly_name: Bedroom Ceiling Five
-  icon: 'mdi:spotlight-beam'
+  icon: mdi:spotlight-beam
 input_select.house_occupancy_status:
   entity_picture: https://home.yeradonkey.com/local/images/happy_house.png
 binary_sensor.mouse_trap_one:
@@ -106,3 +106,7 @@ switch.office_lamp_relay:
   icon: mdi:desk-lamp
 switch.office_speakers_relay:
   icon: mdi:speaker
+binary_sensor.mouse_trap_one_contact:
+  icon: mdi:mouse-variant
+binary_sensor.mouse_trap_two_contact:
+  icon: mdi:mouse-variant

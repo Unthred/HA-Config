@@ -333,10 +333,11 @@
 - id: 'Mousetrap: Notify Squiggley When a Mouse is Caught in Trap One'
   alias: 'Mousetrap: Notify Squiggley When a Mouse is Caught in Trap One'
   trigger:
-  - entity_id: binary_sensor.mouse_trap_one
-    from: 'off'
-    platform: state
-    to: 'on'
+  - device_id: d20cbe17ea514503beee9028aeb17823
+    domain: binary_sensor
+    entity_id: binary_sensor.mouse_trap_one_contact
+    platform: device
+    type: opened
   condition: []
   action:
   - data:
@@ -345,10 +346,11 @@
 - id: 'Mousetrap: Notify Squiggley When a Mouse is Caught in Trap Two'
   alias: 'Mousetrap: Notify Squiggley When a Mouse is Caught in Trap Two'
   trigger:
-  - entity_id: binary_sensor.mouse_trap_two
-    from: 'off'
-    platform: state
-    to: 'on'
+  - device_id: b2c388b2a2f34650bf6f83942b22f5ae
+    domain: binary_sensor
+    entity_id: binary_sensor.mouse_trap_two_contact
+    platform: device
+    type: opened
   condition: []
   action:
   - data:
@@ -1182,7 +1184,7 @@
     entity_id: light.bathroom_ceiling
     service: light.turn_on
 - id: 'Makeup : Stop Timer and Turn Off Switch'
-  alias: 'Makeup : Stop Timer and Turn Off Switch'
+  alias: 'Makeup : Stop Timer and Turn Off Input Boolean'
   description: ''
   trigger:
   - event_data:
@@ -1194,7 +1196,7 @@
   - entity_id: input_boolean.makeup_lights
     service: input_boolean.turn_off
 - id: 'Makeup: Reset Lights When Switch Turned Off'
-  alias: 'Makeup: Reset Lights When Switch Turned Off'
+  alias: 'Makeup: Reset Lights When Input Boolean Turned Off'
   description: ''
   trigger:
   - entity_id: input_boolean.makeup_lights
@@ -1211,19 +1213,25 @@
     service: light.turn_on
   - entity_id: timer.bathroom_makeup_timer
     service: timer.cancel
-- id: 'Plex: Notify Squiggley When Playing Starts'
-  alias: "Plex Spy notification"
+- id: 'Occupancy: Occupancy On'
+  alias: 'Occupancy: Occupancy On'
+  hide_entity: true
   trigger:
-    - platform: state
-      entity_id: sensor.plex_heart_of_gold
+    - platform: numeric_state
+      entity_id: sensor.home_occupancy_confidence
+      above: 10
   action:
-    - service: notify.squiggley
-      data_template:
-        message: >
-          {% for attr in states.sensor.plex_heart_of_gold.attributes %}
-            {%- if not attr=="friendly_name" and not attr=="unit_of_measurement" and not attr=="icon" -%}
-              {{attr}} is watching {{states.sensor.plex_heart_of_gold.attributes[attr]}}
-            {%- endif %}
-          {%- endfor -%}
-
-
+    - service: input_boolean.turn_on
+      data:
+        entity_id: input_boolean.occupancy
+- id: 'Occupancy: Occupancy Off'
+  alias: 'Occupancy: Occupancy Off'
+  hide_entity: true
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.home_occupancy_confidence
+      below: 10
+  action:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.occupancy

@@ -1,6 +1,5 @@
 common_lights:
   name: Common Lights
-  view: no
   entities: 
   - light.bear_stripper
   - light.fairy_lights 

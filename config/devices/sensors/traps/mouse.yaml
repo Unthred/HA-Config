@@ -1,29 +1,23 @@
 - platform: template
   sensors:
     mouse_trap_one_status:
-      value_template: '{% if states.binary_sensor.mouse_trap_one %}
-        {% if states.binary_sensor.mouse_trap_one == "on" %}
+      value_template: >
+        {% if states.binary_sensor.mouse_trap_one_contact.state == "on" %}
           Mouse Caught
         {% else %}
           Trap Set
         {% endif %}
-        {% else %}
-        n/a
-        {% endif %}'
       friendly_name: 'Mouse Killer One'
       icon_template: 'mdi:mouse-variant'
 
 - platform: template
   sensors:
     mouse_trap_two_status:
-      value_template: '{% if states.binary_sensor.mouse_trap_two %}
-        {% if states.binary_sensor.mouse_trap_two == "on" %}
+      value_template: >
+        {% if states.binary_sensor.mouse_trap_two_contact.state == "on" %}
           Mouse Caught
         {% else %}
           Trap Set
         {% endif %}
-        {% else %}
-        n/a
-        {% endif %}'
       friendly_name: 'Mouse Killer Two'
       icon_template: 'mdi:mouse-variant'

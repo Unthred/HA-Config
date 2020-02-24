@@ -1,0 +1,11 @@
+- platform: mqtt
+  state_topic: 'monitor/first floor/alias'
+  value_template: '{{ value_json.confidence }}'
+  unit_of_measurement: '%'
+  name: 'First Floor'
+
+- platform: mqtt
+  state_topic: 'monitor/second floor/alias'
+  value_template: '{{ value_json.confidence }}'
+  unit_of_measurement: '%'
+  name: 'Second Floor'

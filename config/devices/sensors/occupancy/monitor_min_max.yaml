@@ -1,0 +1,7 @@
+- platform: min_max
+  name: "Home Occupancy Confidence"
+  type: max
+  round_digits: 0
+  entity_ids:
+    - sensor.second_floor
+    - sensor.first_floor

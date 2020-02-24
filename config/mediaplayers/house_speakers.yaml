@@ -1,6 +1,5 @@
 house_speakers:
     name: House Speakers
-    view: no
     icon: mdi:music
     entities:
       - media_player.livingroom_speaker
