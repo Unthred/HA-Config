@@ -4,7 +4,7 @@ password: !secret influx_password
 port: 8086
 database: home_assistant
 max_retries: 3
-default_measurement: state
+# default_measurement: state
 # component_config_glob:
 #   sensor*temperature:
 #     override_measurement: temperature

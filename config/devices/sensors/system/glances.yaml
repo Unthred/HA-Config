@@ -1,8 +1,0 @@
-- platform: glances
-  host: 127.0.0.1
-  port: 61209
-  version: 3
-#  resources:
-#    - 'processor_load'
-#    - 'memory_use_percent'
-#    - 'disk_use_percent'

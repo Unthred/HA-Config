@@ -1,7 +1,7 @@
 - platform: template
   sensors:
-    moron_machine_status:
-      friendly_name: "Moron Machine Status"
+    stupid_box_status:
+      friendly_name: "Stupid Box Status"
       value_template: >
         {% if is_state('media_player.livingroom_tv', 'on') or not is_state('media_player.marvin', 'off') or is_state('media_player.squiggley_amp', 'on') %}
           on

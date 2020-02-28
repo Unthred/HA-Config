@@ -101,8 +101,8 @@ turn_sockets_off:
   - service: switch.turn_off
     data:
       entity_id: switch.office_speakers_relay
-activate_moron_machine:
-  alias: Activate Moron Machine
+activate_stupid_box:
+  alias: Activate Stupid Box
   sequence:
   - service: light.turn_on
     data:
@@ -125,8 +125,8 @@ activate_moron_machine:
     data:
       entity_id: media_player.squiggley_amp
       source: livingroom kodi
-deactivate_moron_machine:
-  alias: Deactivate Moron Machine
+deactivate_stupid_box:
+  alias: Deactivate Stupid Box
   sequence:
   - service: media_player.turn_off
     entity_id:
@@ -143,7 +143,7 @@ deactivate_moron_machine:
 turn_downstairs_media_players_off:
   alias: Turn Off Downstair Media Players
   sequence:
-  - service: script.deactivate_moron_machine
+  - service: script.deactivate_stupid_box
   - service: media_player.turn_off
     entity_id:
     - media_player.slartibartfarst

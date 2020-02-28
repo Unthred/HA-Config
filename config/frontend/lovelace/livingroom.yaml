@@ -6,25 +6,25 @@ cards:
   - cards:
       - color: transparent
         color_type: card
-        entity_id: script.activate_moron_machine
+        entity_id: script.activate_stupid_box
         icon: 'fas:tv'
-        name: Moron Machine On
+        name: Stupid Box On
         tap_action:
           action: call-service
           service: script.turn_on
           service_data:
-            entity_id: script.activate_moron_machine
+            entity_id: script.activate_stupid_box
         type: 'custom:button-card'
       - color: transparent
         color_type: card
-        entity_id: script.deactivate_moron_machine
+        entity_id: script.deactivate_stupid_box
         icon: 'fas:tv'
-        name: Moron Machine Off
+        name: Stupid Box Off
         tap_action:
           action: call-service
           service: script.turn_on
           service_data:
-            entity_id: script.deactivate_moron_machine
+            entity_id: script.deactivate_stupid_box
         type: 'custom:button-card'
     type: horizontal-stack
   - entities:
