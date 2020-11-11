@@ -11307,3 +11307,726 @@ Traceback (most recent call last):
   File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 292, in _raise_frequently_invoke
     raise TuyaFrequentlyInvokeException(message)
 tuyaha.tuyaapi.TuyaFrequentlyInvokeException: Method [Discovery] fails 2 time(s) using poll interval 60.0 - error: you can discovery once in 600 seconds
+2020-11-11 11:35:15 ERROR (MainThread) [homeassistant.helpers.entity] Update for light.back_garden_seven fails
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 278, in async_update_ha_state
+    await self.async_device_update()
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 474, in async_device_update
+    raise exc
+  File "/usr/local/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 255, in update
+    self._tuya.update()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 134, in update
+    return self._update(use_discovery)
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 84, in _update
+    devices = self.api.discovery()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 188, in discovery
+    response = self._request("Discovery", "discovery")
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 267, in _request
+    self._raise_frequently_invoke(
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 292, in _raise_frequently_invoke
+    raise TuyaFrequentlyInvokeException(message)
+tuyaha.tuyaapi.TuyaFrequentlyInvokeException: Method [Discovery] fails 3 time(s) using poll interval 60.0 - error: you can discovery once in 600 seconds
+2020-11-11 11:36:43 ERROR (MainThread) [homeassistant] Error doing job: Task exception was never retrieved
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 153, in async_poll_devices_update
+    device_list = await hass.async_add_executor_job(_get_updated_devices)
+  File "/usr/local/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 146, in _get_updated_devices
+    tuya.poll_devices_update()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 166, in poll_devices_update
+    return self.discover_devices()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 207, in discover_devices
+    devices = self.discovery()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 188, in discovery
+    response = self._request("Discovery", "discovery")
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 267, in _request
+    self._raise_frequently_invoke(
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 292, in _raise_frequently_invoke
+    raise TuyaFrequentlyInvokeException(message)
+tuyaha.tuyaapi.TuyaFrequentlyInvokeException: Method [Discovery] fails 4 time(s) using poll interval 60.0 - error: you can discovery once in 600 seconds
+2020-11-11 11:36:55 ERROR (MainThread) [homeassistant] Error doing job: Task exception was never retrieved
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/components/hassio/ingress.py", line 247, in _websocket_forward
+    await ws_to.send_bytes(msg.data)
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/client_ws.py", line 155, in send_bytes
+    await self._writer.send(data, binary=True, compress=compress)
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/http_websocket.py", line 647, in send
+    await self._send_frame(message, WSMsgType.BINARY, compress)
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/http_websocket.py", line 626, in _send_frame
+    await self.protocol._drain_helper()
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/base_protocol.py", line 81, in _drain_helper
+    await waiter
+aiohttp.client_exceptions.ClientOSError: [Errno 32] Broken pipe
+2020-11-11 11:37:45 ERROR (MainThread) [homeassistant.helpers.entity] Update for light.back_garden_seven fails
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 278, in async_update_ha_state
+    await self.async_device_update()
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 474, in async_device_update
+    raise exc
+  File "/usr/local/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 255, in update
+    self._tuya.update()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 134, in update
+    return self._update(use_discovery)
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 84, in _update
+    devices = self.api.discovery()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 188, in discovery
+    response = self._request("Discovery", "discovery")
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 267, in _request
+    self._raise_frequently_invoke(
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 292, in _raise_frequently_invoke
+    raise TuyaFrequentlyInvokeException(message)
+tuyaha.tuyaapi.TuyaFrequentlyInvokeException: Method [Discovery] fails 5 time(s) using poll interval 60.0 - error: you can discovery once in 600 seconds
+2020-11-11 11:38:31 ERROR (MainThread) [homeassistant] Error doing job: Task exception was never retrieved
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/components/hassio/ingress.py", line 247, in _websocket_forward
+    await ws_to.send_bytes(msg.data)
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/client_ws.py", line 155, in send_bytes
+    await self._writer.send(data, binary=True, compress=compress)
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/http_websocket.py", line 647, in send
+    await self._send_frame(message, WSMsgType.BINARY, compress)
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/http_websocket.py", line 626, in _send_frame
+    await self.protocol._drain_helper()
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/base_protocol.py", line 81, in _drain_helper
+    await waiter
+aiohttp.client_exceptions.ClientOSError: [Errno 32] Broken pipe
+2020-11-11 11:39:15 ERROR (MainThread) [homeassistant.helpers.entity] Update for light.back_garden_seven fails
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 278, in async_update_ha_state
+    await self.async_device_update()
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 474, in async_device_update
+    raise exc
+  File "/usr/local/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 255, in update
+    self._tuya.update()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 134, in update
+    return self._update(use_discovery)
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 84, in _update
+    devices = self.api.discovery()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 188, in discovery
+    response = self._request("Discovery", "discovery")
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 267, in _request
+    self._raise_frequently_invoke(
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 292, in _raise_frequently_invoke
+    raise TuyaFrequentlyInvokeException(message)
+tuyaha.tuyaapi.TuyaFrequentlyInvokeException: Method [Discovery] fails 6 time(s) using poll interval 60.0 - error: you can discovery once in 600 seconds
+2020-11-11 11:39:33 ERROR (MainThread) [homeassistant] Error doing job: Task exception was never retrieved
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/components/hassio/ingress.py", line 247, in _websocket_forward
+    await ws_to.send_bytes(msg.data)
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/client_ws.py", line 155, in send_bytes
+    await self._writer.send(data, binary=True, compress=compress)
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/http_websocket.py", line 647, in send
+    await self._send_frame(message, WSMsgType.BINARY, compress)
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/http_websocket.py", line 626, in _send_frame
+    await self.protocol._drain_helper()
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/base_protocol.py", line 81, in _drain_helper
+    await waiter
+aiohttp.client_exceptions.ClientOSError: [Errno 32] Broken pipe
+2020-11-11 11:40:45 ERROR (MainThread) [homeassistant.helpers.entity] Update for light.back_garden_seven fails
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 278, in async_update_ha_state
+    await self.async_device_update()
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 474, in async_device_update
+    raise exc
+  File "/usr/local/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 255, in update
+    self._tuya.update()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 134, in update
+    return self._update(use_discovery)
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 84, in _update
+    devices = self.api.discovery()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 188, in discovery
+    response = self._request("Discovery", "discovery")
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 267, in _request
+    self._raise_frequently_invoke(
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 292, in _raise_frequently_invoke
+    raise TuyaFrequentlyInvokeException(message)
+tuyaha.tuyaapi.TuyaFrequentlyInvokeException: Method [Discovery] fails 7 time(s) using poll interval 60.0 - error: you can discovery once in 600 seconds
+2020-11-11 11:43:45 ERROR (MainThread) [homeassistant.helpers.entity] Update for light.back_garden_seven fails
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 278, in async_update_ha_state
+    await self.async_device_update()
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 474, in async_device_update
+    raise exc
+  File "/usr/local/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 255, in update
+    self._tuya.update()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 134, in update
+    return self._update(use_discovery)
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 84, in _update
+    devices = self.api.discovery()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 188, in discovery
+    response = self._request("Discovery", "discovery")
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 267, in _request
+    self._raise_frequently_invoke(
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 292, in _raise_frequently_invoke
+    raise TuyaFrequentlyInvokeException(message)
+tuyaha.tuyaapi.TuyaFrequentlyInvokeException: Method [Discovery] fails 1 time(s) using poll interval 60.0 - error: you can discovery once in 600 seconds
+2020-11-11 11:45:15 ERROR (MainThread) [homeassistant.helpers.entity] Update for light.back_garden_seven fails
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 278, in async_update_ha_state
+    await self.async_device_update()
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 474, in async_device_update
+    raise exc
+  File "/usr/local/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 255, in update
+    self._tuya.update()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 134, in update
+    return self._update(use_discovery)
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 84, in _update
+    devices = self.api.discovery()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 188, in discovery
+    response = self._request("Discovery", "discovery")
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 267, in _request
+    self._raise_frequently_invoke(
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 292, in _raise_frequently_invoke
+    raise TuyaFrequentlyInvokeException(message)
+tuyaha.tuyaapi.TuyaFrequentlyInvokeException: Method [Discovery] fails 2 time(s) using poll interval 60.0 - error: you can discovery once in 600 seconds
+2020-11-11 11:46:43 ERROR (MainThread) [homeassistant] Error doing job: Task exception was never retrieved
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 153, in async_poll_devices_update
+    device_list = await hass.async_add_executor_job(_get_updated_devices)
+  File "/usr/local/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 146, in _get_updated_devices
+    tuya.poll_devices_update()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 166, in poll_devices_update
+    return self.discover_devices()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 207, in discover_devices
+    devices = self.discovery()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 188, in discovery
+    response = self._request("Discovery", "discovery")
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 267, in _request
+    self._raise_frequently_invoke(
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 292, in _raise_frequently_invoke
+    raise TuyaFrequentlyInvokeException(message)
+tuyaha.tuyaapi.TuyaFrequentlyInvokeException: Method [Discovery] fails 3 time(s) using poll interval 60.0 - error: you can discovery once in 600 seconds
+2020-11-11 11:47:45 ERROR (MainThread) [homeassistant.helpers.entity] Update for light.back_garden_seven fails
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 278, in async_update_ha_state
+    await self.async_device_update()
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 474, in async_device_update
+    raise exc
+  File "/usr/local/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 255, in update
+    self._tuya.update()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 134, in update
+    return self._update(use_discovery)
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 84, in _update
+    devices = self.api.discovery()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 188, in discovery
+    response = self._request("Discovery", "discovery")
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 267, in _request
+    self._raise_frequently_invoke(
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 292, in _raise_frequently_invoke
+    raise TuyaFrequentlyInvokeException(message)
+tuyaha.tuyaapi.TuyaFrequentlyInvokeException: Method [Discovery] fails 4 time(s) using poll interval 60.0 - error: you can discovery once in 600 seconds
+2020-11-11 11:49:15 ERROR (MainThread) [homeassistant.helpers.entity] Update for light.back_garden_seven fails
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 278, in async_update_ha_state
+    await self.async_device_update()
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 474, in async_device_update
+    raise exc
+  File "/usr/local/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 255, in update
+    self._tuya.update()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 134, in update
+    return self._update(use_discovery)
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 84, in _update
+    devices = self.api.discovery()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 188, in discovery
+    response = self._request("Discovery", "discovery")
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 267, in _request
+    self._raise_frequently_invoke(
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 292, in _raise_frequently_invoke
+    raise TuyaFrequentlyInvokeException(message)
+tuyaha.tuyaapi.TuyaFrequentlyInvokeException: Method [Discovery] fails 5 time(s) using poll interval 60.0 - error: you can discovery once in 600 seconds
+2020-11-11 11:50:45 ERROR (MainThread) [homeassistant.helpers.entity] Update for light.back_garden_seven fails
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 278, in async_update_ha_state
+    await self.async_device_update()
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 474, in async_device_update
+    raise exc
+  File "/usr/local/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 255, in update
+    self._tuya.update()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 134, in update
+    return self._update(use_discovery)
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 84, in _update
+    devices = self.api.discovery()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 188, in discovery
+    response = self._request("Discovery", "discovery")
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 267, in _request
+    self._raise_frequently_invoke(
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 292, in _raise_frequently_invoke
+    raise TuyaFrequentlyInvokeException(message)
+tuyaha.tuyaapi.TuyaFrequentlyInvokeException: Method [Discovery] fails 6 time(s) using poll interval 60.0 - error: you can discovery once in 600 seconds
+2020-11-11 11:52:15 ERROR (MainThread) [homeassistant.helpers.entity] Update for light.back_garden_seven fails
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 278, in async_update_ha_state
+    await self.async_device_update()
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 474, in async_device_update
+    raise exc
+  File "/usr/local/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 255, in update
+    self._tuya.update()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 134, in update
+    return self._update(use_discovery)
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 84, in _update
+    devices = self.api.discovery()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 188, in discovery
+    response = self._request("Discovery", "discovery")
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 267, in _request
+    self._raise_frequently_invoke(
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 292, in _raise_frequently_invoke
+    raise TuyaFrequentlyInvokeException(message)
+tuyaha.tuyaapi.TuyaFrequentlyInvokeException: Method [Discovery] fails 7 time(s) using poll interval 60.0 - error: you can discovery once in 600 seconds
+2020-11-11 11:55:15 ERROR (MainThread) [homeassistant.helpers.entity] Update for light.back_garden_seven fails
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 278, in async_update_ha_state
+    await self.async_device_update()
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 474, in async_device_update
+    raise exc
+  File "/usr/local/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 255, in update
+    self._tuya.update()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 134, in update
+    return self._update(use_discovery)
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 84, in _update
+    devices = self.api.discovery()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 188, in discovery
+    response = self._request("Discovery", "discovery")
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 267, in _request
+    self._raise_frequently_invoke(
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 292, in _raise_frequently_invoke
+    raise TuyaFrequentlyInvokeException(message)
+tuyaha.tuyaapi.TuyaFrequentlyInvokeException: Method [Discovery] fails 1 time(s) using poll interval 60.0 - error: you can discovery once in 600 seconds
+2020-11-11 11:56:43 ERROR (MainThread) [homeassistant] Error doing job: Task exception was never retrieved
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 153, in async_poll_devices_update
+    device_list = await hass.async_add_executor_job(_get_updated_devices)
+  File "/usr/local/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 146, in _get_updated_devices
+    tuya.poll_devices_update()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 166, in poll_devices_update
+    return self.discover_devices()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 207, in discover_devices
+    devices = self.discovery()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 188, in discovery
+    response = self._request("Discovery", "discovery")
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 267, in _request
+    self._raise_frequently_invoke(
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 292, in _raise_frequently_invoke
+    raise TuyaFrequentlyInvokeException(message)
+tuyaha.tuyaapi.TuyaFrequentlyInvokeException: Method [Discovery] fails 2 time(s) using poll interval 60.0 - error: you can discovery once in 600 seconds
+2020-11-11 11:57:45 ERROR (MainThread) [homeassistant.helpers.entity] Update for light.back_garden_seven fails
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 278, in async_update_ha_state
+    await self.async_device_update()
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 474, in async_device_update
+    raise exc
+  File "/usr/local/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 255, in update
+    self._tuya.update()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 134, in update
+    return self._update(use_discovery)
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 84, in _update
+    devices = self.api.discovery()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 188, in discovery
+    response = self._request("Discovery", "discovery")
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 267, in _request
+    self._raise_frequently_invoke(
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 292, in _raise_frequently_invoke
+    raise TuyaFrequentlyInvokeException(message)
+tuyaha.tuyaapi.TuyaFrequentlyInvokeException: Method [Discovery] fails 3 time(s) using poll interval 60.0 - error: you can discovery once in 600 seconds
+2020-11-11 11:59:15 ERROR (MainThread) [homeassistant.helpers.entity] Update for light.back_garden_seven fails
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 278, in async_update_ha_state
+    await self.async_device_update()
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 474, in async_device_update
+    raise exc
+  File "/usr/local/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 255, in update
+    self._tuya.update()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 134, in update
+    return self._update(use_discovery)
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 84, in _update
+    devices = self.api.discovery()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 188, in discovery
+    response = self._request("Discovery", "discovery")
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 267, in _request
+    self._raise_frequently_invoke(
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 292, in _raise_frequently_invoke
+    raise TuyaFrequentlyInvokeException(message)
+tuyaha.tuyaapi.TuyaFrequentlyInvokeException: Method [Discovery] fails 4 time(s) using poll interval 60.0 - error: you can discovery once in 600 seconds
+2020-11-11 12:00:45 ERROR (MainThread) [homeassistant.helpers.entity] Update for light.back_garden_seven fails
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 278, in async_update_ha_state
+    await self.async_device_update()
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 474, in async_device_update
+    raise exc
+  File "/usr/local/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 255, in update
+    self._tuya.update()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 134, in update
+    return self._update(use_discovery)
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 84, in _update
+    devices = self.api.discovery()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 188, in discovery
+    response = self._request("Discovery", "discovery")
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 267, in _request
+    self._raise_frequently_invoke(
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 292, in _raise_frequently_invoke
+    raise TuyaFrequentlyInvokeException(message)
+tuyaha.tuyaapi.TuyaFrequentlyInvokeException: Method [Discovery] fails 5 time(s) using poll interval 60.0 - error: you can discovery once in 600 seconds
+2020-11-11 12:01:59 ERROR (MainThread) [custom_components.hacs.repository.integration.fwestenberg.reolink] No file found 'custom_components/None/manifest.json'
+2020-11-11 12:02:15 ERROR (MainThread) [homeassistant.helpers.entity] Update for light.back_garden_seven fails
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 278, in async_update_ha_state
+    await self.async_device_update()
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 474, in async_device_update
+    raise exc
+  File "/usr/local/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 255, in update
+    self._tuya.update()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 134, in update
+    return self._update(use_discovery)
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 84, in _update
+    devices = self.api.discovery()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 188, in discovery
+    response = self._request("Discovery", "discovery")
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 267, in _request
+    self._raise_frequently_invoke(
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 292, in _raise_frequently_invoke
+    raise TuyaFrequentlyInvokeException(message)
+tuyaha.tuyaapi.TuyaFrequentlyInvokeException: Method [Discovery] fails 6 time(s) using poll interval 60.0 - error: you can discovery once in 600 seconds
+2020-11-11 12:03:45 ERROR (MainThread) [homeassistant.helpers.entity] Update for light.back_garden_seven fails
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 278, in async_update_ha_state
+    await self.async_device_update()
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 474, in async_device_update
+    raise exc
+  File "/usr/local/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 255, in update
+    self._tuya.update()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 134, in update
+    return self._update(use_discovery)
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 84, in _update
+    devices = self.api.discovery()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 188, in discovery
+    response = self._request("Discovery", "discovery")
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 267, in _request
+    self._raise_frequently_invoke(
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 292, in _raise_frequently_invoke
+    raise TuyaFrequentlyInvokeException(message)
+tuyaha.tuyaapi.TuyaFrequentlyInvokeException: Method [Discovery] fails 7 time(s) using poll interval 60.0 - error: you can discovery once in 600 seconds
+2020-11-11 12:06:43 ERROR (MainThread) [homeassistant] Error doing job: Task exception was never retrieved
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 153, in async_poll_devices_update
+    device_list = await hass.async_add_executor_job(_get_updated_devices)
+  File "/usr/local/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 146, in _get_updated_devices
+    tuya.poll_devices_update()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 166, in poll_devices_update
+    return self.discover_devices()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 207, in discover_devices
+    devices = self.discovery()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 188, in discovery
+    response = self._request("Discovery", "discovery")
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 267, in _request
+    self._raise_frequently_invoke(
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 292, in _raise_frequently_invoke
+    raise TuyaFrequentlyInvokeException(message)
+tuyaha.tuyaapi.TuyaFrequentlyInvokeException: Method [Discovery] fails 1 time(s) using poll interval 60.0 - error: you can discovery once in 600 seconds
+2020-11-11 12:07:45 ERROR (MainThread) [homeassistant.helpers.entity] Update for light.back_garden_seven fails
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 278, in async_update_ha_state
+    await self.async_device_update()
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 474, in async_device_update
+    raise exc
+  File "/usr/local/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 255, in update
+    self._tuya.update()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 134, in update
+    return self._update(use_discovery)
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 84, in _update
+    devices = self.api.discovery()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 188, in discovery
+    response = self._request("Discovery", "discovery")
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 267, in _request
+    self._raise_frequently_invoke(
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 292, in _raise_frequently_invoke
+    raise TuyaFrequentlyInvokeException(message)
+tuyaha.tuyaapi.TuyaFrequentlyInvokeException: Method [Discovery] fails 2 time(s) using poll interval 60.0 - error: you can discovery once in 600 seconds
+2020-11-11 12:09:15 ERROR (MainThread) [homeassistant.helpers.entity] Update for light.back_garden_seven fails
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 278, in async_update_ha_state
+    await self.async_device_update()
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 474, in async_device_update
+    raise exc
+  File "/usr/local/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 255, in update
+    self._tuya.update()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 134, in update
+    return self._update(use_discovery)
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 84, in _update
+    devices = self.api.discovery()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 188, in discovery
+    response = self._request("Discovery", "discovery")
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 267, in _request
+    self._raise_frequently_invoke(
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 292, in _raise_frequently_invoke
+    raise TuyaFrequentlyInvokeException(message)
+tuyaha.tuyaapi.TuyaFrequentlyInvokeException: Method [Discovery] fails 3 time(s) using poll interval 60.0 - error: you can discovery once in 600 seconds
+2020-11-11 12:10:45 ERROR (MainThread) [homeassistant.helpers.entity] Update for light.back_garden_seven fails
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 278, in async_update_ha_state
+    await self.async_device_update()
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 474, in async_device_update
+    raise exc
+  File "/usr/local/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 255, in update
+    self._tuya.update()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 134, in update
+    return self._update(use_discovery)
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 84, in _update
+    devices = self.api.discovery()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 188, in discovery
+    response = self._request("Discovery", "discovery")
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 267, in _request
+    self._raise_frequently_invoke(
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 292, in _raise_frequently_invoke
+    raise TuyaFrequentlyInvokeException(message)
+tuyaha.tuyaapi.TuyaFrequentlyInvokeException: Method [Discovery] fails 4 time(s) using poll interval 60.0 - error: you can discovery once in 600 seconds
+2020-11-11 12:12:15 ERROR (MainThread) [homeassistant.helpers.entity] Update for light.back_garden_seven fails
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 278, in async_update_ha_state
+    await self.async_device_update()
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 474, in async_device_update
+    raise exc
+  File "/usr/local/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 255, in update
+    self._tuya.update()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 134, in update
+    return self._update(use_discovery)
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 84, in _update
+    devices = self.api.discovery()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 188, in discovery
+    response = self._request("Discovery", "discovery")
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 267, in _request
+    self._raise_frequently_invoke(
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 292, in _raise_frequently_invoke
+    raise TuyaFrequentlyInvokeException(message)
+tuyaha.tuyaapi.TuyaFrequentlyInvokeException: Method [Discovery] fails 5 time(s) using poll interval 60.0 - error: you can discovery once in 600 seconds
+2020-11-11 12:13:45 ERROR (MainThread) [homeassistant.helpers.entity] Update for light.back_garden_seven fails
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 278, in async_update_ha_state
+    await self.async_device_update()
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 474, in async_device_update
+    raise exc
+  File "/usr/local/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 255, in update
+    self._tuya.update()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 134, in update
+    return self._update(use_discovery)
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 84, in _update
+    devices = self.api.discovery()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 188, in discovery
+    response = self._request("Discovery", "discovery")
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 267, in _request
+    self._raise_frequently_invoke(
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 292, in _raise_frequently_invoke
+    raise TuyaFrequentlyInvokeException(message)
+tuyaha.tuyaapi.TuyaFrequentlyInvokeException: Method [Discovery] fails 6 time(s) using poll interval 60.0 - error: you can discovery once in 600 seconds
+2020-11-11 12:15:15 ERROR (MainThread) [homeassistant.helpers.entity] Update for light.back_garden_seven fails
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 278, in async_update_ha_state
+    await self.async_device_update()
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 474, in async_device_update
+    raise exc
+  File "/usr/local/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 255, in update
+    self._tuya.update()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 134, in update
+    return self._update(use_discovery)
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 84, in _update
+    devices = self.api.discovery()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 188, in discovery
+    response = self._request("Discovery", "discovery")
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 267, in _request
+    self._raise_frequently_invoke(
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 292, in _raise_frequently_invoke
+    raise TuyaFrequentlyInvokeException(message)
+tuyaha.tuyaapi.TuyaFrequentlyInvokeException: Method [Discovery] fails 7 time(s) using poll interval 60.0 - error: you can discovery once in 600 seconds
+2020-11-11 12:17:45 ERROR (MainThread) [homeassistant.helpers.entity] Update for light.back_garden_seven fails
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 278, in async_update_ha_state
+    await self.async_device_update()
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 474, in async_device_update
+    raise exc
+  File "/usr/local/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 255, in update
+    self._tuya.update()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 134, in update
+    return self._update(use_discovery)
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 84, in _update
+    devices = self.api.discovery()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 188, in discovery
+    response = self._request("Discovery", "discovery")
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 267, in _request
+    self._raise_frequently_invoke(
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 292, in _raise_frequently_invoke
+    raise TuyaFrequentlyInvokeException(message)
+tuyaha.tuyaapi.TuyaFrequentlyInvokeException: Method [Discovery] fails 1 time(s) using poll interval 60.0 - error: you can discovery once in 600 seconds
+2020-11-11 12:19:15 ERROR (MainThread) [homeassistant.helpers.entity] Update for light.back_garden_seven fails
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 278, in async_update_ha_state
+    await self.async_device_update()
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 474, in async_device_update
+    raise exc
+  File "/usr/local/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 255, in update
+    self._tuya.update()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 134, in update
+    return self._update(use_discovery)
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 84, in _update
+    devices = self.api.discovery()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 188, in discovery
+    response = self._request("Discovery", "discovery")
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 267, in _request
+    self._raise_frequently_invoke(
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 292, in _raise_frequently_invoke
+    raise TuyaFrequentlyInvokeException(message)
+tuyaha.tuyaapi.TuyaFrequentlyInvokeException: Method [Discovery] fails 2 time(s) using poll interval 60.0 - error: you can discovery once in 600 seconds
+2020-11-11 12:20:45 ERROR (MainThread) [homeassistant.helpers.entity] Update for light.back_garden_seven fails
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 278, in async_update_ha_state
+    await self.async_device_update()
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 474, in async_device_update
+    raise exc
+  File "/usr/local/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 255, in update
+    self._tuya.update()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 134, in update
+    return self._update(use_discovery)
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 84, in _update
+    devices = self.api.discovery()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 188, in discovery
+    response = self._request("Discovery", "discovery")
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 267, in _request
+    self._raise_frequently_invoke(
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 292, in _raise_frequently_invoke
+    raise TuyaFrequentlyInvokeException(message)
+tuyaha.tuyaapi.TuyaFrequentlyInvokeException: Method [Discovery] fails 3 time(s) using poll interval 60.0 - error: you can discovery once in 600 seconds
+2020-11-11 12:22:15 ERROR (MainThread) [homeassistant.helpers.entity] Update for light.back_garden_seven fails
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 278, in async_update_ha_state
+    await self.async_device_update()
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 474, in async_device_update
+    raise exc
+  File "/usr/local/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 255, in update
+    self._tuya.update()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 134, in update
+    return self._update(use_discovery)
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 84, in _update
+    devices = self.api.discovery()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 188, in discovery
+    response = self._request("Discovery", "discovery")
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 267, in _request
+    self._raise_frequently_invoke(
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 292, in _raise_frequently_invoke
+    raise TuyaFrequentlyInvokeException(message)
+tuyaha.tuyaapi.TuyaFrequentlyInvokeException: Method [Discovery] fails 4 time(s) using poll interval 60.0 - error: you can discovery once in 600 seconds
+2020-11-11 12:23:45 ERROR (MainThread) [homeassistant.helpers.entity] Update for light.back_garden_seven fails
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 278, in async_update_ha_state
+    await self.async_device_update()
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 474, in async_device_update
+    raise exc
+  File "/usr/local/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 255, in update
+    self._tuya.update()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 134, in update
+    return self._update(use_discovery)
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 84, in _update
+    devices = self.api.discovery()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 188, in discovery
+    response = self._request("Discovery", "discovery")
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 267, in _request
+    self._raise_frequently_invoke(
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 292, in _raise_frequently_invoke
+    raise TuyaFrequentlyInvokeException(message)
+tuyaha.tuyaapi.TuyaFrequentlyInvokeException: Method [Discovery] fails 5 time(s) using poll interval 60.0 - error: you can discovery once in 600 seconds
+2020-11-11 12:25:15 ERROR (MainThread) [homeassistant.helpers.entity] Update for light.back_garden_seven fails
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 278, in async_update_ha_state
+    await self.async_device_update()
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 474, in async_device_update
+    raise exc
+  File "/usr/local/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 255, in update
+    self._tuya.update()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 134, in update
+    return self._update(use_discovery)
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/devices/base.py", line 84, in _update
+    devices = self.api.discovery()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 188, in discovery
+    response = self._request("Discovery", "discovery")
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 267, in _request
+    self._raise_frequently_invoke(
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 292, in _raise_frequently_invoke
+    raise TuyaFrequentlyInvokeException(message)
+tuyaha.tuyaapi.TuyaFrequentlyInvokeException: Method [Discovery] fails 6 time(s) using poll interval 60.0 - error: you can discovery once in 600 seconds
+2020-11-11 12:26:43 ERROR (MainThread) [homeassistant] Error doing job: Task exception was never retrieved
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 153, in async_poll_devices_update
+    device_list = await hass.async_add_executor_job(_get_updated_devices)
+  File "/usr/local/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/homeassistant/homeassistant/components/tuya/__init__.py", line 146, in _get_updated_devices
+    tuya.poll_devices_update()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 166, in poll_devices_update
+    return self.discover_devices()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 207, in discover_devices
+    devices = self.discovery()
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 188, in discovery
+    response = self._request("Discovery", "discovery")
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 267, in _request
+    self._raise_frequently_invoke(
+  File "/usr/local/lib/python3.8/site-packages/tuyaha/tuyaapi.py", line 292, in _raise_frequently_invoke
+    raise TuyaFrequentlyInvokeException(message)
+tuyaha.tuyaapi.TuyaFrequentlyInvokeException: Method [Discovery] fails 7 time(s) using poll interval 60.0 - error: you can discovery once in 600 seconds
