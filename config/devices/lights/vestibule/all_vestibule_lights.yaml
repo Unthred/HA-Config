@@ -2,7 +2,6 @@
   name: All Vestibule Lights
   entities: 
   - light.bear_stripper
-  - light.xiaomi_gateway_light
   - light.vestibule_one
   - light.vestibule_two
   - light.vestibule_three

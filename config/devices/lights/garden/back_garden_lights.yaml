@@ -1,0 +1,27 @@
+- platform: group
+  name: Back Garden
+  entities: 
+  - light.garden_downlights
+  - light.garden_uplights
+  
+- platform: group
+  name: Garden Downlights
+  entities: 
+  - light.back_garden_one
+  - light.back_garden_three
+  - light.back_garden_five
+  - light.back_garden_seven
+  - light.back_garden_nine
+  - light.back_wall_ceiling_one
+  # - light.back_garden_eleven
+
+- platform: group
+  name: Garden Uplights
+  entities: 
+  - light.back_garden_two
+  - light.back_garden_four
+  - light.back_garden_six
+  - light.back_garden_eight
+  - light.back_garden_ten
+  - light.back_wall_ceiling_two
+  # - light.back_garden_twelve

@@ -1,0 +1,15 @@
+claires_iphone:
+  hide_if_away: false
+  icon:
+  mac:
+  name: Claire’s iPhone
+  picture:
+  track: true
+
+squigglepad:
+  hide_if_away: false
+  icon:
+  mac:
+  name: SquigglePad
+  picture:
+  track: true

@@ -2,5 +2,5 @@
   platform: group
   title: Da Hoose
   services:
-    - service: ios_claires_iphone
-    - service: mobile_app_squigglepad
+    - service: wee_bear
+    - service: squiggley

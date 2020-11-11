@@ -1,5 +1,5 @@
 - platform: group
-  name: Bedroom Lamps
+  name: Side lights
   entities: 
     - light.squiggley_lamp
     - light.wee_bear_lamp

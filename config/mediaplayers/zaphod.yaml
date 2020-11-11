@@ -1,15 +1,19 @@
-- platform: kodi
-  host: 192.168.13.22
-  name: zaphod
-  username: !secret zaphod_kodi_username
-  password: !secret zaphod_kodi_password
-  turn_on_action: 
-    - service: wake_on_lan.send_magic_packet
-      data:
-        mac: !secret zaphod_mac
-        broadcast_address: 255.255.255.255
-  turn_off_action: 
-    - service: kodi.call_method
-      data: 
-        entity_id: media_player.zaphod
-        method: System.Shutdown
+- platform: androidtv
+  name: Zaphod Shield
+  host: !secret zaphod_address
+
+# - platform: kodi
+#   host: !secret zaphod_address
+#   name: zaphod
+#   # username: !secret zaphod_kodi_username
+#   # password: !secret zaphod_kodi_password
+#   turn_on_action: 
+#     service: wake_on_lan.send_magic_packet
+#     data:
+#       mac: !secret zaphod_mac
+#         # broadcast_address: 255.255.255.255
+#   turn_off_action: 
+#     - service: kodi.call_method
+#       data: 
+#         entity_id: media_player.zaphod
+#         method: System.Shutdown

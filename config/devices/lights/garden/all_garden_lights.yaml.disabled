@@ -1,0 +1,5 @@
+- platform: group
+  name: All Garden Lights
+  entities: 
+    - light.back_garden
+    - switch.vicious_bear

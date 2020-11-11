@@ -2,4 +2,4 @@
   platform: group
   title: Wee Bear
   services:
-    - service: ios_claires_iphone
+    - service: mobile_app_claires_iphone

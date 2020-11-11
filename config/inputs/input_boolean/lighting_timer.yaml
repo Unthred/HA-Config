@@ -5,3 +5,7 @@ lighting_timer:
 makeup_lights:
   name: Makeup Lights
   icon: fas:paint-roller
+
+night_light_stripper:
+  name: Night Light Stripper
+  icon: bha:led-strip

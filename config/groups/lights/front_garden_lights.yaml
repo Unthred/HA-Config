@@ -1,4 +1,0 @@
-front_garden_lights:
-  name: Front Garden Lights
-  entities: 
-  - switch.front_garden_light

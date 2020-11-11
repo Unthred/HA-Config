@@ -1,0 +1,16 @@
+include:
+  domains:
+    - light
+    - sensor
+    - switch
+    - media_player
+#    - binary_sensor
+#    - device_tracker
+#    - automation
+    - climate
+    - input_boolean
+    - input_select
+    - input_text
+    - input_number
+    - script
+

@@ -1,0 +1,6 @@
+- platform: synology
+  url: http://192.168.13.3:5000
+  username: !secret synology_username
+  password: !secret synology_password
+
+

@@ -4,12 +4,14 @@ panel:
   panel_title: SquiggleBear Hoose Alarm System
   enable_clock: 'True'
   enable_weather: 'True'
-  round_buttons: true
-  shadow_effect: true
+  round_buttons: 'True'
+  shadow_effect: 'True'
   enable_serif_font: 'True'
   enable_sensors_panel: 'True'
   enable_clock_12hr: 'False'
   camera_update_interval: ''
+  hide_sidebar: 'True'
+  enable_camera_panel: true
 enable_night_mode: false
 states:
   armed_away:
@@ -26,6 +28,18 @@ states:
     - binary_sensor.office_window_one_sensor
     - binary_sensor.office_window_two_sensor
     - binary_sensor.skylight_sensor
+    - sensor.0x00158d0002275d83_battery
+    - sensor.0x00158d0002275d83_linkquality
+    - binary_sensor.front_door_sensor_contact
+    - binary_sensor.office_window_sensor_one_contact
+    - binary_sensor.office_window_sensor_two_contact
+    - binary_sensor.back_door_sensor_contact
+    - binary_sensor.katrin_window_sensor_one_contact
+    - binary_sensor.katrin_window_sensor_two_contact
+    - binary_sensor.toilet_window_sensor_contact
+    - binary_sensor.bedroom_window_sensor_two_contact
+    - binary_sensor.bedroom_window_sensor_one_contact
+    - binary_sensor.bathroom_window_sensor_contact
     delayed:
     - binary_sensor.garage_motion_sensor
     - binary_sensor.large_wardrobe_one_motion_sensor
@@ -48,7 +62,18 @@ states:
     warning_time: 0
     trigger_time: 600
   armed_night:
-    immediate: []
+    immediate:
+    - sensor.0x00158d0002275d83_battery
+    - sensor.0x00158d0002275d83_linkquality
+    - binary_sensor.office_window_sensor_one_contact
+    - binary_sensor.office_window_sensor_two_contact
+    - binary_sensor.toilet_window_sensor_contact
+    - binary_sensor.wee_bear_wardrobe_door_one_contact
+    - binary_sensor.wee_bear_wardrobe_door_three_contact
+    - binary_sensor.wee_bear_wardrobe_door_two_contact
+    - binary_sensor.squiggley_wardrobe_door_contact
+    - binary_sensor.front_door_sensor_contact
+    - binary_sensor.back_door_sensor_contact
     delayed: []
     override: []
     pending_time: 0
@@ -94,5 +119,10 @@ users:
   name: Fixed Tablet User
   enabled: false
   code: 72ef01a1761944bf9cbd1b931c2f1f09
+  picture: ha.png
+- id: 78c2936b59ac42d188c65fe3855acb92
+  name: Tablet
+  enabled: false
+  code: 78c2936b59ac42d188c65fe3855acb92
   picture: ha.png
 admin_password: DangerHome42

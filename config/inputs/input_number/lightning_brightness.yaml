@@ -11,3 +11,10 @@ migraine_brightness:
   max: 100
   step: 1
   icon: mdi:lightbulb-on
+
+night_light_brightness:
+  name: Night Light Brightness
+  min: 0
+  max: 100
+  step: 1
+  icon: mdi:lightbulb-on

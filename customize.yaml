@@ -41,9 +41,9 @@ light.marmaduke_lamp:
 light.door_lamp:
   friendly_name: Door Lamp
   icon: mdi:lamp
-light.couch_lamp_one:
+light.couch_lamp_one_2:
   friendly_name: Couch Lamp One
-light.couch_lamp_two:
+light.couch_lamp_two_2:
   friendly_name: Couch Lamp Two
   icon: mdi:lamp
 light.tv_lamp:
@@ -78,10 +78,10 @@ binary_sensor.mouse_trap_one:
   icon: mdi:mouse-variant
 binary_sensor.mouse_trap_two:
   icon: mdi:mouse-variant
-device_tracker.squigglepad_2:
+device_tracker.squigglepad:
   friendly_name: Squiggley
   picture: /local/images/smiley_punk.jpg
-device_tracker.claires_iphone_2:
+device_tracker.claires_iphone:
   friendly_name: Wee Bear
   picture: /local/images/bear/jpg
 light.bear_stripper:
@@ -110,3 +110,21 @@ binary_sensor.mouse_trap_one_contact:
   icon: mdi:mouse-variant
 binary_sensor.mouse_trap_two_contact:
   icon: mdi:mouse-variant
+light.back_garden_one:
+  supported_features: 63
+light.back_garden_eight:
+  supported_features: 63
+light.back_garden_five:
+  supported_features: 63
+light.back_garden_four:
+  supported_features: 63
+light.back_garden_nine:
+  supported_features: 63
+light.back_garden_seven:
+  supported_features: 63
+light.back_garden_six:
+  supported_features: 63
+light.back_garden_three:
+  supported_features: 63
+light.back_garden_two:
+  supported_features: 63

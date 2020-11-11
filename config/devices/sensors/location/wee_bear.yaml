@@ -1,6 +1,6 @@
 - platform: places
   name: Wee Bear Location
-  devicetracker_id: device_tracker.claires_iphone_2
+  devicetracker_id: device_tracker.claires_iphone
   options: street, street_number, postal_code, city, country
   map_provider: google
   map_zoom: 19

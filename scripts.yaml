@@ -82,6 +82,8 @@ home_off:
   - service: homeassistant.turn_off
     entity_id: input_boolean.dev_mode
   - service: script.turn_downstairs_media_players_off
+  - service: homeassistant.turn_off
+    entity_id: input_boolean.stupid_box
 turn_all_lights_off:
   alias: Turn off all the lights
   sequence:
@@ -89,6 +91,8 @@ turn_all_lights_off:
     entity_id: group.downstairs_lights
   - service: homeassistant.turn_off
     entity_id: group.upstairs_lights
+  - service: homeassistant.turn_off
+    entity_id: light.back_garden
 turn_sockets_off:
   alias: Turn sockets off
   sequence:
@@ -101,49 +105,38 @@ turn_sockets_off:
   - service: switch.turn_off
     data:
       entity_id: switch.office_speakers_relay
-activate_stupid_box:
+  - service: switch.turn_off
+    data:
+      entity_id: switch.back_garden_lights
+stupid_box_on:
   alias: Activate Stupid Box
   sequence:
   - service: light.turn_on
     data:
       entity_id: light.livingroom_lamps
   - service: media_player.turn_on
-    data:
-      entity_id: media_player.livingroom_tv
-  - delay: 00:00:01
-  - service: media_player.turn_on
-    data:
-      entity_id: media_player.squiggley_amp
-  - delay: 00:00:02
-  - service: media_player.turn_on
-    data:
-      entity_id: media_player.zaphod
-  - service: switch.turn_on
-    data:
-      entity_id: switch.ambilight_relay
+    entity_id: media_player.squiggley_amp, media_player.livingroom_tv, media_player.zaphod_shield, media_player.zaphod
+    data: {}
   - service: media_player.select_source
     data:
       entity_id: media_player.squiggley_amp
       source: livingroom kodi
-deactivate_stupid_box:
+  - type: turn_on
+    device_id: f049977ebe9246a0a238d3b67475cbe8
+    entity_id: switch.ambilight_relay
+    domain: switch
+  mode: single
+stupid_box_off:
   alias: Deactivate Stupid Box
   sequence:
   - service: media_player.turn_off
-    entity_id:
-    - media_player.zaphod
-  - service: media_player.turn_off
-    entity_id:
-    - media_player.squiggley_amp
-  - service: media_player.turn_off
-    entity_id:
-    - media_player.livingroom_tv
-  - service: switch.turn_off
-    data:
-      entity_id: switch.ambilight_relay
+    data: {}
+    entity_id: media_player.squiggley_amp, media_player.livingroom_tv, media_player.zaphod_shield
+  mode: single
 turn_downstairs_media_players_off:
   alias: Turn Off Downstair Media Players
   sequence:
-  - service: script.deactivate_stupid_box
+  - service: script.stupid_box_off
   - service: media_player.turn_off
     entity_id:
     - media_player.slartibartfarst
@@ -158,98 +151,98 @@ zaphod_volume_up:
   alias: Volume Up
   sequence:
     data:
-      entity_id: media_player.zaphod
+      entity_id: media_player.zaphod_2
     service: media_player.volume_up
 zaphod_volume_mute:
   alias: Volume Mute
   sequence:
     data:
-      entity_id: media_player.zaphod
+      entity_id: media_player.zaphod_2
     service: media_player.volume_mute
 zaphod_volume_down:
   alias: Volume Down
   sequence:
     data:
-      entity_id: media_player.zaphod
+      entity_id: media_player.zaphod_2
     service: media_player.volume_down
 zaphod_up:
   alias: Remote Up
   sequence:
     data:
-      entity_id: media_player.zaphod
+      entity_id: media_player.zaphod_2
       method: Input.Up
     service: media_player.kodi_call_method
 zaphod_down:
   alias: Remote Down
   sequence:
     data:
-      entity_id: media_player.zaphod
+      entity_id: media_player.zaphod_2
       method: Input.Down
     service: media_player.kodi_call_method
 zaphod_left:
   alias: Remote Left
   sequence:
     data:
-      entity_id: media_player.zaphod
+      entity_id: media_player.zaphod_2
       method: Input.Left
     service: media_player.kodi_call_method
 zaphod_right:
   alias: Remote Right
   sequence:
     data:
-      entity_id: media_player.zaphod
+      entity_id: media_player.zaphod_2
       method: Input.Right
     service: media_player.kodi_call_method
 zaphod_select:
   alias: Remote Select
   sequence:
     data:
-      entity_id: media_player.zaphod
+      entity_id: media_player.zaphod_2
       method: Input.Select
     service: media_player.kodi_call_method
 zaphod_home:
   alias: Remote Home
   sequence:
     data:
-      entity_id: media_player.zaphod
+      entity_id: media_player.zaphod_2
       method: Input.Home
     service: media_player.kodi_call_method
 zaphod_back:
   alias: Remote Back
   sequence:
     data:
-      entity_id: media_player.zaphod
+      entity_id: media_player.zaphod_2
       method: Input.Back
     service: media_player.kodi_call_method
 zaphod_next:
   alias: Remote Next
   sequence:
     data:
-      entity_id: media_player.zaphod
+      entity_id: media_player.zaphod_2
     service: media_player.media_next_track
 zaphod_prev:
   alias: Remote Prev
   sequence:
     data:
-      entity_id: media_player.zaphod
+      entity_id: media_player.zaphod_2
     service: media_player.media_previous_track
 zaphod_play_pause:
   alias: Remote PlayPause
   sequence:
     data:
-      entity_id: media_player.zaphod
+      entity_id: media_player.zaphod_2
     service: media_player.media_play_pause
 zaphod_stop:
   alias: Remote Stop
   sequence:
     data:
-      entity_id: media_player.zaphod
+      entity_id: media_player.zaphod_2
     service: media_player.media_stop
 zaphod_playlist:
   alias: Remote Playlist
   sequence:
     data:
-      entity_id: media_player.zaphod
+      entity_id: media_player.zaphod_2
       method: Audio.Details.Album
     service: media_player.kodi_call_method
 update_locations:
@@ -261,22 +254,7 @@ update_locations:
   - service: notify.squiggley
     data:
       message: request_location_update
-flash_gateway:
-  alias: Flash Xioami Gateway
-  sequence:
-  - service: light.turn_on
-    data:
-      color_name: blue
-      brightness_pct: '40'
-      transition: 5
-      entity_id: light.xiaomi_gateway_light
-  - service: light.turn_on
-    data:
-      color_name: blue
-      brightness_pct: '0'
-      transition: 5
-      entity_id: light.xiaomi_gateway_light
-'1581348061970':
+makeup_time:
   alias: Make-up Time
   sequence:
   - data:

@@ -1,5 +1,4 @@
 db_url: !secret mysql_url
-purge_interval: 3
 purge_keep_days: 10
 include:
   domains:
@@ -14,5 +13,6 @@ include:
     - input_boolean
     - input_select
     - input_text
+    - input_number
     - script
 

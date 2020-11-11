@@ -1,7 +1,0 @@
-- platform: group
-  name: Outside Garden Lights
-  entities: 
-    - light.front_garden_light
-    - light.eve_ceiling_one
-    - light.eve_ceiling_two
-    - light.eve_ceiling_three

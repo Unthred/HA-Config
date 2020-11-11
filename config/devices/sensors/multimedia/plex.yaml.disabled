@@ -1,0 +1,10 @@
+- platform: plex
+  host: !secret plex_host
+  port: 32400
+  name: PLEX
+  ssl: true
+  verify_ssl: false
+  username: !secret plex_username
+  password: !secret plex_password
+  server: PLEX
+  token: !secret plex_token

@@ -1,0 +1,8 @@
+- platform: mqtt
+  state_topic: 'aimotion/triggers/frontgarden'
+  name: 'Front Garden Detection'
+
+- platform: mqtt
+  state_topic: 'aimotion/triggers/backgarden'
+  value_template: 'Motion detecting in the back garden'
+  name: 'Front Garden Detection'

@@ -1,5 +1,5 @@
 substitutions:
-  devicename: large_couch_two
+  devicename: couch_lamp_two
 
 esphome:
   name: $devicename

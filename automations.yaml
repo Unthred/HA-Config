@@ -36,31 +36,22 @@
         \ == \"True\" -%}\n   Garden Bin Tonight \n {%- endif -%}'"
       title: Bins Out Tonight
     service: notify.everyone
-  initial_state: 'true'
-- id: 'Bedroom: Turn On Nightlight When Dark'
-  alias: 'Bedroom: Turn On Nightlight When Dark'
+  initial_state: true
+- id: 'Bedroom : Stop Timer and Turn Off Night Light'
+  alias: 'Bedroom : Night Light Stop Timer and Turn Off Boolean'
+  description: ''
   trigger:
-  - device_id: 822656699269482e9e2b446f8689f43c
-    domain: binary_sensor
-    entity_id: binary_sensor.squiggley_nightlight_motion_sensor_occupancy
-    platform: device
-    type: motion
-  - device_id: 34bc52dde87e40fc880a0095e7ebc56a
-    domain: binary_sensor
-    entity_id: binary_sensor.wee_bear_nightlight_motion_sensor_occupancy
-    platform: device
-    type: motion
+  - event_data:
+      entity_id: timer.night_light_timer
+    event_type: timer.finished
+    platform: event
   condition: []
   action:
-  - data:
-      entity_id: light.nightlight_stripper
-    service: light.turn_on
-  - delay: 00:05:00
-  - data:
-      entity_id: light.nightlight_stripper
-    service: light.turn_off
+  - entity_id: input_boolean.night_light_stripper
+    service: input_boolean.turn_off
+  mode: single
 - id: 'Bedroom: Light Wee Bears Wardrobe When The Door Opens'
-  alias: 'Bedroom: Light Wee Bears Wardrobe When The Door Opens'
+  alias: 'Bedroom: Wee Bears Wardrobe Turn On Light When The Door Opens'
   trigger:
   - device_id: f006cfbf0dd948879ed5d99b79e8d087
     domain: binary_sensor
@@ -85,8 +76,9 @@
   - data:
       entity_id: light.large_wardrobe_stripper
     service: light.turn_on
+  mode: single
 - id: 'Bedroom: Turn Off Wee Bears Wardrobe Light When The Door Closes'
-  alias: 'Bedroom: Turn Off Wee Bears Wardrobe Light When The Door Closes'
+  alias: 'Bedroom: Wee Bears Wardrobe Turn Off Light When The Door Closes'
   description: ''
   trigger:
   - device_id: f006cfbf0dd948879ed5d99b79e8d087
@@ -122,45 +114,55 @@
   - data:
       entity_id: light.large_wardrobe_stripper
     service: light.turn_off
+  mode: single
 - id: 'Bedroom: Turn Off Squiggley''s Wardrobe Light When The Door Closes'
-  alias: 'Bedroom: Turn Off Squiggley''s Wardrobe Light When The Door Closes'
+  alias: 'Bedroom: Squiggley''s Wardrobe Turn Off Light When The Door Closes'
   description: ''
   trigger:
-  - device_id: 5cda886b86794a49a9df3ff8c5a22c29
-    domain: binary_sensor
-    entity_id: binary_sensor.squiggley_wardrobe_door_contact
+  - type: not_opened
     platform: device
-    type: not_opened
+    device_id: 5cda886b86794a49a9df3ff8c5a22c29
+    entity_id: binary_sensor.squiggley_wardrobe_door_sensor_contact
+    domain: binary_sensor
   condition: []
   action:
-  - data:
-      entity_id: light.small_wardrobe_stripper
-    service: light.turn_off
+  - service: light.turn_off
+    entity_id: light.small_wardrobe
+  mode: single
 - id: 'Bedroom: Light Squiggleys Wardrobe When The Door Opens'
-  alias: 'Bedroom: Light Squiggleys Wardrobe When The Door Opens'
+  alias: 'Bedroom: Squiggley''s Wardrobe Turn On Light When The Door Opens'
   trigger:
-  - device_id: 5cda886b86794a49a9df3ff8c5a22c29
-    domain: binary_sensor
-    entity_id: binary_sensor.squiggley_wardrobe_door_contact
+  - type: opened
     platform: device
-    type: opened
+    device_id: 5cda886b86794a49a9df3ff8c5a22c29
+    entity_id: binary_sensor.squiggley_wardrobe_door_sensor_contact
+    domain: binary_sensor
   condition: []
   action:
-  - data:
-      entity_id: light.small_wardrobe_stripper
-    service: light.turn_on
+  - type: turn_on
+    device_id: 0e82220331174d0eb8d5091b60790788
+    entity_id: light.small_wardrobe
+    domain: light
+    brightness_pct: 20
+  mode: single
 - id: 'Bedroom: Turn House Off When Button Pressed'
   alias: 'Bedroom: Turn House Off When Button Pressed'
   description: Turn the whole house off when button pressed
   trigger:
-  - entity_id: sensor.home_off_switch_click
-    platform: state
+  - device_id: 4d8ebc6acf9f4a06a78a8373ad866566
+    discovery_id: 0x00158d0002f99a9f click_single
+    domain: mqtt
+    platform: device
+    subtype: single
+    type: click
   condition: []
   action:
-  - service: script.home_off
-  - data_template:
-      entity_id: input_boolean.everyone_sleeping
+  - data: {}
+    service: script.home_off
+  - data: {}
+    entity_id: input_boolean.everyone_sleeping
     service: input_boolean.turn_on
+  mode: single
 - id: 'Occupancy: Turn On Garden Lights At Dusk'
   alias: 'Occupancy: Turn On Garden Lights At Dusk'
   trigger:
@@ -170,8 +172,9 @@
   condition: []
   action:
   - data:
-      entity_id: group.front_garden_lights
+      entity_id: light.back_garden
     service: homeassistant.turn_on
+  mode: single
 - id: 'Occupancy: Turn On Lights When Dark and Someone Is Home'
   alias: 'Occupancy: Turn On Lights When Dark and Someone Is Home'
   trigger:
@@ -181,7 +184,7 @@
   - condition: state
     entity_id: input_boolean.everyone_sleeping
     state: 'off'
-  - below: '400'
+  - below: 400
     condition: numeric_state
     entity_id: sensor.gateway_illumination_sensor
   - condition: state
@@ -208,12 +211,16 @@
   action:
   - data: {}
     service: script.home_off
-  - service: media_player.turn_off
-    entity_id:
-    - media_player.marvin
   - data:
       message: Turning everything Off as nobody does be home
     service: notify.squiggley
+  - data: {}
+    entity_id: media_player.marvin
+    service: media_player.turn_off
+  - data: {}
+    entity_id: alarm_control_panel.house
+    service: alarm_control_panel.alarm_arm_away
+  mode: single
 - id: 'Occupancy: Turn On the Common Lights When Someone Opens the Front Door'
   alias: 'Occupancy: Turn On the Common Lights When Someone Opens the Front Door'
   trigger:
@@ -222,7 +229,7 @@
     platform: state
     to: 'on'
   condition:
-  - below: '400'
+  - below: 400
     condition: numeric_state
     entity_id: sensor.gateway_illumination_sensor
   action:
@@ -239,11 +246,11 @@
 - id: 'Occupancy: Announce Arrive/Leave Home'
   alias: 'Occupancy: Announce Arrive/Leave Home'
   trigger:
-  - entity_id: device_tracker.claires_iphone_2, device_tracker.squigglepad_2
+  - entity_id: device_tracker.claires_iphone, device_tracker.squigglepad
     from: not_home
     platform: state
     to: home
-  - entity_id: device_tracker.claires_iphone_2, device_tracker.squigglepad_2
+  - entity_id: device_tracker.claires_iphone, device_tracker.squigglepad
     from: home
     platform: state
     to: not_home
@@ -251,11 +258,9 @@
   - service: notify.squiggley
     data_template:
       message: '{{ trigger.to_state.attributes.friendly_name }} is {% if trigger.to_state.state
-        == ''home'' %}back{% else %}away{% endif %}.
-
-        '
+        == ''home'' %}back{% else %}away{% endif %}.'
       title: ''
-  - service: tts.google_translate_say
+  - service: tts.google_say
     entity_id: media_player.office_speaker
     data_template:
       message: '{{ trigger.to_state.attributes.friendly_name }} is {% if trigger.to_state.state
@@ -263,7 +268,7 @@
 - id: 'Occupancy: Dev : Send message on location updates'
   alias: 'Occupancy: Dev : Send message on location updates'
   trigger:
-  - entity_id: device_tracker.claires_iphone_2, device_tracker.squigglepad_2
+  - entity_id: device_tracker.claires_iphone, device_tracker.squigglepad
     platform: state
   action:
   - service: notify.squiggley
@@ -280,11 +285,11 @@
   alias: 'Occupancy: Perform Welcome Home When Someone Arrives'
   description: ''
   trigger:
-  - entity_id: person.squiggley_woo
+  - entity_id: device_tracker.squigglepad
     event: enter
     platform: zone
     zone: zone.home
-  - entity_id: person.wee_bear
+  - entity_id: device_tracker.claires_iphone
     event: enter
     platform: zone
     zone: zone.home
@@ -297,11 +302,11 @@
   alias: 'Occupancy: Notify Squiggley when someone leaves home'
   description: ''
   trigger:
-  - entity_id: person.squiggley_woo
+  - entity_id: device_tracker.squigglepad
     event: leave
     platform: zone
     zone: zone.home
-  - entity_id: person.wee_bear
+  - entity_id: device_tracker.claires_iphone
     event: enter
     platform: zone
     zone: zone.home
@@ -314,22 +319,24 @@
   alias: 'Server: Turn On Fan When Its Hot'
   trigger:
   - platform: template
-    value_template: '{{ states(''sensor.server_room_temperature'') |float > states(''input_number.server_fan_on_temperature'')|
-      float}}'
+    value_template: '{{ states(''sensor.server_room_thermometer_temperature'') |float
+      > states(''input_number.server_fan_on_temperature'')| float}}'
   action:
   - data:
       entity_id: switch.server_fan_relay
     service: switch.turn_on
+  mode: single
 - id: 'Server: Turn Off The Server Fan When It Has Cooled'
   alias: 'Server: Turn Off The Server Fan When It Has Cooled'
   trigger:
   - platform: template
-    value_template: '{{ states(''sensor.server_room_temperature'') |float < states(''input_number.server_fan_off_temperature'')|
-      float}}'
+    value_template: '{{ states(''sensor.server_room_thermometer_temperature'') |float
+      < states(''input_number.server_fan_off_temperature'')| float}}'
   action:
   - data:
       entity_id: switch.server_fan_relay
     service: switch.turn_off
+  mode: single
 - id: 'Mousetrap: Notify Squiggley When a Mouse is Caught in Trap One'
   alias: 'Mousetrap: Notify Squiggley When a Mouse is Caught in Trap One'
   trigger:
@@ -424,7 +431,7 @@
   - entity_id: light.toilet_ceiling
     service: light.turn_on
   - data_template:
-      duration: 00:{{ states.input_number.toilet_timer.state | int }}:00
+      duration: 00:{{ states.input_number.toilet_lights_timer.state | int }}:00
       entity_id: timer.toilet_lights_timer
     entity_id: timer.toilet_lights_timer
     service: timer.start
@@ -504,6 +511,9 @@
       entity_id: switch.slow_cooker_relay
     service: switch.turn_off
   - data:
+      entity_id: input_boolean.slow_cooker_timer
+    service: input_boolean.turn_off
+  - data:
       message: Turning off the slow cooker
     service: notify.squiggley
 - id: 'Livingroom: Stupid Box On/Off'
@@ -515,8 +525,8 @@
   action:
     service: script.turn_on
     data_template:
-      entity_id: "{% if is_state('sensor.stupid_box_status', 'on') %}\n  script.deactivate_stupid_box\n\
-        {% elif is_state('sensor.stupid_box_status', 'off') %}\n  script.activate_stupid_box\n\
+      entity_id: "{% if is_state('sensor.stupid_box_status', 'on') %}\n  script.stupid_box_off\n\
+        {% elif is_state('sensor.stupid_box_status', 'off') %}\n  script.stupid_box_on\n\
         {% endif %}\n"
 - id: 'Livingroom: Toggle On/Off'
   alias: 'Livingroom: Toggle On/Off'
@@ -528,8 +538,8 @@
   action:
     service: script.turn_on
     data_template:
-      entity_id: "{% if is_state('sensor.stupid_box_status', 'on') %}\n  script.deactivate_stupid_box\n\
-        {% else %}\n  script.activate_stupid_box\n{% endif %}\n"
+      entity_id: "{% if is_state('sensor.stupid_box_status', 'on') %}\n  script.stupid_box_off\n\
+        {% else %}\n  script.stupid_box_on\n{% endif %}\n"
 - id: 'Heating: Turn On Boost heating for room'
   alias: 'Heating: Turn On Boost heating for room'
   trigger:
@@ -722,10 +732,10 @@
     service: script.turn_on
     data_template:
       entity_id: script.turn_heating_off
-- id: 'Movie Night: Marvin Movie Playing'
-  alias: 'Movie Night: Marvin Movie Playing'
+- id: 'Movie Night: Zaphod Movie Playing'
+  alias: 'Livingroom Movie Night: Zaphod Movie Playing'
   trigger:
-  - entity_id: media_player.zaphod
+  - entity_id: media_player.zaphod_shield
     platform: state
     to: playing
   condition:
@@ -738,10 +748,11 @@
       entity_id: light.movie_lights
       transition: 5
     service: light.turn_on
+  mode: single
 - id: 'Movie Night: Movie Ended'
-  alias: 'Movie Night: Movie Ended'
+  alias: 'Livingroom: Movie Night: Movie Ended'
   trigger:
-  - entity_id: media_player.zaphod
+  - entity_id: media_player.zaphod_shield
     platform: state
     to: idle
   condition:
@@ -750,14 +761,15 @@
     state: 'on'
   action:
   - data:
-      brightness_pct: '75'
+      brightness_pct: '60'
       entity_id: light.movie_lights
-      transition: 3
+      transition: 5
     service: light.turn_on
+  mode: single
 - id: 'Movie Night: Movie Paused'
-  alias: 'Movie Night: Movie Paused'
+  alias: 'Livingroom Movie Night: Movie Paused'
   trigger:
-  - entity_id: media_player.zaphod
+  - entity_id: media_player.zaphod_shield
     from: playing
     platform: state
     to: paused
@@ -771,6 +783,7 @@
       entity_id: light.movie_lights
       transition: 2
     service: light.turn_on
+  mode: single
 - id: 'Zigbee: Enable Zigbee Join'
   alias: 'Zigbee: Enable Zigbee Join'
   trigger:
@@ -818,19 +831,19 @@
   alias: Sunset Transition
   description: Sunset Transition
   trigger:
-  - platform: time_pattern
-    minutes: /2
-    seconds: 0
+  - minutes: /2
+    platform: time_pattern
+    seconds: '0'
   condition:
-    condition: and
+  - condition: and
     conditions:
-    - condition: time
-      after: '16:00:00'
+    - after: '16:00:00'
       before: '23:00:00'
-    - condition: numeric_state
+      condition: time
+    - above: 0
+      below: 9
+      condition: numeric_state
       entity_id: sensor.sun_elevation
-      above: '0'
-      below: '9'
     - condition: or
       conditions:
       - condition: template
@@ -846,7 +859,7 @@
   alias: 'Car Defroster: Start Monitoring Temperature'
   description: 'Car Defroster: Start Monitoring Temperature'
   trigger:
-  - at: 08:11
+  - at: 08:11:00
     platform: time
   condition:
   - condition: state
@@ -863,7 +876,7 @@
   - platform: time_pattern
     seconds: /30
   condition:
-  - below: '10'
+  - below: 10
     condition: numeric_state
     entity_id: sensor.front_garden_temperature
   action:
@@ -871,14 +884,14 @@
       brightness: '200'
       color: blue
       delay: '01'
-      light_id: light.xiaomi_gateway_light
+      light_id: light.hall_ceiling_one
       transition: '1'
     service: script.pulselight_loop
 - id: 'Car Defroster: Stop Monitoring Temperature'
   alias: 'Car Defroster: Stop Monitoring Temperature'
   description: 'Car Defroster: Stop Monitoring Temperature'
   trigger:
-  - at: 08:13
+  - at: 08:13:00
     platform: time
   condition: []
   action:
@@ -908,9 +921,14 @@
     platform: device
     type: motion
   condition:
-  - condition: state
-    entity_id: light.front_door_eve_lights
-    state: 'off'
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: sensor.dark_outside
+      state: 'true'
+    - condition: state
+      entity_id: light.front_door_eve_lights
+      state: 'off'
   action:
   - entity_id: light.front_door_eve_lights
     service: light.turn_on
@@ -959,15 +977,6 @@
     service: light.toggle
   - entity_id: light.bedroom_ceiling_five
     service: light.toggle
-- id: 'Zigbee2MqttMap: Update every 10 mins'
-  alias: 'Zigbee2MqttMap: Update every 10 mins'
-  description: ''
-  trigger:
-  - minutes: /10
-    platform: time_pattern
-  condition: []
-  action:
-  - service: zigbee2mqtt_networkmap.update
 - id: 'Hallway: Turn On Lights When Stair Switch One Clicked'
   alias: 'Hallway: Turn On Lights When Stair Switch One Clicked'
   description: ''
@@ -1142,7 +1151,7 @@
       homeassistant.helpers.entity_registry: "{% if states.input_boolean.entity_registry_logging.state\
         \ == 'on' %}\n  {{ states.input_select.log_level.state }}\n{% else %}\n  error\n\
         {% endif %}\n"
-- id: '1580404750559'
+- id: 'Bathroom: Turn On Lights When Bathroom Switch One Clicked'
   alias: 'Bathroom: Turn On Lights When Bathroom Switch One Clicked'
   description: ''
   trigger:
@@ -1160,6 +1169,7 @@
   action:
   - entity_id: light.bathroom_ceiling_one, light.bathroom_ceiling_two
     service: light.toggle
+  mode: single
 - id: 'Makeup: Start Timer and Turn On Lights'
   alias: 'Makeup: Start Timer and Turn On Lights'
   description: ''
@@ -1213,20 +1223,482 @@
 - id: 'Occupancy: Occupancy On'
   alias: 'Occupancy: Occupancy On'
   trigger:
-    - platform: numeric_state
-      entity_id: sensor.home_occupancy_confidence
-      above: 10
+  - platform: numeric_state
+    entity_id: sensor.home_occupancy_confidence
+    above: 10
   action:
-    - service: input_boolean.turn_on
-      data:
-        entity_id: input_boolean.occupancy
+  - service: input_boolean.turn_on
+    data:
+      entity_id: input_boolean.occupancy
 - id: 'Occupancy: Occupancy Off'
   alias: 'Occupancy: Occupancy Off'
   trigger:
-    - platform: numeric_state
-      entity_id: sensor.home_occupancy_confidence
-      below: 10
+  - platform: numeric_state
+    entity_id: sensor.home_occupancy_confidence
+    below: 10
   action:
-    - service: input_boolean.turn_off
-      data:
-        entity_id: input_boolean.occupancy
+  - service: input_boolean.turn_off
+    data:
+      entity_id: input_boolean.occupancy
+- id: 'Home Assistant: Startup'
+  alias: 'Home Assistant: Startup'
+  description: Ensure Bedroom lights are off when restarting during the night
+  trigger:
+  - event: start
+    platform: homeassistant
+  condition:
+  - after: '23:00:00'
+    before: 09:00:00
+    condition: time
+  action:
+  - data: {}
+    entity_id: light.bedroom_ceiling
+    service: light.turn_off
+  - data: {}
+    entity_id: light.bedroom_lamps
+    service: light.turn_off
+- id: 'Bedroom: Turn On Night Light And Start Timer When Boolean On'
+  alias: 'Bedroom: Night Light Turn On And Start Timer When Boolean On'
+  description: ''
+  trigger:
+  - entity_id: input_boolean.night_light_stripper
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      duration: 00:{{ states.input_number.night_light_duration.state | int }}:00
+    entity_id: timer.night_light_timer
+    service: timer.start
+  - service: light.turn_on
+    data_template:
+      entity_id: light.nightlight_stripper
+      brightness_pct: '{{ states.input_number.night_light_brightness.state | float}}'
+  mode: single
+- id: 'Bedroom: Turn Off Night Light And Cancel Timer When Boolean Off'
+  alias: 'Bedroom: Night Light Turn Off And Cancel Timer When Boolean Off'
+  description: ''
+  trigger:
+  - entity_id: input_boolean.night_light_stripper
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - entity_id: timer.night_light_timer
+    service: timer.cancel
+  - type: turn_off
+    device_id: bc9656327c014f8281eb88f248967af6
+    entity_id: light.nightlight_stripper
+    domain: light
+  mode: single
+- id: 'Motion Detected: Back Door Cameras'
+  alias: 'Motion Detected: Back Door Cameras'
+  description: The back door camera has detected movement
+  trigger:
+  - platform: webhook
+    webhook_id: squirrel-detective
+  condition:
+  - condition: and
+    conditions:
+    - condition: device
+      device_id: aab5c48942784889a94b3ef3936903ec
+      domain: binary_sensor
+      entity_id: binary_sensor.back_door_sensor_contact
+      type: is_not_open
+    - condition: state
+      entity_id: input_boolean.squirrel_notifications
+      state: 'on'
+  action:
+  - data:
+      message: Squirrel alert!
+    entity_id: media_player.kitchen_speaker, media_player.office_display
+    service: tts.google_say
+  - data:
+      message: Possible Squirrel Sighting - Back Door
+    service: notify.everyone
+  mode: queued
+  max: 10
+- id: 'Motion Detection: Back Climbing Frame Camera'
+  alias: 'Motion Detection: Back Climbing Frame Camera'
+  description: Motion has been detected on the the back garden climbing frame
+  trigger:
+  - platform: webhook
+    webhook_id: climbing-frame
+  condition:
+  - condition: and
+    conditions:
+    - condition: device
+      device_id: dceee7e1a04b48c0ae64bc6c52d88a72
+      domain: binary_sensor
+      entity_id: binary_sensor.katrin_window_sensor_one_contact
+      type: is_not_open
+    - condition: device
+      device_id: 6e2f72de62de4465b23e7c666e7fbaab
+      domain: binary_sensor
+      entity_id: binary_sensor.katrin_window_sensor_two_contact
+      type: is_not_open
+    - condition: device
+      device_id: aab5c48942784889a94b3ef3936903ec
+      domain: binary_sensor
+      entity_id: binary_sensor.back_door_sensor_contact
+      type: is_not_open
+    - condition: state
+      entity_id: input_boolean.squirrel_notifications
+      state: 'on'
+  action:
+  - data:
+      message: Possible Squirrel Sighting - Back Climbing Frame
+    entity_id: media_player.kitchen_speaker, media_player.office_display
+    service: tts.google_say
+  - data:
+      message: Possible Squirrel Sighting - Back Climbing Frame
+    service: notify.everyone
+  mode: queued
+  max: 10
+- id: 'Motion Detected: Garage Roof Camera'
+  alias: 'Motion Detected: Garage Roof Camera'
+  description: Motion has been detected by the garage roof camera
+  trigger:
+  - platform: webhook
+    webhook_id: squirrel-finder
+  condition:
+  - condition: state
+    entity_id: input_boolean.squirrel_notifications
+    state: 'on'
+  action:
+  - data:
+      message: Possible Squirrel Sighting - Garage Roof
+    service: notify.squiggley
+  mode: queued
+  max: 10
+- id: 'Motion Detected: Front Garden Camera'
+  alias: 'Motion Detected: Front Garden Camera'
+  description: The front garden camera has detected movement
+  trigger:
+  - platform: webhook
+    webhook_id: front-garden-detective
+  condition:
+  - condition: state
+    entity_id: input_boolean.squirrel_notifications
+    state: 'on'
+  action:
+  - data:
+      message: Possible Squirrel Sighting - Front Garden
+    service: notify.squiggley
+  - data:
+      message: Possible Squirrel Sighting - Front Garden
+    entity_id: media_player.kitchen_speaker, media_player.office_display
+    service: tts.google_say
+  mode: single
+- id: 'Notifications: Turn Off Squirrel Notifications when back door is opened'
+  alias: 'Notifications: Turn Off Squirrel Notifications when back door is opened'
+  description: ''
+  trigger:
+  - device_id: aab5c48942784889a94b3ef3936903ec
+    domain: binary_sensor
+    entity_id: binary_sensor.back_door_sensor_contact
+    platform: device
+    type: opened
+  condition: []
+  action:
+  - entity_id: input_boolean.squirrel_notifications
+    service: input_boolean.turn_off
+  mode: single
+- id: 'Notifications: Turn On Squirrel Notifications when back door is Closed'
+  alias: 'Notifications: Turn On Squirrel Notifications when back door is Closed'
+  description: ''
+  trigger:
+  - device_id: aab5c48942784889a94b3ef3936903ec
+    domain: binary_sensor
+    entity_id: binary_sensor.back_door_sensor_contact
+    platform: device
+    type: not_opened
+  condition: []
+  action:
+  - data: {}
+    entity_id: input_boolean.squirrel_notifications
+    service: input_boolean.turn_on
+  mode: single
+- id: 'Occupancy: Turn Off Garden Lights If Nobody is Home'
+  alias: 'Occupancy: Turn Off Garden Lights If Nobody is Home'
+  description: ''
+  trigger:
+  - at: 00:00:00
+    platform: time
+  condition:
+  - condition: state
+    entity_id: sensor.house_occupancy_status
+    state: 'Off'
+  action:
+  - data: {}
+    entity_id: light.back_garden
+    service: light.turn_off
+  mode: single
+- id: 'Occupancy: Nut Hut Opened'
+  alias: 'Occupancy: Nut Hut Opened'
+  description: ''
+  trigger:
+  - device_id: e3d43cc43a7046d3959edd5e24bcf2ce
+    domain: binary_sensor
+    entity_id: binary_sensor.nut_hut_lid_contact
+    platform: device
+    type: opened
+  condition: []
+  action:
+  - data:
+      message: Squirrely is in the nut hut!
+    service: notify.squiggley
+  - data:
+      message: Squirrely is in the nut hut!
+    entity_id: media_player.kitchen_speaker, media_player.office_display
+    service: tts.google_say
+  mode: queued
+  max: 10
+- id: 'Kitchen: Turn on Main Ceiling When Kitchen Main Switch Clicked'
+  alias: 'Kitchen: Turn on Main Ceiling When Kitchen Main Switch Clicked'
+  description: ''
+  trigger:
+  - device_id: d085b281724243148cc4b1aab8ff177d
+    domain: binary_sensor
+    entity_id: binary_sensor.kitchen_main_switch_contact
+    platform: device
+    type: opened
+  - device_id: d085b281724243148cc4b1aab8ff177d
+    domain: binary_sensor
+    entity_id: binary_sensor.kitchen_main_switch_contact
+    platform: device
+    type: not_opened
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.main_ceiling, light.cooking_ceiling
+    service: light.toggle
+  mode: single
+- id: 'Kitchen: Turn on Table Ceiling When Table Switch One Clicked'
+  alias: 'Kitchen: Turn on Table Ceiling When Table Switch One Clicked'
+  description: ''
+  trigger:
+  - device_id: fc22b75230744301a7f7a7ee543f9d3d
+    domain: binary_sensor
+    entity_id: binary_sensor.kitchen_table_switch_contact
+    platform: device
+    type: opened
+  - device_id: fc22b75230744301a7f7a7ee543f9d3d
+    domain: binary_sensor
+    entity_id: binary_sensor.kitchen_table_switch_contact
+    platform: device
+    type: not_opened
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.table_ceiling
+    service: light.toggle
+  mode: single
+- id: 'Kitchen: Turn on Bench Ceiling When Bench Switch Clicked'
+  alias: 'Kitchen: Turn on Bench Ceiling When Bench Switch Clicked'
+  description: ''
+  trigger:
+  - device_id: 0f18c8d345954170afdb32d490624b41
+    domain: binary_sensor
+    entity_id: binary_sensor.kitchen_bench_switc_contact
+    platform: device
+    type: opened
+  - device_id: 0f18c8d345954170afdb32d490624b41
+    domain: binary_sensor
+    entity_id: binary_sensor.kitchen_bench_switc_contact
+    platform: device
+    type: not_opened
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.bench_ceiling
+    service: light.toggle
+  mode: single
+- id: 'Toilet: Turn on Toilet Ceiling When Toilet Switch Clicked'
+  alias: 'Toilet: Turn on Toilet Ceiling When Toilet Switch Clicked'
+  description: ''
+  trigger:
+  - device_id: db723dcc70ec430c8ab9ac232b380e34
+    domain: binary_sensor
+    entity_id: binary_sensor.toilet_light_switch_contact
+    platform: device
+    type: opened
+  - device_id: db723dcc70ec430c8ab9ac232b380e34
+    domain: binary_sensor
+    entity_id: binary_sensor.toilet_light_switch_contact
+    platform: device
+    type: not_opened
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.toilet_ceiling
+    service: light.toggle
+  mode: single
+- id: 'Office: Turn on Office Ceiling One & Four When Office Switch One Clicked'
+  alias: 'Office: Turn on Office Ceiling One & Four When Office Switch One Clicked'
+  description: ''
+  trigger:
+  - device_id: a4663e3d1a114e38a9ac9f3bcc01a71f
+    domain: binary_sensor
+    entity_id: binary_sensor.office_switch_one_contact
+    platform: device
+    type: opened
+  - device_id: a4663e3d1a114e38a9ac9f3bcc01a71f
+    domain: binary_sensor
+    entity_id: binary_sensor.office_switch_one_contact
+    platform: device
+    type: not_opened
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.office_ceiling_one, light.office_ceiling_four
+    service: light.toggle
+  mode: single
+- id: 'Office: Turn on Office Ceiling Two & Three When Office Switch Two Clicked'
+  alias: 'Office: Turn on Office Ceiling Two & Three When Office Switch Two Clicked'
+  description: ''
+  trigger:
+  - device_id: 1c942e300361423dbb3383b730ba3d07
+    domain: binary_sensor
+    entity_id: binary_sensor.office_switch_two_contact
+    platform: device
+    type: opened
+  - device_id: 1c942e300361423dbb3383b730ba3d07
+    domain: binary_sensor
+    entity_id: binary_sensor.office_switch_two_contact
+    platform: device
+    type: not_opened
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.office_ceiling_two, light.office_ceiling_three
+    service: light.toggle
+  mode: single
+- id: 'Livingroom: Turn On/Off TV, Amp, Kodi, Ambi-lighting and Table Lamps'
+  alias: 'Livingroom: Turn On/Off TV, Amp, Kodi, Ambi-lighting and Table Lamps'
+  description: ''
+  trigger:
+  - device_id: 60bfcd32d4af42a7a1b181215ca951cc
+    discovery_id: 0x00158d0001f3e05e click_single
+    domain: mqtt
+    platform: device
+    subtype: single
+    type: click
+  condition: []
+  action:
+  - data: {}
+    entity_id: input_boolean.stupid_box
+    service: input_boolean.toggle
+  mode: single
+- id: 'CCTV: Motion detected in the Back Door Camera'
+  alias: 'CCTV: Motion detected in the Back Door Camera'
+  description: Motion has been detected at the back door
+  trigger:
+  - platform: webhook
+    webhook_id: BlueIris-BackDoorCamera
+  condition: []
+  action:
+  - service: notify.everyone
+    data:
+      message: Check for a squirrel at the back door
+      title: Back Door Camera
+  mode: single
+- id: 'CCTV: Motion Detected by Front Climbing Camera'
+  alias: 'CCTV: Motion Detected by Front Climbing Camera'
+  description: Motion has been detected in or around the climbing frame infront of
+    the office
+  trigger:
+  - platform: webhook
+    webhook_id: BlueIris-FrontClimbingFrame
+  condition: []
+  action:
+  - service: notify.squiggley
+    data:
+      message: Check for a squirrel at the front climbing frame
+      title: Climbing Frame Camera
+  mode: single
+- id: 'Livingroom: Turn on room when Zaphod powered on'
+  alias: 'Livingroom: Turn on room when Zaphod powered on'
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: media_player.zaphod_shield
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: media_player.turn_on
+    data: {}
+    entity_id: media_player.squiggley_amp
+  - service: light.turn_on
+    data: {}
+    entity_id: light.livingroom_lamps
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.movie_lighting
+  mode: single
+- id: 'CCTV: Motion Detected by Front Garden Camera'
+  alias: 'CCTV: Motion Detected by Front Garden Camera'
+  description: Motion has been detected in the front garden somewhere
+  trigger:
+  - platform: webhook
+    webhook_id: BlueIris-FrontGardenCamera
+  condition:
+  - type: is_not_open
+    condition: device
+    device_id: d846cb762caf45b5afebc930179c9633
+    entity_id: binary_sensor.front_door_sensor_contact
+    domain: binary_sensor
+  action:
+  - service: notify.squiggley
+    data:
+      message: Check for a squirrel in the front garden
+      title: Front Garden Camera
+  mode: single
+- id: 'CCTV: Motion detected in the Back Climbing Camera'
+  alias: 'CCTV: Motion detected in the Back Climbing Camera'
+  description: Motion has been detected on the back climbing frame
+  trigger:
+  - platform: webhook
+    webhook_id: BlueIris-BackClimbingCamera
+  condition: []
+  action:
+  - service: notify.everyone
+    data:
+      message: Check for a squirrel on the back climbing frame
+      title: Back Climbing Camera
+  mode: single
+- id: 'CCTV: Motion detected From Garage Roof Camera'
+  alias: 'CCTV: Motion detected From Garage Roof Camera'
+  description: Motion has been detected by the garage roof camera
+  trigger:
+  - platform: webhook
+    webhook_id: BlueIris-GarageRoofCamera
+  condition: []
+  action:
+  - service: notify.everyone
+    data:
+      message: Check for a squirrel wherever the garage roof camera is pointing
+      title: Garage Roof Camera
+  mode: single
+- id: 'Bedroom : Night Light Turn On Boolean when Motion is Detected'
+  alias: 'Bedroom : Night Light Turn On Boolean when Motion is Detected'
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: 822656699269482e9e2b446f8689f43c
+    entity_id: binary_sensor.squiggley_nightlight_motion_sensor_occupancy
+    domain: binary_sensor
+  - type: motion
+    platform: device
+    device_id: 34bc52dde87e40fc880a0095e7ebc56a
+    entity_id: binary_sensor.wee_bear_nightlight_motion_sensor_occupancy
+    domain: binary_sensor
+  condition: []
+  action:
+  - service: input_boolean.turn_on
+    data: {}
+    entity_id: input_boolean.night_light_stripper
+  mode: single

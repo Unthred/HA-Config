@@ -1,0 +1,6 @@
+all_garden_lights:
+  name: All Garden Lights
+  entities: 
+  - switch.vicious_bear
+  - light.back_garden
+

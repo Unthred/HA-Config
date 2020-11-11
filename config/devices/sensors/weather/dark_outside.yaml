@@ -2,15 +2,13 @@
   sensors:
     dark_outside:
       value_template: >
-        {% if (states.input_boolean.sunset_offset.state == 'on') %}
+        {% if (states.sun.sun.attributes.elevation | int < 3) %}
           true
-        {% elif (states.sun.sun.attributes.elevation | int < 3) %}
+        {% elif ( (states.sun.sun.attributes.elevation | int < 4.5) and (states.sensor.yr_weather_cloudiness.state | int > 80)) %}
           true
-        {% elif ( (states.sun.sun.attributes.elevation | int < 4.5) and (states.sensor.dark_sky_cloud_coverage.state | int > 80)) %}
+        {% elif ( (states.sun.sun.attributes.elevation | int < 6.5) and (states.sensor.yr_weather_cloudiness.state | int > 85)) %}
           true
-        {% elif ( (states.sun.sun.attributes.elevation | int < 6.5) and (states.sensor.dark_sky_cloud_coverage.state | int > 85)) %}
-          true
-        {% elif (states.sensor.dark_sky_cloud_coverage.state | int > 90) %}
+        {% elif (states.sensor.yr_weather_cloudiness.state | int > 90) %}
           true
         {% else %} 
           false 

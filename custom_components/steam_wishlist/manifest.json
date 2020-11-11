@@ -1,0 +1,9 @@
+{
+  "codeowners": ["@boralyl"],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/boralyl/steam-wishlist",
+  "domain": "steam_wishlist",
+  "name": "Steam Wishlist",
+  "requirements": ["typing-extensions==3.7.4.1"]
+}

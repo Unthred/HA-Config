@@ -1,2 +1,6 @@
 toilet_lights_timer:
+  duration: 00:05
 bathroom_makeup_timer:
+  duration: 00:05
+night_light_timer:
+  duration: 00:05

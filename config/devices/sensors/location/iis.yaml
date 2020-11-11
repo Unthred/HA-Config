@@ -1,0 +1,41 @@
+- platform: rest
+  name: iss_pass_times
+  resource: !secret iss_pass_times
+  value_template: >
+    {{ value_json.message }}
+  json_attributes:
+    - response
+  scan_interval:
+    seconds: 300
+
+
+- platform: rest
+  name: iss_current_location
+  resource: http://api.open-notify.org/iss-now.json
+  value_template: >
+    {{ value_json.message }}
+  json_attributes_path: "$.iss_position"
+  json_attributes:
+    - latitude
+    - longitude
+  scan_interval:
+    seconds: 15
+
+- platform: template
+  sensors:
+    #================
+    #=== ISS Details
+    #================
+    iss_next_rise:
+      value_template: >
+        {% set response = state_attr('sensor.iss_pass_times', 'response') %}
+        {% if as_timestamp(now()) > response[0].risetime | int and
+              as_timestamp(now()) < response[0].risetime | int + response[0].duration | int %}
+          {% set nextrise = 'Visible Now!' %}
+        {% elif as_timestamp(now()) < response[0].risetime | int and
+                response[0].risetime | timestamp_custom ('%Y-%m-%d') == states('sensor.date') %}
+          {% set nextrise = 'Today at ' ~ response[0].risetime  | timestamp_custom ('%H:%M') %}
+        {% else %}
+          {% set nextrise = 'Tomorrow at ' ~ response[0].risetime  | timestamp_custom ('%H:%M') %}
+        {% endif %}
+        {{ nextrise }}

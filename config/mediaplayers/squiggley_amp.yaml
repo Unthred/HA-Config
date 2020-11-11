@@ -1,6 +1,6 @@
 - platform: yamaha
   name: squiggley_amp
-  host: 192.168.13.5
+  host: !secret squiggley_amp_address
   source_ignore:
     - "Napster"
     - "JUKE"

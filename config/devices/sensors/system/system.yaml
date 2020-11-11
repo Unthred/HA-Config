@@ -2,7 +2,6 @@
   resources:
     - type: disk_use_percent
       arg: /home
-    - type: memory_free
     - type: disk_use_percent
       arg: /
     - type: disk_use

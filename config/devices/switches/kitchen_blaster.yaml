@@ -1,7 +1,6 @@
 - platform: broadlink
-  host: 192.168.13.4
+  host: !secret kitchen_blaster_address
   mac: 34:EA:34:58:A0:DF
-  timeout: 15
   switches:
     spiral_lights:
       friendly_name: 'Kitchen Spiral Lights'

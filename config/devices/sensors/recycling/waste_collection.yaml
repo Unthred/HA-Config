@@ -27,13 +27,13 @@
     garden_bin_tomorrow:
       entity_id: []
       friendly_name: "Garden Bin Tomorrow"
-      value_template: "{{ ((as_timestamp(now()) - as_timestamp('2020-01-21 00:00:00'))) / 86400 |int % 14 < 1 }}"
+      value_template: "{{ ((as_timestamp(now()) - as_timestamp('2020-05-12 00:00:00'))) / 86400 |int % 14 < 1 }}"
       entity_picture_template: >-
         {{ '/local/icons/recyclinggreenbin/garden_waste_bin_tomorrow.png'}}
     garden_bin_today:
       entity_id: []
       friendly_name: "Garden Bin Today"
-      value_template: "{{ ((as_timestamp(now()) - as_timestamp('2020-01-22 00:00:00'))) / 86400 |int % 14 < 1 }}"
+      value_template: "{{ ((as_timestamp(now()) - as_timestamp('2020-05-13 00:00:00'))) / 86400 |int % 14 < 1 }}"
       entity_picture_template: >-
         {{ '/local/icons/recyclinggreenbin/garden_waste_bin_today.png'}}
 

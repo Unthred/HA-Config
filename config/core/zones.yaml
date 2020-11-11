@@ -2,16 +2,16 @@
   latitude: 55.963060
   longitude: -3.202069
   radius: 200
-  icon: 'fas:building'
+  icon: 'mdi:office-building'
 
 - name: Wee Bear Gym
   latitude: 55.943409
   longitude: -3.226732
   radius: 200
-  icon: 'fas:dumbbell'
+  icon: 'mdi:dumbbell'
 
 - name: Wee Bear Work
   latitude: 55.943167
   longitude: -3.209173
   radius: 200
-  icon: 'fas:building'
+  icon: 'mdi:office-building'

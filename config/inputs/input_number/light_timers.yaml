@@ -11,3 +11,10 @@ makeup_lights_duration:
   max: 60
   step: 1
   icon: fas:paint-roller
+
+night_light_duration:
+  name: Night Light Duration
+  min: 5
+  max: 30
+  step: 1
+  icon: bha:led-strip

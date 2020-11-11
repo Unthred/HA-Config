@@ -1,0 +1,6 @@
+- platform: combined
+  base_address: https://home.yeradonkey.com
+  entities: 
+    - camera.squirrel_detective
+    - camera.squirrel_finder
+    - camera.climbing_frame

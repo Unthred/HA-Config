@@ -1,0 +1,13 @@
+- platform: kodi
+  host: !secret slartibartfarst_address
+  name: slartibartfarst
+  turn_on_action:
+    service: wake_on_lan.send_magic_packet
+    data:
+      mac: !secret slartibartfarst_mac
+        # broadcast_address: 192.168.255.255
+  turn_off_action:
+    - service: kodi.call_method
+      data:
+        entity_id: media_player.slartibartfarst
+        method: System.Shutdown

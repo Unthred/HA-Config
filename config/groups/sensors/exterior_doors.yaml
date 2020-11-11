@@ -1,6 +1,12 @@
+heating_check_doors:
+  name: Heating Check Doors
+  entities:
+    - binary_sensor.front_door_sensor_contact
+    - binary_sensor.kitchen_door_sensor_contact
+
 exterior_doors:
   name: Exterior Doors
   entities:
-    - binary_sensor.front_door_sensor
-    - binary_sensor.garage_door_sensor
+    - binary_sensor.front_door_sensor_contact
+    - binary_sensor.garage_door_sensor_contact
     - binary_sensor.kitchen_door_sensor

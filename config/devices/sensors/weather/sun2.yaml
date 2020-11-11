@@ -1,0 +1,4 @@
+- platform: sun2
+  monitored_conditions:
+    - sunrise
+    - sunset
