@@ -1,5 +1,5 @@
 inside_xmas_lights:
   name: Inside Xmas Lights
   entities: 
-#  - switch.slow_cooker_relay
-#  - switch.office_speakers_relay
+    - switch.christmas_tree_relay
+    - switch.reindeer_relay

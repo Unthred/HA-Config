@@ -1,0 +1,5 @@
+- platform: generic
+  name: Front Door
+  still_image_url: http://192.168.13.11:81/image/FrontDoor?q=50&s=90
+  stream_source: rtsp://admin:Squirrel42@192.168.13.231/live
+  verify_ssl: false

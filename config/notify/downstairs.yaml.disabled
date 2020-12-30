@@ -1,6 +1,0 @@
-- name: downstairs_google
-  platform: group
-  title: Doonstairs GoogleyPoo  
-  services:
-    - service: 
-    - service: squiggley

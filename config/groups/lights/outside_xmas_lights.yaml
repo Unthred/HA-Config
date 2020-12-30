@@ -1,5 +1,7 @@
 outside_xmas_lights:
   name: Outside Xmas Lights
   entities: 
+    - switch.icicles_relay
+    - switch.stag_relay
   #- switch.office_lamp_relay
 

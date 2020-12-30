@@ -1,6 +1,6 @@
 all_garden_lights:
   name: All Garden Lights
   entities: 
-  - switch.vicious_bear
+  - light.front_garden_lights
   - light.back_garden
-
+  - group.outside_xmas_lights

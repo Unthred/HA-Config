@@ -167,13 +167,12 @@
   alias: 'Occupancy: Turn On Garden Lights At Dusk'
   trigger:
   - event: sunset
-    offset: 01:00:00
     platform: sun
   condition: []
   action:
-  - data:
-      entity_id: light.back_garden
+  - data: {}
     service: homeassistant.turn_on
+    entity_id: group.all_garden_lights
   mode: single
 - id: 'Occupancy: Turn On Lights When Dark and Someone Is Home'
   alias: 'Occupancy: Turn On Lights When Dark and Someone Is Home'
@@ -210,7 +209,7 @@
   condition: []
   action:
   - data: {}
-    service: script.home_off
+    service: script.home_off_when_everyone_leaves
   - data:
       message: Turning everything Off as nobody does be home
     service: notify.squiggley
@@ -315,6 +314,99 @@
   - data_template:
       message: '{{ trigger.to_state.attributes.friendly_name }} has left the building!'
     service: notify.squiggley
+- id: 'Occupancy: Turn Off Garden Lights At Dawn'
+  alias: 'Occupancy: Turn Off Garden Lights At Dawn'
+  description: ''
+  trigger:
+  - event: sunrise
+    platform: sun
+  condition: []
+  action:
+  - service: homeassistant.turn_off
+    data: {}
+    entity_id: group.all_garden_lights
+  mode: single
+- id: 'Occupancy: Front Nut Hut Opened'
+  alias: 'Occupancy: Front Nut Hut Opened'
+  description: ''
+  trigger:
+  - type: opened
+    platform: device
+    device_id: f42fb607333f30963fdf28396af5087d
+    entity_id: binary_sensor.front_nut_hut_lid_contact
+    domain: binary_sensor
+  condition:
+  - condition: state
+    entity_id: input_boolean.squirrel_notifications
+    state: 'on'
+  action:
+  - data:
+      message: A Squirrel is in the front nut hut!
+    service: notify.squiggley
+  - data:
+      message: A Squirrel is in the front nut hut!
+    entity_id: media_player.kitchen_speaker, media_player.office_display
+    service: tts.google_say
+  - delay: 00:00:03
+  - service: media_player.play_media
+    data:
+      media_content_id: http://192.168.13.11:81/mjpg/FrontClimbingSD
+      media_content_type: image/jpg
+    entity_id: media_player.office_display
+  - delay: 00:00:30
+  - service: media_player.turn_off
+    data: {}
+    entity_id: media_player.office_display
+  mode: single
+  max: 10
+- id: 'Occupancy: Turn Off Back Garden Lights If Nobody is Home'
+  alias: 'Occupancy: Turn Off Back Garden Lights If Nobody is Home'
+  description: ''
+  trigger:
+  - at: 00:00:00
+    platform: time
+  condition:
+  - condition: state
+    entity_id: sensor.house_occupancy_status
+    state: 'Off'
+  action:
+  - data: {}
+    entity_id: light.back_garden
+    service: light.turn_off
+  mode: single
+- id: 'Occupancy: Back Nut Hut Opened'
+  alias: 'Occupancy: Back Nut Hut Opened'
+  description: ''
+  trigger:
+  - type: opened
+    platform: device
+    device_id: e3d43cc43a7046d3959edd5e24bcf2ce
+    entity_id: binary_sensor.back_nut_hut_lid_contact
+    domain: binary_sensor
+  condition:
+  - condition: state
+    entity_id: input_boolean.squirrel_notifications
+    state: 'on'
+  action:
+  - data:
+      message: A Squirrel is in the back nut hut!
+    service: notify.squiggley
+  - data:
+      message: A Squirrel is in the back nut hut!
+    entity_id: media_player.kitchen_speaker, media_player.office_display
+    service: tts.google_say
+  - delay: 00:00:07
+  - service: media_player.play_media
+    data:
+      media_content_id: http://192.168.13.11:81/mjpg/GarageRoofSD
+      media_content_type: image/jpg
+    entity_id: media_player.office_display
+  - delay: 00:05
+  - service: media_player.turn_off
+    data: {}
+    entity_id: media_player.office_display
+  mode: single
+  max: 10
 - id: 'Server: Turn On The Fan When Its Hot'
   alias: 'Server: Turn On Fan When Its Hot'
   trigger:
@@ -430,11 +522,12 @@
   action:
   - entity_id: light.toilet_ceiling
     service: light.turn_on
-  - data_template:
+  - data:
       duration: 00:{{ states.input_number.toilet_lights_timer.state | int }}:00
       entity_id: timer.toilet_lights_timer
     entity_id: timer.toilet_lights_timer
     service: timer.start
+  mode: single
 - id: 'Toilet: Turn off lights at end of timer'
   alias: 'Toilet: Turn off lights at end of timer'
   trigger:
@@ -827,8 +920,8 @@
   - service: input_boolean.turn_off
     data:
       entity_id: input_boolean.zigbee_permit_join
-- id: Sunset Transition
-  alias: Sunset Transition
+- id: 'Weather: Sunset Transition'
+  alias: 'Weather: Sunset Transition'
   description: Sunset Transition
   trigger:
   - minutes: /2
@@ -869,6 +962,7 @@
   - data:
       entity_id: automation.car_defroster_flash_light_if_car_needs_defrosted
     service: automation.turn_on
+  mode: single
 - id: 'Car Defroster: Flash Light If Car Needs Defrosted'
   alias: 'Car Defroster: Flash Light If Car Needs Defrosted'
   description: 'Car Defroster: Flash Light If Car Needs Defrosted'
@@ -876,7 +970,7 @@
   - platform: time_pattern
     seconds: /30
   condition:
-  - below: 10
+  - below: '10'
     condition: numeric_state
     entity_id: sensor.front_garden_temperature
   action:
@@ -887,6 +981,7 @@
       light_id: light.hall_ceiling_one
       transition: '1'
     service: script.pulselight_loop
+  mode: single
 - id: 'Car Defroster: Stop Monitoring Temperature'
   alias: 'Car Defroster: Stop Monitoring Temperature'
   description: 'Car Defroster: Stop Monitoring Temperature'
@@ -900,17 +995,17 @@
     service: automation.turn_off
   - data: {}
     service: script.pulselight_stop
-- id: 'Xmas: Turn On Garden Lights At Dusk'
-  alias: 'Xmas: Turn On Garden Lights At Dusk'
+- id: 'Xmas: Turn On Outside Xmas Lights At Dusk'
+  alias: 'Xmas: Turn On Outside Xmas Lights At Dusk'
   trigger:
   - event: sunset
-    offset: 01:00:00
     platform: sun
   condition: []
   action:
   - data:
       entity_id: group.outside_xmas_lights
     service: homeassistant.turn_on
+  mode: single
 - id: 'Front Door: Turn On Lights When Someone Is At The Front Door'
   alias: 'Front Door: Turn On Lights When Someone Is At The Front Door'
   description: ''
@@ -981,26 +1076,26 @@
   alias: 'Hallway: Turn On Lights When Stair Switch One Clicked'
   description: ''
   trigger:
-  - device_id: f9761d65d25849d29567f604e71ca9a9
-    domain: binary_sensor
+  - type: opened
+    platform: device
+    device_id: f9761d65d25849d29567f604e71ca9a9
     entity_id: binary_sensor.stair_light_switch_one_contact
-    platform: device
-    type: opened
-  - device_id: f9761d65d25849d29567f604e71ca9a9
     domain: binary_sensor
+  - type: not_opened
+    platform: device
+    device_id: f9761d65d25849d29567f604e71ca9a9
     entity_id: binary_sensor.stair_light_switch_one_contact
-    platform: device
-    type: not_opened
-  - device_id: bd4a673abd184a52801844036baf4747
     domain: binary_sensor
-    entity_id: binary_sensor.stair_light_switch_two_contact
+  - type: opened
     platform: device
-    type: opened
-  - device_id: bd4a673abd184a52801844036baf4747
+    device_id: bd4a673abd184a52801844036baf4747
+    entity_id: binary_sensor.stair_light_switch_two_contact
     domain: binary_sensor
-    entity_id: binary_sensor.stair_light_switch_two_contact
+  - type: not_opened
     platform: device
-    type: not_opened
+    device_id: bd4a673abd184a52801844036baf4747
+    entity_id: binary_sensor.stair_light_switch_two_contact
+    domain: binary_sensor
   condition: []
   action:
   - device_id: 7bfd958291ad430a9d89117ada0a320e
@@ -1015,6 +1110,7 @@
     domain: light
     entity_id: light.stair_ceiling_three
     type: toggle
+  mode: single
 - id: 'Hallway: Turn on Lights When Hallway Light Switch One Clicked'
   alias: 'Hallway: Turn on Lights When Hallway Light Switch One Clicked'
   description: ''
@@ -1230,6 +1326,9 @@
   - service: input_boolean.turn_on
     data:
       entity_id: input_boolean.occupancy
+  - service: input_boolean.turn_off
+    data:
+      entity_id: input_boolean.nobody_home
 - id: 'Occupancy: Occupancy Off'
   alias: 'Occupancy: Occupancy Off'
   trigger:
@@ -1240,6 +1339,9 @@
   - service: input_boolean.turn_off
     data:
       entity_id: input_boolean.occupancy
+  - service: input_boolean.turn_on
+    data:
+      entity_id: input_boolean.nobody_home
 - id: 'Home Assistant: Startup'
   alias: 'Home Assistant: Startup'
   description: Ensure Bedroom lights are off when restarting during the night
@@ -1421,41 +1523,6 @@
     entity_id: input_boolean.squirrel_notifications
     service: input_boolean.turn_on
   mode: single
-- id: 'Occupancy: Turn Off Garden Lights If Nobody is Home'
-  alias: 'Occupancy: Turn Off Garden Lights If Nobody is Home'
-  description: ''
-  trigger:
-  - at: 00:00:00
-    platform: time
-  condition:
-  - condition: state
-    entity_id: sensor.house_occupancy_status
-    state: 'Off'
-  action:
-  - data: {}
-    entity_id: light.back_garden
-    service: light.turn_off
-  mode: single
-- id: 'Occupancy: Nut Hut Opened'
-  alias: 'Occupancy: Nut Hut Opened'
-  description: ''
-  trigger:
-  - device_id: e3d43cc43a7046d3959edd5e24bcf2ce
-    domain: binary_sensor
-    entity_id: binary_sensor.nut_hut_lid_contact
-    platform: device
-    type: opened
-  condition: []
-  action:
-  - data:
-      message: Squirrely is in the nut hut!
-    service: notify.squiggley
-  - data:
-      message: Squirrely is in the nut hut!
-    entity_id: media_player.kitchen_speaker, media_player.office_display
-    service: tts.google_say
-  mode: queued
-  max: 10
 - id: 'Kitchen: Turn on Main Ceiling When Kitchen Main Switch Clicked'
   alias: 'Kitchen: Turn on Main Ceiling When Kitchen Main Switch Clicked'
   description: ''
@@ -1476,24 +1543,24 @@
     entity_id: light.main_ceiling, light.cooking_ceiling
     service: light.toggle
   mode: single
-- id: 'Kitchen: Turn on Table Ceiling When Table Switch One Clicked'
-  alias: 'Kitchen: Turn on Table Ceiling When Table Switch One Clicked'
+- id: 'Kitchen: Turn on Table Ceiling When Dining Switch One Clicked'
+  alias: 'Kitchen: Turn on Dining Ceiling When Dining Switch One Clicked'
   description: ''
   trigger:
   - device_id: fc22b75230744301a7f7a7ee543f9d3d
     domain: binary_sensor
-    entity_id: binary_sensor.kitchen_table_switch_contact
+    entity_id: binary_sensor.kitchen_dining_switch_contact
     platform: device
     type: opened
   - device_id: fc22b75230744301a7f7a7ee543f9d3d
     domain: binary_sensor
-    entity_id: binary_sensor.kitchen_table_switch_contact
+    entity_id: binary_sensor.kitchen_dining_switch_contact
     platform: device
     type: not_opened
   condition: []
   action:
   - data: {}
-    entity_id: light.table_ceiling
+    entity_id: light.dining_ceiling
     service: light.toggle
   mode: single
 - id: 'Kitchen: Turn on Bench Ceiling When Bench Switch Clicked'
@@ -1598,7 +1665,10 @@
   trigger:
   - platform: webhook
     webhook_id: BlueIris-BackDoorCamera
-  condition: []
+  condition:
+  - condition: state
+    entity_id: input_boolean.squirrel_notifications
+    state: ''
   action:
   - service: notify.everyone
     data:
@@ -1612,7 +1682,10 @@
   trigger:
   - platform: webhook
     webhook_id: BlueIris-FrontClimbingFrame
-  condition: []
+  condition:
+  - condition: state
+    entity_id: input_boolean.squirrel_notifications
+    state: 'on'
   action:
   - service: notify.squiggley
     data:
@@ -1650,6 +1723,9 @@
     device_id: d846cb762caf45b5afebc930179c9633
     entity_id: binary_sensor.front_door_sensor_contact
     domain: binary_sensor
+  - condition: state
+    entity_id: input_boolean.squirrel_notifications
+    state: 'on'
   action:
   - service: notify.squiggley
     data:
@@ -1675,7 +1751,10 @@
   trigger:
   - platform: webhook
     webhook_id: BlueIris-GarageRoofCamera
-  condition: []
+  condition:
+  - condition: state
+    entity_id: persistent_notification.config_entry_discovery
+    state: 'on'
   action:
   - service: notify.everyone
     data:
@@ -1701,4 +1780,72 @@
   - service: input_boolean.turn_on
     data: {}
     entity_id: input_boolean.night_light_stripper
+  mode: single
+- id: Send Notification for Home Assistant Alert
+  alias: Send Notification for Home Assistant Alert
+  description: ''
+  use_blueprint:
+    path: CentralCommand/get-notified-any-time-there-is-a-new-home-assistant-alert.yaml
+    input:
+      notifier: squiggley
+- id: 'DoorBell: Flash Lights when Boolean is true'
+  alias: 'DoorBell: Flash Lights when Boolean is true'
+  description: ''
+  use_blueprint:
+    path: myGithub-Markus/flashing_lights.yaml
+    input:
+      delay: '1000'
+      activated: input_boolean.doorbell_flash_lights
+      target_lights:
+        entity_id: light.front_door_eve_lights
+- id: 'DoorBell: Notify House and Flash Eve Lights when DoorBell Rung'
+  alias: 'DoorBell: Notify House and Flash Eve Lights when DoorBell Rung'
+  description: ''
+  trigger:
+  - platform: device
+    domain: mqtt
+    device_id: 636f806552514475b3866b28c3a86b14
+    type: click
+    subtype: single
+    discovery_id: 0x00158d0002f99b2b click_single
+  - platform: device
+    domain: mqtt
+    device_id: 636f806552514475b3866b28c3a86b14
+    type: click
+    subtype: double
+    discovery_id: 0x00158d0002f99b2b click_double
+  - platform: device
+    domain: mqtt
+    device_id: 636f806552514475b3866b28c3a86b14
+    type: action
+    subtype: hold
+    discovery_id: 0x00158d0002f99b2b action_hold
+  condition: []
+  action:
+  - service: tts.google_say
+    entity_id: media_player.office_display
+    data:
+      message: There is somebody at the front door!!
+  - service: tts.google_say
+    entity_id: media_player.kitchen_speaker
+    data:
+      message: There is somebody at the front door!!
+  - service: tts.google_say
+    entity_id: media_player.livingroom_speaker
+    data:
+      message: There is somebody at the front door!!
+  - service: tts.google_say
+    entity_id: media_player.office_speaker
+    data:
+      message: There is somebody at the front door!!
+  - service: notify.squiggley
+    data:
+      message: There is somebody at the front door!
+  - service: input_boolean.turn_on
+    data: {}
+    entity_id: input_boolean.doorbell_flash_lights
+  - delay: 00:00:3
+  - service: input_boolean.turn_off
+    data: {}
+    entity_id: input_boolean.doorbell_flash_lights
   mode: single

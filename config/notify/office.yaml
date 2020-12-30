@@ -1,0 +1,24 @@
+- platform: tts
+  name: office_googleypoo  
+  tts_service: tts.google_say
+  media_player: media_player.office_display
+
+- platform: tts
+  name: kitchen_googleypoo  
+  tts_service: tts.google_say
+  media_player: media_player.kitchen_speaker
+
+- platform: tts
+  name: livingroom_googleypoo  
+  tts_service: tts.google_say
+  media_player: media_player.livingroom_speaker
+
+- platform: tts
+  name: bedroom_googleypoo  
+  tts_service: tts.google_say
+  media_player: media_player.bedroom_speaker
+
+- platform: tts
+  name: bear_googleypoo  
+  tts_service: tts.google_say
+  media_player: media_player.office_speaker

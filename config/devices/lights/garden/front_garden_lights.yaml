@@ -1,0 +1,4 @@
+- platform: switch 
+  name: Front Garden Lights
+  entity_id: switch.front_garden
+

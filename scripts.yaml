@@ -93,6 +93,13 @@ turn_all_lights_off:
     entity_id: group.upstairs_lights
   - service: homeassistant.turn_off
     entity_id: light.back_garden
+  - service: homeassistant.turn_off
+    entity_id: switch.front_garden
+  - service: homeassistant.turn_off
+    entity_id: group.inside_xmas_lights
+  - service: homeassistant.turn_off
+    entity_id: group.outside_xmas_lights
+  mode: single
 turn_sockets_off:
   alias: Turn sockets off
   sequence:
@@ -115,7 +122,8 @@ stupid_box_on:
     data:
       entity_id: light.livingroom_lamps
   - service: media_player.turn_on
-    entity_id: media_player.squiggley_amp, media_player.livingroom_tv, media_player.zaphod_shield, media_player.zaphod
+    entity_id: media_player.squiggley_amp, media_player.livingroom_tv, media_player.zaphod_shield,
+      media_player.zaphod
     data: {}
   - service: media_player.select_source
     data:
@@ -263,3 +271,30 @@ makeup_time:
       white_value: 255
     entity_id: light.bathroom_ceiling
     service: light.turn_on
+turn_off_all_the_lights_except_garden:
+  alias: Turn off all the lights except garden
+  sequence:
+  - service: homeassistant.turn_off
+    entity_id: group.downstairs_lights
+  - service: homeassistant.turn_off
+    entity_id: group.upstairs_lights
+  mode: single
+home_off_when_everyone_leaves:
+  alias: Home Off When Everyone Leaves
+  sequence:
+  - service: script.turn_heating_off
+  - service: script.turn_sockets_off
+  - service: homeassistant.turn_off
+    entity_id: input_boolean.dev_mode
+  - service: script.turn_downstairs_media_players_off
+  - service: homeassistant.turn_off
+    entity_id: input_boolean.stupid_box
+  - service: homeassistant.turn_off
+    data: {}
+    entity_id: group.downstairs_lights
+  - service: homeassistant.turn_off
+    entity_id: group.upstairs_lights
+  - service: homeassistant.turn_off
+    entity_id: group.inside_xmas_lights
+
+  mode: single

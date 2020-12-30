@@ -2,6 +2,7 @@
   platform: group
   services:
     - service: mobile_app_squigglepad
+    - service: mobile_app_squigglephone
     - service: mobile_app_bigsquigglepad
 #    - service: mobile_app_squigglephone
 #    - service: notify.android_squiggle_pad

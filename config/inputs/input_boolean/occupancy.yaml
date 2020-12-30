@@ -1,3 +1,7 @@
 occupancy:
   name: Occupancy
   icon: mdi:toggle-switch
+
+nobody_home:
+  name: Nobody Home
+  icon: mdi:toggle-switch

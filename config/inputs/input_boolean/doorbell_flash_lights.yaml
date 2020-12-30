@@ -1,0 +1,3 @@
+doorbell_flash_lights:
+  name: Door Bell Pressed
+  icon: mdi:doorbell

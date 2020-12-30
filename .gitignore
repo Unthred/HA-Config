@@ -19,9 +19,9 @@ secrets.yaml
 known_devices.yaml
 yamly.pub
 plex.config
+OZW_Log.txt
 *.log
 y
 y.pub
 google_assistant.json
-home-assistant.log
 home-assistant.log

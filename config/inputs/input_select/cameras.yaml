@@ -1,0 +1,21 @@
+camera_dropdown:
+  name: Cast camera
+  options:
+    - Front Door
+    - Front Garden
+    - Front Climbing
+    - Back Door
+    - Back Climbing
+    - Garage Roof
+    - Cycle Cameras
+    - All Cameras
+  initial: All Cameras
+  icon: mdi:camera
+cast_to_screen_dropdown:
+  name: To Screen
+  options:
+    - Office Display
+    - Livingroom TV
+    - Kitchen TV
+  initial: Office Display
+  icon: mdi:cast

@@ -9,8 +9,8 @@
     - light.main_ceiling_six
     - light.cooking_ceiling_one
     - light.cooking_ceiling_two
-    - light.table_ceiling_one
-    - light.table_ceiling_two
+    - light.dining_ceiling_one
+    - light.dining_ceiling_two
     - light.bench_ceiling_one
     - light.bench_ceiling_two
 
@@ -31,10 +31,10 @@
     - light.cooking_ceiling_two
 
 - platform: group
-  name: Table Ceiling
+  name: Dining Ceiling
   entities: 
-    - light.table_ceiling_one
-    - light.table_ceiling_two
+    - light.dining_ceiling_one
+    - light.dining_ceiling_two
 
 - platform: group
   name: Bench Ceiling

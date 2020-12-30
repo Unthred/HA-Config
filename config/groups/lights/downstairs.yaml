@@ -13,6 +13,6 @@ downstairs_lights:
     - light.spiral_lights
     - light.hall_ceiling
     - group.common_lights
-    - switch.back_garden_lights
+#    - switch.back_garden_lights
 #    - light.back_garden_lights
 #    - light.front_garden_light # once we have a router for the back this is no longer required and we can use light.back_garden

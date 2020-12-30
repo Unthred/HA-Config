@@ -5,3 +5,4 @@ house_speakers:
       - media_player.livingroom_speaker
       - media_player.kitchen_speaker
       - media_player.office_speaker
+      - media_player.office_display

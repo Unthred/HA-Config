@@ -48,7 +48,7 @@ wake_on_lan:
 ios:
 
 # enable broadlink smartir platform
-smartir:
+#smartir:
 
 # enable the mobile app
 mobile_app:
@@ -56,11 +56,12 @@ mobile_app:
 # Text to speech
 tts:
   - platform: google_translate
-    cache: true
-    cache_dir: /tmp/tts
-    time_memory: 300
-    base_url: https://home.yeradonkey.com
     service_name: google_say
+    # cache: true
+    # cache_dir: /tmp/tts
+    # time_memory: 300
+    # base_url: https://home.yeradonkey.com
+    # service_name: google_say
 
 hacs:
   token: !secret hacs_token
@@ -72,15 +73,6 @@ hacs:
 #uilogs:
 
 webhook:
-
-#zigbee2mqtt_networkmap:
-  #topic: your topic (optional, default zigbee2mqtt)
-
-#panel_iframe:
-# networkmap:
-#    title: 'Zigbee Map'
-#    url: '/local/community/zigbee2mqtt_networkmap/map.html'
-#    icon: 'mdi:graphql'
 
 #feedreader:
 #  urls:
@@ -97,25 +89,28 @@ group: !include_dir_merge_named config/groups
 notify: !include_dir_merge_list config/notify
 automation: !include automations.yaml
 script: !include scripts.yaml
-logger: !include config/core/logger.yaml
 #panel_iframe: !include_dir_merge_named config/frontend/iframes/
+# Devices
 climate: !include config/devices/heating/heatmiser.yaml
 nest: !include config/devices/smoke/nest.yaml
 sensor: !include_dir_merge_list config/devices/sensors
 binary_sensor: !include_dir_merge_list config/devices/binary_sensors
+light: !include_dir_merge_list config/devices/lights/
+switch: !include_dir_merge_list config/devices/switches
+camera: !include_dir_merge_list config/devices/camera/
 #xiaomi_aqara: !include_dir_merge_named config/devices/gateways
+# Core
 influxdb: !include config/core/influx.yaml
 recorder: !include config/core/recorder.yaml
+feedreader: !include config/core/feedreader.yaml
+logger: !include config/core/logger.yaml
+calendar: !include config/core/calendar.yaml
 # logbook: !include config/core/logbook.yaml
 # ourgroceries: !include config/core/ourgroceries.yaml
 media_player: !include_dir_merge_list config/mediaplayers
-light: !include_dir_merge_list config/devices/lights/
-switch: !include_dir_merge_list config/devices/switches
 shell_command: !include_dir_merge_list config/shell_commands/
 timer: !include_dir_merge_named config/timers/
 #zone: !include config/core/zones.yaml
-calendar: !include config/core/calendar.yaml
-camera: !include_dir_merge_list config/devices/camera/
 ################################################################################
 #                                    Alarm System                              #
 ################################################################################
@@ -139,6 +134,7 @@ input_text: !include_dir_merge_named config/inputs/input_text
 ################################################################################
 frontend:
   themes: !include_dir_merge_named themes
+  
   #extra_html_url:
     #- /local/icons/fontawesome/hass-fontawesome-solid.html
     #- /local/icons/bha-icons/hass-bha-icons.html

@@ -1,0 +1,64 @@
+- platform: reolink_dev
+  host: 192.168.13.232
+  username: admin
+  password: DangerReolink42
+  name: Back Door
+  stream: main
+  protocol: rtsp
+  channel: 0
+  scan_interval: 30
+
+- platform: reolink_dev
+  host: 192.168.13.233
+  username: admin
+  password: DangerReolink42
+  name: Back Climbing
+  stream: main
+  protocol: rtsp
+  channel: 0
+  scan_interval: 30
+
+- platform: reolink_dev
+  host: 192.168.13.234
+  username: admin
+  password: DangerReolink42
+  name: Garage Roof
+  stream: main
+  protocol: rtsp
+  channel: 0
+  scan_interval: 30
+
+- platform: reolink_dev
+  host: 192.168.13.235
+  username: admin
+  password: DangerReolink42
+  name: Front Climbing
+  stream: main
+  protocol: rtsp
+  channel: 0
+  scan_interval: 30
+
+- platform: reolink_dev
+  host: 192.168.13.236
+  username: admin
+  password: DangerReolink42
+  name: Front Garden
+  stream: main
+  protocol: rtsp
+  channel: 0
+  scan_interval: 30
+
+#- platform: generic
+#  name: Squirrel Detective
+#  still_image_url: !secret Squirrel_Detective_URL
+#  stream_source: !secret Squirrel_Detective_Source 
+
+#- platform: generic
+#  name: Squirrel Finder
+#  still_image_url: !secret Squirrel_Finder_URL
+#  stream_source: !secret Squirrel_Finder_Source
+
+#- platform: generic
+#  name: Climbing Frame
+#  still_image_url: !secret Climbing_Frame_URL
+#  stream_source: !secret Climbing_Frame_Source
